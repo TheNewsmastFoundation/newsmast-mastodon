@@ -34,4 +34,15 @@ Gem::Specification.new do |spec|
   spec.add_dependency "httparty",         "~> 0.23.1"
   spec.add_dependency "link_thumbnailer", "~> 3.4"
   spec.add_dependency "annotaterb",       "~> 4.13"
+
+  # Development / test dependencies (Phase 12)
+  spec.add_development_dependency "rspec-rails",               "~> 7.0"
+  spec.add_development_dependency "factory_bot_rails",         "~> 6.4"
+  spec.add_development_dependency "shoulda-matchers",          "~> 6.4"
+  spec.add_development_dependency "database_cleaner-active_record", "~> 2.2"
+  spec.add_development_dependency "webmock",                   "~> 3.24"
+  spec.add_development_dependency "vcr",                       "~> 6.3"
+  spec.add_development_dependency "faker",                     "~> 3.5"
+  spec.add_development_dependency "simplecov",                 "~> 0.22"
+  spec.add_development_dependency "pg",                        "~> 1.5"
 end
