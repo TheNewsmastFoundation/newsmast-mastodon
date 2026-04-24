@@ -71,7 +71,7 @@ module NewsmastMastodon
         # Local statuses are enqueued from Mastodon's PostStatusService after post-processing.
         return if local?
 
-        BanStatusWorker.perform_async(id)
+        NewsmastMastodon::BanStatusWorker.perform_async(id)
       end
 
       def for_you_timeline_enabled?
@@ -101,7 +101,7 @@ module NewsmastMastodon
         post_url = ActivityPub::TagManager.instance.url_for(self)
         return unless post_url
 
-        BoostPostWorker.perform_async(post_url)
+        NewsmastMastodon::BoostPostWorker.perform_async(post_url)
       end
     end
   end

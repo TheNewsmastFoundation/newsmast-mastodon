@@ -58,7 +58,7 @@ module NewsmastMastodon
 
         # skip if no_boost_channel is true
         unless community&.no_boost_channel
-          ReblogChannelsWorker.perform_async(@status.id, admin_account_id)
+          NewsmastMastodon::ReblogChannelsWorker.perform_async(@status.id, admin_account_id)
         end
       end
 
@@ -89,7 +89,7 @@ module NewsmastMastodon
         admin_account_id = admin_account&.id
         if @status.mentioned_account?(admin_account_id) && @status.account.follow_account?(admin_account_id)
           admin_accounts << admin_account_id
-          ReblogChannelsWorker.perform_async(@status.id, admin_account_id)
+          NewsmastMastodon::ReblogChannelsWorker.perform_async(@status.id, admin_account_id)
         end
       end
       options = { "admin_accounts" => admin_accounts }

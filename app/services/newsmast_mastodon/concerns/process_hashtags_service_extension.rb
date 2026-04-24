@@ -24,7 +24,7 @@ module NewsmastMastodon
           status_url = ActivityPub::TagManager.instance.url_for(status)
           return unless status_url
 
-          ReblogPostWorker.perform_async(status_url)
+          NewsmastMastodon::ReblogPostWorker.perform_async(status_url)
         end
       end
     end

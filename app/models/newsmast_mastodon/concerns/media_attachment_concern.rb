@@ -64,7 +64,7 @@ module NewsmastMastodon
       def call_generate_alt_text_worker
         return unless can_generate_alt?
 
-        GenerateAltTextWorker.perform_async(id)
+        NewsmastMastodon::GenerateAltTextWorker.perform_async(id)
       end
     end
   end

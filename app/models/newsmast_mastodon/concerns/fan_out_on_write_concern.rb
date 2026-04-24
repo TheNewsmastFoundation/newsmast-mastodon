@@ -25,7 +25,7 @@ module NewsmastMastodon
         target_accounts = Account.where(id: accounts)
 
         target_accounts.select(:id).reorder(nil).find_in_batches do |batch|
-          CustomFeedInsertWorker.push_bulk(batch) do |account|
+          NewsmastMastodon::CustomFeedInsertWorker.push_bulk(batch) do |account|
             [@status.id, account.id, { 'update' => update? }]
           end
         end

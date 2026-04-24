@@ -10,7 +10,7 @@ module NewsmastMastodon::Api::V1
           'title' => ghost_post_articles[:current][:title],
           'article_id' => ghost_post_articles[:current][:id].to_s,
         }
-        GhostNotificationWorker.perform_async(ghost_post_data)
+        NewsmastMastodon::GhostNotificationWorker.perform_async(ghost_post_data)
         render json: { message: "Webhook received" }, status: :ok
       else
         render json: { error: "No post data found" }, status: :unprocessable_entity
