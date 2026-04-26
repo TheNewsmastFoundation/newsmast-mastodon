@@ -34,7 +34,7 @@ module NewsmastMastodon
       # @param [Boolean] update
       # @return [Boolean]
       def unpush_from_custom(account, status, update: false)
-        return false unless Object.const_defined?('NewsmastMastodon::CommunityAdmin')
+        return false unless NewsmastMastodon::CommunityAdmin.table_exists?
         return false unless NewsmastMastodon::CommunityAdmin.exists?(
           is_boost_bot: true,
           account_id: account.id,

@@ -39,9 +39,23 @@ module NewsmastMastodon
 
         return if notification_emails.present?
 
-        enabled_notification  = ENV['DEFAULT_EMAIL_NOTIFICATIONS_ENABLED'] == 'true'
+        # Only override host defaults when the env var is explicitly set.
+        # Without this guard, every newly created user would get all
+        # `notification_emails.*` flags forced to false, masking host defaults
+        # (e.g. `report: true`) and breaking specs/admin workflows that rely
+        # on them.
+        env_value = ENV.fetch('DEFAULT_EMAIL_NOTIFICATIONS_ENABLED', nil)
+        return if env_value.nil?
+
+        enabled_notification  = env_value == 'true'
         new_notification_settings = email_notification_attributes(enabled: enabled_notification)
-        update!(settings_attributes: new_notification_settings)
+        # Use update_columns-style skip-validations path: assign settings via
+        # the virtual accessor and persist with validation disabled so this
+        # after_create callback never re-runs (and re-fails) the parent's
+        # validations (e.g. when the User was constructed without an email
+        # in tests using `User.new(account: ...)`).
+        self.settings_attributes = new_notification_settings
+        save(validate: false)
       end
 
       # Configures user searchability and discoverability based on the Dashboard's

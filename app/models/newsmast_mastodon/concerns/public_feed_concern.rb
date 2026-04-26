@@ -26,6 +26,11 @@ module NewsmastMastodon
       # @param [Integer] min_id
       # @return [Array<Status>]
       def get(limit, max_id = nil, since_id = nil, min_id = nil)
+        # Honour host's feed-access settings (local_live_feed_access /
+        # remote_live_feed_access for PublicFeed; local_topic_feed_access /
+        # remote_topic_feed_access for TagFeed via inheritance).
+        return [] if incompatible_feed_settings?
+
         scope = public_scope
 
         scope.merge!(without_replies_scope) unless with_replies?
@@ -53,13 +58,11 @@ module NewsmastMastodon
         options[:with_replies]
       end
 
-      def local_only?
-        options[:local] && !options[:remote]
-      end
-
-      def remote_only?
-        options[:remote] && !options[:local]
-      end
+      # NOTE: local_only? and remote_only? are intentionally NOT defined here.
+      # The host's PublicFeed defines setting-aware versions that consult
+      # Setting.local_live_feed_access / remote_live_feed_access (and
+      # local_topic_feed_access / remote_topic_feed_access via TagFeed); we
+      # rely on those by allowing the prepend chain to fall through.
 
       def account?
         account.present?

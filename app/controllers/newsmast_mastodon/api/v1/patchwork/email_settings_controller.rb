@@ -3,7 +3,7 @@
 module NewsmastMastodon::Api::V1::Patchwork
   class EmailSettingsController < Api::BaseController
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
-    include EmailNotificationAttributesConcern
+    include ::NewsmastMastodon::Concerns::EmailNotificationAttributesConcern
 
     before_action -> { doorkeeper_authorize! :read, :write }
     before_action :require_user!
