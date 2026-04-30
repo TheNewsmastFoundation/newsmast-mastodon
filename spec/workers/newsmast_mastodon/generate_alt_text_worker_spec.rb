@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::GenerateAltTextWorker, type: :worker do
   it "#perform delegates to AltTextAiApiService" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

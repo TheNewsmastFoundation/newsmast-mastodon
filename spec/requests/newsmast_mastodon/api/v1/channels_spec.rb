@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe "NewsmastMastodon Api V1 Channels", type: :request do
   it "GET /api/v1/channels/starter_packs_channels returns cached channel data" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "GET /api/v1/channels/starter_packs_detail returns specific channel detail" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

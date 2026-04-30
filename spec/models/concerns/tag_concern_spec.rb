@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::TagConcern, type: :model do
   it "applies ban handling for tags flagged by keyword filters" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "overrides tag matching to honour ban state" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

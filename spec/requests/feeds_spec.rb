@@ -7,14 +7,14 @@ require "rails_helper"
 
 RSpec.describe "CustomFeed timelines/@username/feed", type: :request do
   it "GET /api/v1/timelines/@username/feed returns statuses (Redis stubbed)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "GET /api/v1/timelines/@username/feed honours max_id/since_id/min_id" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "GET /api/v1/timelines/@username/feed returns 404 for non-existent user" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

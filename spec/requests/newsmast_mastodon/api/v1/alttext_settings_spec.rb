@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe "NewsmastMastodon Api V1 Patchwork AlttextSettings", type: :request do
   it "PATCH /api/v1/patchwork/alttext_settings toggles alttext_enabled" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::ReblogChannelsService, type: :service do
   it "reblogs to custom/group channels based on keyword filter matches" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

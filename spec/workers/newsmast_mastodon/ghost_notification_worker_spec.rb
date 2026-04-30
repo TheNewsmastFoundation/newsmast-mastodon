@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::GhostNotificationWorker, type: :worker do
   it "#perform delegates to GhostNotificationService" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

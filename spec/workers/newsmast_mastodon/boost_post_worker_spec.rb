@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::BoostPostWorker, type: :worker do
   it "#perform delegates to BoostPostService" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::UserServerSetting, type: :model do
   it "belongs_to :user (Mastodon host)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "belongs_to :server_setting" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

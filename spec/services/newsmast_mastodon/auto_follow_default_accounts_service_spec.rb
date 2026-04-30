@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::AutoFollowDefaultAccountsService, type: :service do
   it "reads account handles from ENV and follows each" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

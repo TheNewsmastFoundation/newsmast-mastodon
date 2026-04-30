@@ -7,22 +7,22 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::AccountConcern, type: :model do
   it ".without_banned scope" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it ".channel_admins scope" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "federation exclusion helpers" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "has_many :followed_tags" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "has_many :patchwork_drafted_statuses" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe "Utilities", type: :request do
   it "GET /api/v1/utilities/link_preview returns link preview data (LinkThumbnailer stubbed)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

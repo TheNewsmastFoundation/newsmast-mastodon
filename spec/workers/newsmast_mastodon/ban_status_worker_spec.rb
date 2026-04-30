@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::BanStatusWorker, type: :worker do
   it "checks a status against keyword filters" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "enqueues ReblogChannelsWorker when not banned" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

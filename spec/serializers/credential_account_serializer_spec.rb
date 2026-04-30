@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Overrides::CredentialAccountSerializer, type: :serializer do
   it "includes fields added by the override (source, role, etc.)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

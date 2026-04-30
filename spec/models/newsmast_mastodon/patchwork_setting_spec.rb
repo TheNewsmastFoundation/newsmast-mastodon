@@ -7,18 +7,18 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::PatchworkSetting, type: :model do
   it "validates uniqueness of :account_id scoped to :app_name" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "defines :app_name enum" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "validates presence of :settings" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "belongs_to :account (Mastodon host)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

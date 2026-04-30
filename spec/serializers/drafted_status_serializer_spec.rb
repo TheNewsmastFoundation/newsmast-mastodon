@@ -7,14 +7,14 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::LongPost::DraftedStatusSerializer, type: :serializer do
   it "serializes :id" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "serializes :params without :application_id" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "serializes :media_attachments" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

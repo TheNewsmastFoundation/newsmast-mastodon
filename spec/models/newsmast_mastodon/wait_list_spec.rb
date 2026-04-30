@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::WaitList, type: :model do
   it "generates an invitation code on create" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "defines :channel_type enum" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::KeywordFilter, type: :model do
   it "defines :filter_type enum (content/hashtag/both)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "belongs_to :keyword_filter_group" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

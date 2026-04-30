@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::PublicFeedConcern, type: :model do
   it "filters statuses for public/hashtag feeds (banned, local-only, direct)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

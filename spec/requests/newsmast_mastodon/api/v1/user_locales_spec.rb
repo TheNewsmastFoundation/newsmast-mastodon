@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe "NewsmastMastodon Api V1 UserLocales", type: :request do
   it "POST /api/v1/user_locales saves locale preference" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

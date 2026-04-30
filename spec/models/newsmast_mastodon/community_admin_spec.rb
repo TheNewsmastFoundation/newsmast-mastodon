@@ -7,18 +7,18 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::CommunityAdmin, type: :model do
   it "belongs_to :community" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "belongs_to :account (Mastodon host)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "defines :account_status enum (active/suspended/deleted)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "validates uniqueness of (community_id, account_id)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

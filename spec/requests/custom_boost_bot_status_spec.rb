@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe "CustomBoostBot statuses", type: :request do
   it "POST /api/v1/custom_statuses/add_custom_boost_bot_status adds status by URL" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "POST /api/v1/custom_statuses/remove_custom_boost_bot_status removes status by id" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

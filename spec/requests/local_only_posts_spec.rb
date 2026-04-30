@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe "LocalOnlyPosts", type: :request do
   it "GET /api/v1/local_only_posts/getLocalOnlySetting returns server-level setting" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

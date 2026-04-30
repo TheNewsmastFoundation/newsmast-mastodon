@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::LocalOnlyPosts::StatusSerializerExtension, type: :serializer do
   it "includes :local_only field in status JSON" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

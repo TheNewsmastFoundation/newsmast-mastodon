@@ -7,6 +7,6 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::FanOutOnWriteConcern, type: :model do
   it "fans out status writes to custom feeds via FeedManager extension" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

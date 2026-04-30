@@ -7,28 +7,28 @@ require "rails_helper"
 
 RSpec.describe "GhostWebhooks", type: :request do
   it "POST /ghost_webhooks with valid HMAC triggers GhostNotificationWorker" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "POST /ghost_webhooks with invalid HMAC returns 401" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "POST /ghost_webhooks with malformed payload returns 400" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end
 
 RSpec.describe "WordPressWebhooks", type: :request do
   it "POST /wordpress_webhooks with valid auth_token triggers ArticleNotificationWorker" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "POST /wordpress_webhooks with invalid auth_token returns 401" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "POST /wordpress_webhooks with missing payload returns 422" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

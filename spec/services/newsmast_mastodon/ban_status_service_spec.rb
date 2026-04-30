@@ -7,14 +7,14 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::BanStatusService, type: :service do
   it "checks status text against configured keyword filters" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "bans matching accounts" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "returns the correct ban status symbol" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

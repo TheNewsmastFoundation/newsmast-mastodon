@@ -7,14 +7,14 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::PatchworkHelper, type: :helper do
   it "#patchwork_table_exists? detects the patchwork table" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "#patchwork_server_settings_exist? detects settings rows" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "#patchwork_community_admin_exist? detects admin rows" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

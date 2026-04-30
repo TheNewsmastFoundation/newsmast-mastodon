@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe "Patchwork Conversations", type: :request do
   it "GET /api/v1/patchwork/conversations/check_conversation returns paginated conversations" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "POST /api/v1/patchwork/conversations/read_all marks all unread as read and returns 200" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

@@ -7,14 +7,14 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::MediaAttachmentConcern, type: :model do
   it "#can_generate_alt? when ALT_TEXT_ENABLED and content type is valid" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "#is_valid_content_type? matches IMAGE_ALLOW_TYPES" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "after_save :call_generate_alt_text_worker enqueues worker when enabled" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

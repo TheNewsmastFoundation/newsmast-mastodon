@@ -7,42 +7,42 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::StatusConcern, type: :model do
   it ".without_banned scope excludes is_banned: true" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it ".without_local_only scope excludes local-only statuses" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "#local_only? predicate returns correct value" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "#search_word_in_status matches banned keywords" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "after_create :boost_posts fires when BOOST_POST env is set" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "after_create enqueues CustomTimelineService when applicable" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "before_create :set_locality populates locality column" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it ".indexable scope excludes banned, direct, local-only statuses" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it ".fetch_reblogs / .without_original_statuses / .without_direct_statuses scopes" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it ".tagged_without(tag_ids) scope excludes statuses tagged with given ids" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

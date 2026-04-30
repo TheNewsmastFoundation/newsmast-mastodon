@@ -7,10 +7,10 @@ require "rails_helper"
 
 RSpec.describe "Engine migrations", type: :integration do
   it "all 15 migrations run cleanly on a fresh database" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "ActiveRecord::Migration.check_all_pending! passes after maintain_test_schema!" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

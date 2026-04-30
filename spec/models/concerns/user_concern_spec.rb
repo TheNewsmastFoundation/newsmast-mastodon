@@ -7,18 +7,18 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::UserConcern, type: :model do
   it "creates user-level server settings on user creation" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "applies default server settings" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "filters Threads domains by default" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "filters Bluesky domains by default" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

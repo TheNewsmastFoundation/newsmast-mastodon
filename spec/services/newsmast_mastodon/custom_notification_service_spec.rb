@@ -7,14 +7,14 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::CustomNotificationService, type: :service do
   it "routes by notification type (mention, reblog, follow, ...)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "selects device tokens from NotificationToken" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "delivers via FirebaseNotificationService with correct payload" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

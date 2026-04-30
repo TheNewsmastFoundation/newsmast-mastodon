@@ -7,18 +7,18 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::FeedConcern, type: :model do
   it "#get returns Status records for given ids from Redis" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "#from_redis filters by max_id/since_id/min_id" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "#filter_and_cache_statuses caches filtered ids" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "supports exclude_directs, exclude_followed_tags, exclude_replies params" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end

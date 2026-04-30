@@ -7,22 +7,22 @@ require "rails_helper"
 
 RSpec.describe "Concern prepends", type: :integration do
   it "Status ancestors include NewsmastMastodon::Concerns::StatusConcern" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "Account ancestors include NewsmastMastodon::Concerns::AccountConcern" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "Feed ancestors include NewsmastMastodon::Concerns::FeedConcern" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "User ancestors include NewsmastMastodon::Concerns::UserConcern" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 
   it "all controller prepends resolve to NewsmastMastodon::Overrides::*" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
+    require_host!
   end
 end

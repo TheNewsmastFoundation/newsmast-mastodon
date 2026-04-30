@@ -7,22 +7,22 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::DraftedStatus, type: :model do
   it "enforces TOTAL_LIMIT (300) drafts per account" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "enforces DAILY_LIMIT (25) drafts per account per day" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "belongs_to :account (Mastodon host)" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "has_many :media_attachments" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 
   it "includes Paginable concern" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 13"
+    require_host!
   end
 end
