@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount NewsmastMastodon::Engine => "/newsmast_mastodon"
+  # Engine auto-mounts itself via its initializer; no explicit mount needed here
 end

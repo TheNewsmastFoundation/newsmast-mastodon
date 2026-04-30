@@ -6,6 +6,8 @@ module NewsmastMastodon
 
     # --- Doorkeeper password grant (from accounts engine) ---
     config.after_initialize do
+      next unless defined?(Doorkeeper)
+
       Doorkeeper.configuration.instance_eval do
         @grant_flows = (@grant_flows || []) | ['password']
         @resource_owner_from_credentials = proc do |_routes|
@@ -22,7 +24,7 @@ module NewsmastMastodon
 
     # --- Append migrations (from all gems) ---
     initializer :append_migrations do |app|
-      unless app.root.to_s.match?(root.to_s)
+      unless app.root.to_s == root.to_s
         config.paths["db/migrate"].expanded.each do |expanded_path|
           app.config.paths["db/migrate"] << expanded_path
         end

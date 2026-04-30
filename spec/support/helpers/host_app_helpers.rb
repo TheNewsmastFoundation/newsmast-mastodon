@@ -17,7 +17,7 @@ module HostAppHelpers
   def require_host!
     return if mastodon_host_loaded?
 
-    pending "Mastodon host integration required — see CONSOLIDATION_PLAN.md Phases 13-14"
+    skip "Mastodon host integration required — see CONSOLIDATION_PLAN.md Phases 13-14"
   end
 end
 

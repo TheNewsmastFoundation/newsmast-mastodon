@@ -9,7 +9,9 @@ SimpleCov.start do
   minimum_coverage 0 # bump once real specs land (target: 80)
 end
 
-require "newsmast_mastodon"
+# NOTE: newsmast_mastodon is loaded by the dummy app environment (via rails_helper),
+# not here — requiring it before Rails would skip the engine due to the
+# `if defined?(Rails::Engine)` guard in newsmast_mastodon.rb.
 
 RSpec.configure do |config|
   # Prefer the non-monkey-patched syntax.

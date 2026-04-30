@@ -18,6 +18,10 @@ require "rspec/rails"
 require "factory_bot_rails"
 require "shoulda/matchers"
 require "database_cleaner/active_record"
+
+# Load host-app stubs first so engine constants that depend on Mastodon classes
+# resolve cleanly in the minimal dummy app environment.
+require File.expand_path("support/mastodon_stubs", __dir__)
 require "webmock/rspec"
 require "vcr"
 require "faker"

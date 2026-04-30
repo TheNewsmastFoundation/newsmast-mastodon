@@ -5,6 +5,8 @@ gemspec
 
 gem "puma"
 
+gem "sidekiq"
+
 gem "sqlite3"
 
 # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]

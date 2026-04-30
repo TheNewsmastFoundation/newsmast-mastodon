@@ -16,6 +16,9 @@
 #     content_filters and timelines_extension; the merged override modules live
 #     under NewsmastMastodon::Overrides and are prepended once.
 Rails.application.config.to_prepare do
+  # Skip when running in the dummy app (Mastodon host classes not present)
+  next unless defined?(Account)
+
   # --- Accounts / User ---
   Account.include(NewsmastMastodon::Concerns::AccountConcern)
   Account.include(NewsmastMastodon::Concerns::AccountSearchConcern)
