@@ -41,14 +41,21 @@ module NewsmastMastodon
     config.autoload_paths << File.expand_path("../app/workers", __FILE__)
     config.autoload_paths += %W(#{config.root}/app/presenters)
 
-    # --- Ghost webhook host allowlisting (from posts engine) ---
+    # --- Ghost & WordPress webhook host allowlisting (from posts engine) ---
     initializer 'newsmast_mastodon.extend_allowed_hosts' do |app|
+      allowed_hosts = []
+
       if ENV.values_at('GHOST_URL', 'GHOST_WEBHOOK_TARGET_URL', 'GHOST_WEBHOOK_SECRET').all?(&:present?)
-        allowed_hosts = [ENV['GHOST_URL']]
-        allowed_hosts.each do |host|
-          clean_host = host.gsub(%r{^https?://}, '').split('/').first
-          app.config.hosts << clean_host unless app.config.hosts.include?(clean_host)
-        end
+        allowed_hosts << ENV['GHOST_URL']
+      end
+
+      if ENV['WORDPRESS_URL'].present?
+        allowed_hosts << ENV['WORDPRESS_URL']
+      end
+
+      allowed_hosts.each do |host|
+        clean_host = host.gsub(%r{^https?://}, '').split('/').first
+        app.config.hosts << clean_host unless app.config.hosts.include?(clean_host)
       end
     end
 

@@ -5,30 +5,24 @@
 # Remove the `skip` and implement the expectation once the host is loaded.
 require "rails_helper"
 
-RSpec.describe "GhostWebhooks", type: :request do
-  it "POST /ghost_webhooks with valid HMAC triggers GhostNotificationWorker" do
+RSpec.describe "NotificationTokens", type: :request do
+  it "POST /api/v1/notification_tokens creates a token and returns 200" do
     skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
   end
 
-  it "POST /ghost_webhooks with invalid HMAC returns 401" do
+  it "POST /api/v1/notification_tokens with a duplicate token returns an appropriate error" do
     skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
   end
 
-  it "POST /ghost_webhooks with malformed payload returns 400" do
-    skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
-  end
-end
-
-RSpec.describe "WordPressWebhooks", type: :request do
-  it "POST /wordpress_webhooks with valid auth_token triggers ArticleNotificationWorker" do
+  it "DELETE /api/v1/notification_tokens/revoke_notification_token revokes the token" do
     skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
   end
 
-  it "POST /wordpress_webhooks with invalid auth_token returns 401" do
+  it "POST /api/v1/notification_tokens/update_mute updates the mute status" do
     skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
   end
 
-  it "POST /wordpress_webhooks with missing payload returns 422" do
+  it "GET /api/v1/notification_tokens/get_mute_status returns the current mute state" do
     skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
   end
 end

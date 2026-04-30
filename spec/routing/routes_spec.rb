@@ -22,7 +22,7 @@ RSpec.describe "Consolidated engine routes", type: :routing do
     skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
   end
 
-  it "routes posts: drafted_statuses/*, utilities/link_preview, relays, ghost_webhooks" do
+  it "routes posts: drafted_statuses/*, utilities/link_preview, relays, ghost_webhooks, wordpress_webhooks" do
     skip "pending Mastodon host harness — see CONSOLIDATION_PLAN.md Phase 14"
   end
 end

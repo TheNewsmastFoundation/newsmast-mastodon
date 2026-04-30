@@ -101,7 +101,8 @@ NewsmastMastodon::Engine.routes.draw do
       post   'patchwork/relays',     to: 'relays#create'
       delete 'patchwork/relays/:id', to: 'relays#destroy'
 
-      post 'ghost_webhooks', to: 'webhooks#handle_ghost'
+      post 'ghost_webhooks',     to: 'webhooks#handle_ghost'
+      post 'wordpress_webhooks', to: 'webhooks#handle_wordpress'
     end
   end
 end
