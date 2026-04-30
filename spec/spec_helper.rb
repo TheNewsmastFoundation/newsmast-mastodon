@@ -3,11 +3,11 @@
 # SimpleCov must be required before any application code so it can track
 # line coverage for the whole engine.
 require "simplecov"
-SimpleCov.start do
+SimpleCov.start "rails" do
   add_filter "/spec/"
   add_filter "/test/"
   minimum_coverage 0 # bump once real specs land (target: 80)
-end
+end unless SimpleCov.running
 
 # NOTE: newsmast_mastodon is loaded by the dummy app environment (via rails_helper),
 # not here — requiring it before Rails would skip the engine due to the
