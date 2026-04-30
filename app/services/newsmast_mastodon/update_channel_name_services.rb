@@ -14,6 +14,7 @@ module NewsmastMastodon
       return unless Object.const_defined?('NewsmastMastodon::CommunityAdmin')
 
       return unless defined?(NewsmastMastodon::CommunityAdmin) && NewsmastMastodon::CommunityAdmin.respond_to?(:find_by)
+      return unless NewsmastMastodon::CommunityAdmin.table_exists?
 
       community_admin = NewsmastMastodon::CommunityAdmin.find_by(
         account_id: account.id,
