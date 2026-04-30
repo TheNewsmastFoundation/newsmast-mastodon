@@ -12,3 +12,4 @@
 *.gem
 /coverage/
 Gemfile.lock
+/vendor/bundle/
