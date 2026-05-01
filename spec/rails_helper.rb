@@ -10,11 +10,25 @@ ENV["RAILS_ENV"] ||= "test"
 #      `bundle exec rspec` from the gem root.  Loads the minimal dummy Rails app
 #      and uses host-app stubs so specs can at least load.
 #
-#   2. Host-app mode (Mastodon's Gemfile) — used when running with
-#      BUNDLE_GEMFILE=/path/to/mastodon/Gemfile. In this case Rails is already
-#      (or will be) initialised by the host environment; we skip the dummy boot.
+#   2. Host-app mode (Mastodon's Gemfile) — triggered when BUNDLE_GEMFILE
+#      points to a path containing "mastodon" (or MASTODON_ROOT is set).
+#      Boots Mastodon's full Rails environment so DB, autoloading, and all
+#      Mastodon constants are available.
 
-unless defined?(Rails) && Rails.application && Rails.application.initialized?
+MASTODON_ROOT = ENV.fetch("MASTODON_ROOT") do
+  gemfile = ENV["BUNDLE_GEMFILE"].to_s
+  gemfile_dir = File.dirname(gemfile)
+  # Only treat as host mode when the Gemfile lives directly inside a directory
+  # named "mastodon" (e.g. /workspaces/mastodon/Gemfile).
+  # This avoids false-positives for our own gem path (.../newsmast_mastodon/Gemfile).
+  gemfile_dir if File.basename(gemfile) == "Gemfile" && File.basename(gemfile_dir) == "mastodon"
+end
+
+if defined?(Rails) && Rails.application && Rails.application.initialized?
+  # Already booted (e.g. nested require); nothing to do.
+elsif MASTODON_ROOT
+  require File.join(MASTODON_ROOT, "config/environment")
+else
   require File.expand_path("dummy/config/environment", __dir__)
 end
 
@@ -38,7 +52,7 @@ require "shoulda/matchers"
 require "database_cleaner/active_record"
 
 # Load host-app stubs only in standalone mode (when Mastodon classes are absent).
-require File.expand_path("support/mastodon_stubs", __dir__)
+require File.expand_path("support/mastodon_stubs", __dir__) unless MASTODON_ROOT
 
 require "webmock/rspec"
 
