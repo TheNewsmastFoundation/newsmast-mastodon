@@ -1,12 +1,12 @@
 # frozen_string_literal: true
-#
-# Skeleton spec generated from CONSOLIDATION_PLAN.md Phase 13.
-# Every example is `skip`ped until the Mastodon host harness is available.
-# Remove the `skip` and implement the expectation once the host is loaded.
+
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::KeywordFilterGroup, type: :model do
   it "has_many :keyword_filters with dependent: :destroy" do
-    require_host!
+    ref = NewsmastMastodon::KeywordFilterGroup.reflect_on_association(:keyword_filters)
+    expect(ref).not_to be_nil
+    expect(ref.macro).to eq(:has_many)
+    expect(ref.options[:dependent]).to eq(:destroy)
   end
 end

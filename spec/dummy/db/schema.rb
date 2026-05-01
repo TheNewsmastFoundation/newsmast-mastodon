@@ -14,4 +14,15 @@ ActiveRecord::Schema[8.1].define(version: 0) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  # Engine-owned tables (no foreign keys to Mastodon host tables)
+  create_table "server_settings", force: :cascade do |t|
+    t.string   "name"
+    t.string   "optional_value"
+    t.boolean  "value"
+    t.integer  "position"
+    t.bigint   "parent_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end
