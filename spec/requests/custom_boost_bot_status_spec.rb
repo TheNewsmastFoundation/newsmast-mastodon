@@ -6,14 +6,16 @@
 require "rails_helper"
 
 RSpec.describe "CustomBoostBot statuses", type: :request do
-  let(:app)     { Fabricate(:application) }
+  let(:oauth_app) { Fabricate(:application) }
 
   it "POST /api/v1/custom_statuses/add_custom_boost_bot_status adds status by URL" do
     require_host!
+    stub_request(:get, "https://mastodon.social/@test/123").to_return(status: 404, body: "", headers: {})
+
     post "/api/v1/custom_statuses/add_custom_boost_bot_status",
       params: {
-        client_id:     app.uid,
-        client_secret: app.secret,
+        client_id:     oauth_app.uid,
+        client_secret: oauth_app.secret,
         status_url:    "https://mastodon.social/@test/123"
       }
 
@@ -25,8 +27,8 @@ RSpec.describe "CustomBoostBot statuses", type: :request do
     require_host!
     post "/api/v1/custom_statuses/remove_custom_boost_bot_status",
       params: {
-        client_id:     app.uid,
-        client_secret: app.secret,
+        client_id:     oauth_app.uid,
+        client_secret: oauth_app.secret,
         status_id:     "999999999"
       }
 

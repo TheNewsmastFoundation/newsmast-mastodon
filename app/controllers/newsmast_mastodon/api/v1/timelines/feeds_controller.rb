@@ -5,6 +5,7 @@ module NewsmastMastodon::Api::V1::Timelines
     PERMITTED_PARAMS = %i(local remote limit only_media).freeze
 
     def show
+      @statuses = []
       username = params[:username]
       return render json: { error: "Username is required" }, status: :bad_request unless username.present?
 

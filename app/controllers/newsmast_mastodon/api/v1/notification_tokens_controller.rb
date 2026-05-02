@@ -18,7 +18,7 @@ module NewsmastMastodon::Api::V1
       if @notification_token.present?
         render_result({}, 'api.notification.messages.token_already_exists')
       else
-        NotificationToken.create!(notification_token_params.merge(account_id: current_account.id))
+        NewsmastMastodon::NotificationToken.create!(notification_token_params.merge(account_id: current_account.id))
         render_success({}, 'api.notification.messages.token_saved')
       end
     end
@@ -61,7 +61,7 @@ module NewsmastMastodon::Api::V1
     private
 
     def set_notification_token
-      @notification_token = NotificationToken.find_by(notification_token: notification_token_params[:notification_token], account_id: current_account.id)
+      @notification_token = NewsmastMastodon::NotificationToken.find_by(notification_token: notification_token_params[:notification_token], account_id: current_account.id)
     end
 
     def notification_token_params
@@ -69,11 +69,11 @@ module NewsmastMastodon::Api::V1
     end
 
     def fetch_notification_tokens
-      @notification_tokens = NotificationToken.where( account_id: current_account.id)
+      @notification_tokens = NewsmastMastodon::NotificationToken.where(account_id: current_account.id)
     end
 
     def set_platform_tokens
-      @notification_tokens = NotificationToken.where(platform_type: notification_token_params[:platform_type], account_id: current_account.id)
+      @notification_tokens = NewsmastMastodon::NotificationToken.where(platform_type: notification_token_params[:platform_type], account_id: current_account.id)
     end
   end
 end

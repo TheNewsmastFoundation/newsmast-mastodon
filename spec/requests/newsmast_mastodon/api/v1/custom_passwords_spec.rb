@@ -6,8 +6,10 @@
 require "rails_helper"
 
 RSpec.describe "NewsmastMastodon Api V1 CustomPasswords", type: :request do
-  let(:user)    { Fabricate(:user) }
-  let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: "read write") }
+  let(:user) { u = Fabricate(:user); u.update_column(:approved, true); u }
+  let(:client_app) { Fabricate(:application, scopes: token_scopes) }
+  let(:token_scopes) { "read write follow push profile admin:read admin:write read:statuses write:statuses write:conversations" }
+  let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: user.id, application: client_app, scopes: token_scopes) }
   let(:headers) { { "Authorization" => "Bearer #{token.token}" } }
 
   it "POST /api/v1/custom_passwords initiates password reset and returns success" do
@@ -53,7 +55,10 @@ RSpec.describe "NewsmastMastodon Api V1 CustomPasswords", type: :request do
     require_host!
     allow(CustomPasswordsMailer).to receive_message_chain(:with, :reset_password_confirmation, :deliver_later)
 
-    get "/api/v1/custom_passwords/request_otp", params: { email: user.email }
+    post "/api/v1/custom_passwords", params: { email: user.email }
+    reset_token = response.parsed_body["data"] || response.parsed_body["reset_password_token"]
+
+    get "/api/v1/custom_passwords/request_otp", params: { id: reset_token }
 
     expect(response).to have_http_status(:ok)
   end

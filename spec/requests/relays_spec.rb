@@ -6,9 +6,20 @@
 require "rails_helper"
 
 RSpec.describe "Patchwork Relays", type: :request do
-  let(:owner)   { Fabricate(:owner_user) }
-  let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: owner.id, scopes: "read write admin:read admin:write") }
-  let(:headers) { { "Authorization" => "Bearer #{token.token}" } }
+  let(:owner_role) do
+    UserRole.find_by(name: 'Owner') ||
+      UserRole.create!(name: 'Owner', position: 1000, permissions_as_keys: %w(administrator), highlighted: true)
+  end
+  let(:owner) do
+    u = Fabricate(:owner_user)
+    u.update_column(:approved, true)
+    u.update_column(:role_id, owner_role.id)
+    u
+  end
+  let(:client_app) { Fabricate(:application, scopes: token_scopes) }
+  let(:token_scopes) { "read write follow push profile admin:read admin:write read:statuses write:statuses write:conversations" }
+  let(:token)      { Fabricate(:accessible_access_token, resource_owner_id: owner.id, application: client_app, scopes: token_scopes) }
+  let(:headers)    { { "Authorization" => "Bearer #{token.token}" } }
 
   it "POST /patchwork/relays allows admin to create a relay" do
     require_host!
@@ -33,8 +44,8 @@ RSpec.describe "Patchwork Relays", type: :request do
 
   it "POST /patchwork/relays returns 403 for non-admin" do
     require_host!
-    regular_user  = Fabricate(:user)
-    regular_token = Fabricate(:accessible_access_token, resource_owner_id: regular_user.id, scopes: "read write")
+    regular_user  = Fabricate(:user, approved: true)
+    regular_token = Fabricate(:accessible_access_token, resource_owner_id: regular_user.id, application: client_app, scopes: token_scopes)
 
     post "/api/v1/patchwork/relays",
       headers: { "Authorization" => "Bearer #{regular_token.token}" },
