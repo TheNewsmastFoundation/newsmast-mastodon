@@ -6,23 +6,43 @@
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::AccountConcern, type: :model do
-  it ".without_banned scope" do
-    require_host!
+  let(:host_class) do
+    klass = Class.new do
+      class << self
+        def has_many(*args, **kwargs, &block); end
+        def scope(*args, &block); end
+        def included_modules; []; end
+      end
+
+      attr_accessor :id
+    end
+    klass.include(described_class)
+    klass
   end
 
-  it ".channel_admins scope" do
-    require_host!
+  it "is a module" do
+    expect(described_class).to be_a(Module)
   end
 
-  it "federation exclusion helpers" do
-    require_host!
+  it "is an ActiveSupport::Concern" do
+    expect(described_class).to respond_to(:included)
   end
 
-  it "has_many :followed_tags" do
-    require_host!
+  it "#follow_account? delegates to Follow.exists?" do
+    stub_const("Follow", Class.new { def self.exists?(*); false; end })
+    instance = host_class.new
+    instance.id = 42
+    allow(Follow).to receive(:exists?).with(account_id: 42, target_account_id: 99).and_return(true)
+
+    expect(instance.follow_account?(99)).to be true
   end
 
-  it "has_many :patchwork_drafted_statuses" do
-    require_host!
+  it "#follow_account? returns false when no follow exists" do
+    stub_const("Follow", Class.new { def self.exists?(*); false; end })
+    instance = host_class.new
+    instance.id = 42
+    allow(Follow).to receive(:exists?).with(account_id: 42, target_account_id: 99).and_return(false)
+
+    expect(instance.follow_account?(99)).to be false
   end
 end

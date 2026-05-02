@@ -6,19 +6,24 @@
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::CustomFeed, type: :model do
-  it "#get(limit, max_id, since_id, min_id) fetches status ids from Redis" do
-    require_host!
+  let(:account) { instance_double("Account", chosen_languages: nil) }
+
+  it "accepts account and options on initialize" do
+    feed = described_class.new(account)
+    expect(feed).to be_a(described_class)
   end
 
-  it "filters out replies when exclude_replies is true" do
-    require_host!
+  it "exposes #get method" do
+    expect(described_class.instance_method(:get)).not_to be_nil
   end
 
-  it "filters out reblogs when exclude_reblogs is true" do
-    require_host!
+  it "respects with_replies? option" do
+    feed = described_class.new(account, with_replies: true)
+    expect(feed.send(:with_replies?)).to be true
   end
 
-  it "filters out posts without media when media_only is true" do
-    require_host!
+  it "respects with_reblogs? option" do
+    feed = described_class.new(account, with_reblogs: true)
+    expect(feed.send(:with_reblogs?)).to be true
   end
 end

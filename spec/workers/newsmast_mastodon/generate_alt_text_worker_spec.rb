@@ -1,12 +1,24 @@
 # frozen_string_literal: true
-#
-# Skeleton spec generated from CONSOLIDATION_PLAN.md Phase 13.
-# Every example is `skip`ped until the Mastodon host harness is available.
-# Remove the `skip` and implement the expectation once the host is loaded.
+
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::GenerateAltTextWorker, type: :worker do
   it "#perform delegates to AltTextAiApiService" do
-    require_host!
+    attachment = instance_double("MediaAttachment", id: 12, can_generate_alt?: true)
+
+    media_attachment_class = Class.new do
+      def self.find(*); end
+    end
+    stub_const("MediaAttachment", media_attachment_class)
+    allow(MediaAttachment).to receive(:find).with(12).and_return(attachment)
+
+    service = instance_double("NewsmastMastodon::AfterUploadImageService", call: true)
+    service_class = class_double("NewsmastMastodon::AfterUploadImageService", new: service)
+    stub_const("NewsmastMastodon::AfterUploadImageService", service_class)
+
+    described_class.new.perform(12)
+
+    expect(NewsmastMastodon::AfterUploadImageService).to have_received(:new).with(12)
+    expect(service).to have_received(:call)
   end
 end

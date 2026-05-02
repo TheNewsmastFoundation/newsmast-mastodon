@@ -12,11 +12,15 @@ RSpec.describe NewsmastMastodon::DraftedStatus, type: :model do
   end
 
   it "belongs_to :account (Mastodon host)" do
-    require_host!
+    ref = described_class.reflect_on_association(:account)
+    expect(ref).not_to be_nil
+    expect(ref.macro).to eq(:belongs_to)
   end
 
   it "has_many :media_attachments" do
-    require_host!
+    ref = described_class.reflect_on_association(:media_attachments)
+    expect(ref).not_to be_nil
+    expect(ref.macro).to eq(:has_many)
   end
 
   it "includes Paginable concern" do

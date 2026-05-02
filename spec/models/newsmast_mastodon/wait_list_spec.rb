@@ -4,7 +4,8 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::WaitList, type: :model do
   it "requires :invitation_code on create" do
-    require_host!
+    validators = described_class.validators_on(:invitation_code)
+    expect(validators.map(&:class)).to include(ActiveRecord::Validations::PresenceValidator)
   end
 
   it "defines :channel_type enum" do

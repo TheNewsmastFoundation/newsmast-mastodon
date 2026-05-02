@@ -1,16 +1,34 @@
 # frozen_string_literal: true
-#
-# Skeleton spec generated from CONSOLIDATION_PLAN.md Phase 13.
-# Every example is `skip`ped until the Mastodon host harness is available.
-# Remove the `skip` and implement the expectation once the host is loaded.
+
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::LongPost::InstanceSerializerExtension, type: :serializer do
+  let(:serializer_class) do
+    base_serializer = Class.new do
+      def configuration
+        { statuses: { baseline: true } }
+      end
+    end
+
+    Class.new(base_serializer) do
+      include NewsmastMastodon::LongPost::InstanceSerializerExtension
+    end
+  end
+
+  let(:serializer) { serializer_class.new }
+
+  before do
+    stub_const("StatusLengthValidator", Class.new)
+    StatusLengthValidator.const_set(:URL_PLACEHOLDER_CHARS, 23)
+  end
+
   it "reads max_characters from NewsmastMastodon::ServerSetting" do
-    require_host!
+    NewsmastMastodon::ServerSetting.create!(name: "Long posts", value: true, optional_value: "777")
+
+    expect(serializer.configuration.dig(:statuses, :max_characters)).to eq(777)
   end
 
   it "falls back to 500 when setting is missing" do
-    require_host!
+    expect(serializer.configuration.dig(:statuses, :max_characters)).to eq(500)
   end
 end

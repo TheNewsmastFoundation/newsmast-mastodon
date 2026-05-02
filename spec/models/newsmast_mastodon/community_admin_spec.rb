@@ -11,7 +11,9 @@ RSpec.describe NewsmastMastodon::CommunityAdmin, type: :model do
   end
 
   it "belongs_to :account (Mastodon host)" do
-    require_host!
+    ref = described_class.reflect_on_association(:account)
+    expect(ref).not_to be_nil
+    expect(ref.macro).to eq(:belongs_to)
   end
 
   it "defines :account_status enum (active/suspended/deleted)" do

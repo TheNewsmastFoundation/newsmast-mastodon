@@ -6,19 +6,21 @@
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::PatchworkSetting, type: :model do
-  it "validates uniqueness of :account_id scoped to :app_name" do
-    require_host!
+  it "uses the patchwork_settings table" do
+    expect(described_class.table_name).to eq("patchwork_settings")
   end
 
   it "defines :app_name enum" do
-    require_host!
+    expect(described_class.app_names.keys).to contain_exactly("patchwork", "newsmast", "leicester")
   end
 
   it "validates presence of :settings" do
-    require_host!
+    validators = described_class.validators_on(:settings)
+    expect(validators.map(&:class)).to include(ActiveRecord::Validations::PresenceValidator)
   end
 
-  it "belongs_to :account (Mastodon host)" do
-    require_host!
+  it "validates presence of :account" do
+    validators = described_class.validators_on(:account)
+    expect(validators.map(&:class)).to include(ActiveRecord::Validations::PresenceValidator)
   end
 end

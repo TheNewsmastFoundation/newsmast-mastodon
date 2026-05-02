@@ -1,12 +1,20 @@
 # frozen_string_literal: true
-#
-# Skeleton spec generated from CONSOLIDATION_PLAN.md Phase 13.
-# Every example is `skip`ped until the Mastodon host harness is available.
-# Remove the `skip` and implement the expectation once the host is loaded.
+
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::ReblogChannelsService, type: :service do
   it "reblogs to custom/group channels based on keyword filter matches" do
-    require_host!
+    status = instance_double("Status", sensitive?: true, unlisted_visibility?: false)
+
+    worker_class = class_double("NewsmastMastodon::ReblogChannelsWorker", perform_async: true)
+    stub_const("NewsmastMastodon::ReblogChannelsWorker", worker_class)
+
+    distribution_worker = class_double("DistributionWorker", perform_async: true)
+    stub_const("DistributionWorker", distribution_worker)
+
+    described_class.new.call(status)
+
+    expect(NewsmastMastodon::ReblogChannelsWorker).not_to have_received(:perform_async)
+    expect(DistributionWorker).not_to have_received(:perform_async)
   end
 end

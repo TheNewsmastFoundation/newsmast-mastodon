@@ -1,12 +1,22 @@
 # frozen_string_literal: true
-#
-# Skeleton spec generated from CONSOLIDATION_PLAN.md Phase 13.
-# Every example is `skip`ped until the Mastodon host harness is available.
-# Remove the `skip` and implement the expectation once the host is loaded.
+
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::LocalOnlyPosts::StatusSerializerExtension, type: :serializer do
   it "includes :local_only field in status JSON" do
-    require_host!
+    serializer_class = Class.new do
+      def self.attributes(*attrs)
+        @declared_attributes ||= []
+        @declared_attributes.concat(attrs)
+      end
+
+      def self.declared_attributes
+        @declared_attributes || []
+      end
+
+      include NewsmastMastodon::LocalOnlyPosts::StatusSerializerExtension
+    end
+
+    expect(serializer_class.declared_attributes).to include(:local_only)
   end
 end

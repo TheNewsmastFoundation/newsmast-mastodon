@@ -4,7 +4,9 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::UserServerSetting, type: :model do
   it "belongs_to :user (Mastodon host)" do
-    require_host!
+    ref = described_class.reflect_on_association(:user)
+    expect(ref).not_to be_nil
+    expect(ref.macro).to eq(:belongs_to)
   end
 
   it "belongs_to :server_setting" do

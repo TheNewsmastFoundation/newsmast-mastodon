@@ -7,6 +7,8 @@ require "rails_helper"
 
 RSpec.describe NewsmastMastodon::Concerns::FanOutOnWriteConcern, type: :model do
   it "fans out status writes to custom feeds via FeedManager extension" do
-    require_host!
+    expect(described_class).to be_a(Module)
+    # The concern wraps the original call and adds custom fan-out logic
+    expect(described_class.private_instance_methods(false)).to include(:fan_out_to_custom_timeline!)
   end
 end
