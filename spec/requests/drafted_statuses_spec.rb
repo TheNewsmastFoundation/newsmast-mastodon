@@ -11,7 +11,7 @@ RSpec.describe "DraftedStatuses", type: :request do
   let(:headers) { { "Authorization" => "Bearer #{token.token}" } }
 
   def create_draft(text: "Hello draft #{SecureRandom.hex(4)}")
-    LongPost::DraftedStatus.create!(
+    NewsmastMastodon::DraftedStatus.create!(
       account: user.account,
       text:    text
     )
@@ -63,7 +63,7 @@ RSpec.describe "DraftedStatuses", type: :request do
     delete "/api/v1/drafted_statuses/#{draft.id}", headers: headers
 
     expect(response).to have_http_status(:ok)
-    expect(LongPost::DraftedStatus.exists?(draft.id)).to be false
+    expect(NewsmastMastodon::DraftedStatus.exists?(draft.id)).to be false
   end
 
   it "POST /api/v1/drafted_statuses/:id/publish publishes the draft to a status" do
@@ -78,7 +78,7 @@ RSpec.describe "DraftedStatuses", type: :request do
 
   it "POST /api/v1/drafted_statuses exceeding TOTAL_LIMIT (300) returns an error" do
     require_host!
-    stub_const("NewsmastMastodon::Api::V1::DraftedStatusesController::TOTAL_LIMIT", 0)
+    stub_const("NewsmastMastodon::DraftedStatus::TOTAL_LIMIT", 0)
 
     post "/api/v1/drafted_statuses",
       headers: headers,
@@ -89,7 +89,7 @@ RSpec.describe "DraftedStatuses", type: :request do
 
   it "POST /api/v1/drafted_statuses exceeding DAILY_LIMIT (25) returns an error" do
     require_host!
-    stub_const("NewsmastMastodon::Api::V1::DraftedStatusesController::DAILY_LIMIT", 0)
+    stub_const("NewsmastMastodon::DraftedStatus::DAILY_LIMIT", 0)
 
     post "/api/v1/drafted_statuses",
       headers: headers,
