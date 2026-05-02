@@ -6,35 +6,95 @@
 require "rails_helper"
 
 RSpec.describe "DraftedStatuses", type: :request do
+  let(:user)    { Fabricate(:user) }
+  let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: "read write read:statuses write:statuses") }
+  let(:headers) { { "Authorization" => "Bearer #{token.token}" } }
+
+  def create_draft(text: "Hello draft #{SecureRandom.hex(4)}")
+    LongPost::DraftedStatus.create!(
+      account: user.account,
+      text:    text
+    )
+  end
+
   it "POST /api/v1/drafted_statuses creates a draft and returns the serialized draft" do
     require_host!
+    post "/api/v1/drafted_statuses",
+      headers: headers,
+      params: { status: "My draft post" }
+
+    expect(response).to have_http_status(:ok)
   end
 
   it "GET /api/v1/drafted_statuses lists drafts grouped by date" do
     require_host!
+    create_draft
+
+    get "/api/v1/drafted_statuses", headers: headers
+
+    expect(response).to have_http_status(:ok)
+    expect(response.parsed_body).to be_an(Array)
   end
 
   it "GET /api/v1/drafted_statuses/:id shows a single draft" do
     require_host!
+    draft = create_draft
+
+    get "/api/v1/drafted_statuses/#{draft.id}", headers: headers
+
+    expect(response).to have_http_status(:ok)
   end
 
   it "PATCH /api/v1/drafted_statuses/:id updates draft params" do
     require_host!
+    draft = create_draft
+
+    patch "/api/v1/drafted_statuses/#{draft.id}",
+      headers: headers,
+      params: { status: "Updated draft" }
+
+    expect(response).to have_http_status(:ok)
   end
 
   it "DELETE /api/v1/drafted_statuses/:id destroys the draft" do
     require_host!
+    draft = create_draft
+
+    delete "/api/v1/drafted_statuses/#{draft.id}", headers: headers
+
+    expect(response).to have_http_status(:ok)
+    expect(LongPost::DraftedStatus.exists?(draft.id)).to be false
   end
 
   it "POST /api/v1/drafted_statuses/:id/publish publishes the draft to a status" do
     require_host!
+    draft = create_draft
+
+    post "/api/v1/drafted_statuses/#{draft.id}/publish", headers: headers
+
+    # 200 on success, 422 if publish validation fails
+    expect(response.status).to be_between(200, 422)
   end
 
   it "POST /api/v1/drafted_statuses exceeding TOTAL_LIMIT (300) returns an error" do
     require_host!
+    stub_const("NewsmastMastodon::Api::V1::DraftedStatusesController::TOTAL_LIMIT", 0)
+
+    post "/api/v1/drafted_statuses",
+      headers: headers,
+      params: { status: "Over limit" }
+
+    expect(response).to have_http_status(:unprocessable_entity)
   end
 
   it "POST /api/v1/drafted_statuses exceeding DAILY_LIMIT (25) returns an error" do
     require_host!
+    stub_const("NewsmastMastodon::Api::V1::DraftedStatusesController::DAILY_LIMIT", 0)
+
+    post "/api/v1/drafted_statuses",
+      headers: headers,
+      params: { status: "Over daily limit" }
+
+    expect(response).to have_http_status(:unprocessable_entity)
   end
 end

@@ -6,28 +6,21 @@
 # be used unchanged once the host harness is wired up.
 
 RSpec.shared_context "authenticated_user" do
-  let(:user) do
-    pending("requires Mastodon host User/Account classes — see CONSOLIDATION_PLAN.md Phase 14")
-    nil
-  end
-  let(:account) { user&.account }
-  let(:token)   { nil }
-  let(:headers) { { "Authorization" => "Bearer #{token}" } }
+  let(:user)    { Fabricate(:user) }
+  let(:account) { user.account }
+  let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: "read write") }
+  let(:headers) { { "Authorization" => "Bearer #{token.token}" } }
 end
 
 RSpec.shared_context "admin_user" do
   include_context "authenticated_user"
 
-  let(:admin_role) do
-    pending("requires Mastodon UserRole — see CONSOLIDATION_PLAN.md Phase 14")
-    nil
-  end
+  let(:user) { Fabricate(:admin_user) }
 end
 
 RSpec.shared_context "community_with_admins" do
-  let(:community) do
-    pending("requires Mastodon Account to seed CommunityAdmin — see CONSOLIDATION_PLAN.md Phase 13")
-    nil
-  end
+  include_context "authenticated_user"
+
+  let(:community)        { Fabricate(:newsmast_mastodon_community) }
   let(:community_admins) { [] }
 end

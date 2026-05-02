@@ -6,7 +6,15 @@
 require "rails_helper"
 
 RSpec.describe "LocalOnlyPosts", type: :request do
+  let(:user)    { Fabricate(:user) }
+  let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: "read write") }
+  let(:headers) { { "Authorization" => "Bearer #{token.token}" } }
+
   it "GET /api/v1/local_only_posts/getLocalOnlySetting returns server-level setting" do
     require_host!
+    get "/api/v1/local_only_posts/getLocalOnlySetting", headers: headers
+
+    expect(response).to have_http_status(:ok)
+    expect(response.parsed_body).to have_key("local_only")
   end
 end

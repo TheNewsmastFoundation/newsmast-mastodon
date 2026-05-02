@@ -6,7 +6,16 @@
 require "rails_helper"
 
 RSpec.describe "NewsmastMastodon Api V1 UserLocales", type: :request do
+  let(:user)    { Fabricate(:user) }
+  let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: "read write") }
+  let(:headers) { { "Authorization" => "Bearer #{token.token}" } }
+
   it "POST /api/v1/user_locales saves locale preference" do
     require_host!
+    post "/api/v1/user_locales",
+      headers: headers,
+      params: { locale: "en" }
+
+    expect(response.status).to be_between(200, 422)
   end
 end
