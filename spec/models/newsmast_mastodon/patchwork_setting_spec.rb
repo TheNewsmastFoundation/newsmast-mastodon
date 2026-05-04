@@ -11,7 +11,7 @@ RSpec.describe NewsmastMastodon::PatchworkSetting, type: :model do
   end
 
   it "defines :app_name enum" do
-    expect(described_class.app_names.keys).to contain_exactly("patchwork", "newsmast", "leicester")
+    expect(described_class.app_names.keys).to contain_exactly("patchwork", "newsmast", "leicester", "findout")
   end
 
   it "validates presence of :settings" do

@@ -36,4 +36,29 @@ RSpec.describe "PatchworkSettings (Leicester notifications)", type: :request do
 
     expect(response).to have_http_status(:unauthorized)
   end
+
+  it "GET /api/v1/accounts/article_notifications returns the current article notifications setting" do
+    require_host!
+    get "/api/v1/accounts/article_notifications", headers: headers
+
+    expect(response).to have_http_status(:ok)
+    expect(response.parsed_body.dig("data", "article_notifications")).to be_in([true, false])
+  end
+
+  it "POST /api/v1/accounts/article_notifications updates the article notifications setting" do
+    require_host!
+    post "/api/v1/accounts/article_notifications",
+      headers: headers,
+      params: { allowed: "true" }
+
+    expect(response).to have_http_status(:ok)
+    expect(response.parsed_body.dig("data", "article_notifications")).to be(true)
+  end
+
+  it "GET /api/v1/accounts/article_notifications unauthenticated returns 401" do
+    require_host!
+    get "/api/v1/accounts/article_notifications"
+
+    expect(response).to have_http_status(:unauthorized)
+  end
 end
