@@ -118,3 +118,19 @@ namespace :newsmast_mastodon do
     puts "Created installation marker file: .newsmast_mastodon_installed"
   end
 end
+
+# ============================================
+# Backward-compatibility aliases
+# ============================================
+# These tasks maintain compatibility with existing documentation
+# and scripts that reference the original per-gem install commands.
+
+namespace :local_only_posts do
+  desc 'Alias: Install local_only_posts features (delegates to newsmast_mastodon:install)'
+  task install: 'newsmast_mastodon:install'
+end
+
+namespace :content_filters do
+  desc 'Alias: Install content_filters features (delegates to newsmast_mastodon:install)'
+  task install: 'newsmast_mastodon:install'
+end
