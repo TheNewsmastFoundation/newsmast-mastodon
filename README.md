@@ -1,6 +1,6 @@
 # newsmast_mastodon
 
-`newsmast_mastodon` is a consolidated Rails engine that extends a Mastodon
+`newsmast_mastodon` is a Rails engine that extends a Mastodon
 host app with Newsmast features across accounts, content filtering,
 conversations, custom feeds, local-only posts, posting workflows, and timeline
 behavior.
