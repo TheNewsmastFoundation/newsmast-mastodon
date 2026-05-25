@@ -8,6 +8,7 @@ module NewsmastMastodon
 
     def initialize(params)
       @params = params
+      @user = fetch_user_credentials
     end
 
     def channel_login
@@ -24,10 +25,14 @@ module NewsmastMastodon
       NewsmastMastodon::BristolcableLoginService.new(@params).login if ENV.fetch('LOCAL_DOMAIN', nil) == 'thebristolcable.social'
     end
 
+    def two_factor_enabled?
+      @user&.two_factor_enabled?
+    end
+
     private
 
     def fetch_user_credentials
-      User.find_by(email: @params[:username])
+      ::User.find_by(email: @params[:username])
     end
 
     def fetch_channel_credentials(user)
@@ -124,7 +129,7 @@ module NewsmastMastodon
 
     def fetch_access_token_grant
       access_token_grant = Doorkeeper::AccessGrant.find_by(token: @params[:code])
-      User.find_by(id: access_token_grant&.resource_owner_id)
+      ::User.find_by(id: access_token_grant&.resource_owner_id)
     end
 
     def truthy_param?(key)

@@ -3,7 +3,26 @@
 require "rails_helper"
 
 RSpec.describe NewsmastMastodon::LoginService, type: :service do
+  it "reports whether the current user has two-factor enabled" do
+    user_class = Class.new do
+      def self.find_by(*); end
+    end
+    stub_const("User", user_class)
+
+    user = instance_double("User", two_factor_enabled?: true)
+    allow(User).to receive(:find_by).with(email: "user@example.org").and_return(user)
+
+    service = described_class.new(username: "user@example.org")
+    expect(service.two_factor_enabled?).to be(true)
+  end
+
   it "routes channel login vs non-channel login vs Bristol Cable login" do
+    user_class = Class.new do
+      def self.find_by(*); end
+    end
+    stub_const("User", user_class)
+    allow(User).to receive(:find_by).and_return(nil)
+
     params = { grant_type: "client_credentials", is_web_login: "false" }
     service = described_class.new(params)
 
@@ -21,6 +40,11 @@ RSpec.describe NewsmastMastodon::LoginService, type: :service do
   end
 
   it "checks admin role on login" do
+    user_class = Class.new do
+      def self.find_by(*); end
+    end
+    stub_const("User", user_class)
+
     params = {
       grant_type: "password",
       is_web_login: "true",
@@ -35,10 +59,6 @@ RSpec.describe NewsmastMastodon::LoginService, type: :service do
     role = instance_double("Role", name: "Viewer")
     user = instance_double("User", confirmed_at: Time.now, role: role)
 
-    user_class = Class.new do
-      def self.find_by(*); end
-    end
-    stub_const("User", user_class)
     allow(User).to receive(:find_by).with(email: "user@example.org").and_return(user)
 
     allow(I18n).to receive(:t).and_call_original
