@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 DOCS_DIR="$ROOT_DIR/docs"
 REPORT_DIR="$ROOT_DIR/tmp/newman-reports"
+COMBINED_COLLECTION="$DOCS_DIR/newsmast-api.postman_collection.json"
 
 if command -v newman >/dev/null 2>&1; then
   NEWMAN_BIN=(newman)
@@ -17,8 +18,10 @@ fi
 ENV_FILE="${POSTMAN_ENV_FILE:-$ROOT_DIR/tmp/newman.generated.env.json}"
 AUTO_SETUP="${AUTO_SETUP:-1}"
 
+ruby "$ROOT_DIR/script/api/build_combined_api_docs.rb"
+
 if [[ "$AUTO_SETUP" == "1" ]]; then
-  ruby "$ROOT_DIR/script/api/postman_setup.rb"
+  POSTMAN_ENV_OUTPUT_FILE="$ENV_FILE" ruby "$ROOT_DIR/script/api/postman_setup.rb"
 fi
 
 if [[ ! -f "$ENV_FILE" ]]; then
@@ -26,37 +29,29 @@ if [[ ! -f "$ENV_FILE" ]]; then
   exit 1
 fi
 
-collections=(
-  "$DOCS_DIR/accounts-api.postman_collection.json"
-  "$DOCS_DIR/conversations-api.postman_collection.json"
-  "$DOCS_DIR/custom_feeds-api.postman_collection.json"
-  "$DOCS_DIR/local_only_posts-api.postman_collection.json"
-  "$DOCS_DIR/posts-api.postman_collection.json"
-  "$DOCS_DIR/content_filters-api.postman_collection.json"
-)
-
 failed=0
 rm -rf "$REPORT_DIR"
 mkdir -p "$REPORT_DIR"
 
-for collection in "${collections[@]}"; do
-  collection_base="$(basename "$collection" .postman_collection.json)"
-  report_json="$REPORT_DIR/${collection_base}.json"
+report_json="$REPORT_DIR/newsmast-api.json"
 
-  echo "Running $(basename "$collection")"
-  if [[ ! -s "$collection" ]]; then
-    echo "  skipped (missing or empty)"
-    continue
+echo "Running $(basename "$COMBINED_COLLECTION")"
+if [[ ! -s "$COMBINED_COLLECTION" ]]; then
+  echo "Combined Postman collection not found: $COMBINED_COLLECTION" >&2
+  exit 1
+fi
+
+run_newman() {
+  if [[ "${SUPPRESS_NODE_DEPRECATION:-1}" == "1" ]]; then
+    NODE_NO_WARNINGS=1 "${NEWMAN_BIN[@]}" run "$COMBINED_COLLECTION" --environment "$ENV_FILE" --reporters cli,json --reporter-json-export "$report_json"
+  else
+    "${NEWMAN_BIN[@]}" run "$COMBINED_COLLECTION" --environment "$ENV_FILE" --reporters cli,json --reporter-json-export "$report_json"
   fi
+}
 
-  if ! "${NEWMAN_BIN[@]}" run "$collection" --environment "$ENV_FILE" --reporters cli,json --reporter-json-export "$report_json"; then
-    failed=1
-  fi
-  echo
-  echo "----"
-  echo
-
-done
+if ! run_newman; then
+  failed=1
+fi
 
 ruby "$ROOT_DIR/script/api/summarize_newman_report.rb"
 

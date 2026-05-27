@@ -128,7 +128,7 @@ as above until migration naming conflicts are resolved.
 ## API validation and system testing
 
 This repository includes a full API verification workflow for the consolidated
-gem routes and Postman collections.
+gem routes and a combined Postman collection.
 
 ### 1) Verify route/controller/doc sync
 
@@ -141,10 +141,10 @@ bundle exec rake api:verify
 This checks:
 
 - every expected route has a matching controller action
-- every route appears in the Postman collections under `docs/`
+- every route appears in the combined Postman collection under `docs/`
 - every Postman entry maps to a real route
 
-### 2) Run all Postman collections with Newman
+### 2) Run the combined Postman collection with Newman
 
 ```bash
 BASE_URL=http://localhost:3000 \

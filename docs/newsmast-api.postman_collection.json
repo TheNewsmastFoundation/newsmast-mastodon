@@ -1,0 +1,1550 @@
+{
+  "info": {
+    "_postman_id": "newsmast-mastodon-combined",
+    "name": "Newsmast Mastodon Combined API",
+    "description": "Combined Postman collection generated from route definitions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "custom_password_id",
+      "value": ""
+    },
+    {
+      "key": "channel_id",
+      "value": ""
+    },
+    {
+      "key": "platform_type",
+      "value": "ios"
+    },
+    {
+      "key": "account_id",
+      "value": ""
+    },
+    {
+      "key": "starter_pack_source",
+      "value": "twt"
+    },
+    {
+      "key": "app_name",
+      "value": ""
+    },
+    {
+      "key": "target_account_id",
+      "value": ""
+    },
+    {
+      "key": "max_id",
+      "value": ""
+    },
+    {
+      "key": "since_id",
+      "value": ""
+    },
+    {
+      "key": "min_id",
+      "value": ""
+    },
+    {
+      "key": "username",
+      "value": ""
+    },
+    {
+      "key": "client_id",
+      "value": ""
+    },
+    {
+      "key": "client_secret",
+      "value": ""
+    },
+    {
+      "key": "status_id",
+      "value": ""
+    },
+    {
+      "key": "drafted_status_id",
+      "value": ""
+    },
+    {
+      "key": "link_preview_url",
+      "value": "https://example.com"
+    },
+    {
+      "key": "relay_id",
+      "value": ""
+    },
+    {
+      "key": "relay_inbox_url",
+      "value": "https://relay.example.com/inbox"
+    },
+    {
+      "key": "ghost_signature",
+      "value": "sha256=example,t=1710000000"
+    },
+    {
+      "key": "wordpress_auth_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "POST /api/v1/custom_passwords",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords"
+          ]
+        },
+        "description": "Controller: custom_passwords#create",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH /api/v1/custom_passwords/:id",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: custom_passwords#update"
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /api/v1/custom_passwords/:id",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: custom_passwords#update"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/custom_passwords/verify_otp",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords/verify_otp",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords",
+            "verify_otp"
+          ]
+        },
+        "description": "Controller: custom_passwords#verify_otp",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"{{custom_password_id}}\",\n  \"otp_secret\": \"123456\",\n  \"email\": \"user@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/custom_passwords/request_otp",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords/request_otp?id=token-or-reset-token&email=user@example.com",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords",
+            "request_otp"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "token-or-reset-token"
+            },
+            {
+              "key": "email",
+              "value": "user@example.com"
+            }
+          ]
+        },
+        "description": "Controller: custom_passwords#request_otp"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/custom_passwords/change_password",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords/change_password",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords",
+            "change_password"
+          ]
+        },
+        "description": "Controller: custom_passwords#change_password",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"current_password\": \"old-password\",\n  \"password\": \"new-password\",\n  \"password_confirmation\": \"new-password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/custom_passwords/change_email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords/change_email",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords",
+            "change_email"
+          ]
+        },
+        "description": "Controller: custom_passwords#change_email",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"current_password\": \"password\",\n  \"email\": \"updated@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/custom_passwords/bristol_cable_sign_in",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_passwords/bristol_cable_sign_in",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_passwords",
+            "bristol_cable_sign_in"
+          ]
+        },
+        "description": "Controller: custom_passwords#bristol_cable_sign_in"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/notification_tokens",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification_tokens",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "notification_tokens"
+          ]
+        },
+        "description": "Controller: notification_tokens#create",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"notification_token\": \"device-token\",\n  \"platform_type\": \"{{platform_type}}\",\n  \"mute\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/notification_tokens/revoke_token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification_tokens/revoke_token",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "notification_tokens",
+            "revoke_token"
+          ]
+        },
+        "description": "Controller: notification_tokens#revoke_notification_token",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"notification_token\": \"device-token\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/notification_tokens/update_mute",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification_tokens/update_mute",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "notification_tokens",
+            "update_mute"
+          ]
+        },
+        "description": "Controller: notification_tokens#update_mute",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mute\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/notification_tokens/get_mute_status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification_tokens/get_mute_status",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "notification_tokens",
+            "get_mute_status"
+          ]
+        },
+        "description": "Controller: notification_tokens#get_mute_status"
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /api/v1/notification_tokens/reset_device_tokens/:platform_type",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification_tokens/reset_device_tokens/{{platform_type}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "notification_tokens",
+            "reset_device_tokens",
+            "{{platform_type}}"
+          ]
+        },
+        "description": "Controller: notification_tokens#reset_device_tokens"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/user_locales",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/user_locales",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user_locales"
+          ]
+        },
+        "description": "Controller: user_locales#create",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lang\": \"en\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/channels/starter_packs_channels",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/channels/starter_packs_channels?starter_pack_source={{starter_pack_source}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "channels",
+            "starter_packs_channels"
+          ],
+          "query": [
+            {
+              "key": "starter_pack_source",
+              "value": "{{starter_pack_source}}"
+            }
+          ]
+        },
+        "description": "Controller: channels#starter_packs_channels"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/channels/:id/starter_packs_detail",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/channels/{{id}}/starter_packs_detail?starter_pack_source={{starter_pack_source}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "channels",
+            "{{id}}",
+            "starter_packs_detail"
+          ],
+          "query": [
+            {
+              "key": "starter_pack_source",
+              "value": "{{starter_pack_source}}"
+            }
+          ]
+        },
+        "description": "Controller: channels#starter_packs_detail"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/patchwork/alttext_settings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/alttext_settings",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "alttext_settings"
+          ]
+        },
+        "description": "Controller: patchwork/alttext_settings#index"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/patchwork/alttext_settings/alttext",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/alttext_settings/alttext",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "alttext_settings",
+            "alttext"
+          ]
+        },
+        "description": "Controller: patchwork/alttext_settings#change_alttext_setting",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"enabled\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/patchwork/email_settings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/email_settings",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "email_settings"
+          ]
+        },
+        "description": "Controller: patchwork/email_settings#index"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/patchwork/email_settings/notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/email_settings/notification",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "email_settings",
+            "notification"
+          ]
+        },
+        "description": "Controller: patchwork/email_settings#email_notification",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /api/v1/patchwork/account_deletion/:id",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/account_deletion/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "account_deletion",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: patchwork/account_deletion#destroy"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/patchwork/conversations/check_conversation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/conversations/check_conversation?target_account_id={{target_account_id}}&max_id={{max_id}}&since_id={{since_id}}&min_id={{min_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "conversations",
+            "check_conversation"
+          ],
+          "query": [
+            {
+              "key": "target_account_id",
+              "value": "{{target_account_id}}"
+            },
+            {
+              "key": "max_id",
+              "value": "{{max_id}}"
+            },
+            {
+              "key": "since_id",
+              "value": "{{since_id}}"
+            },
+            {
+              "key": "min_id",
+              "value": "{{min_id}}"
+            }
+          ]
+        },
+        "description": "Controller: patchwork/conversations#check_conversation"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/patchwork/conversations/read_all",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/conversations/read_all",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "conversations",
+            "read_all"
+          ]
+        },
+        "description": "Controller: patchwork/conversations#read_all",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"target_account_id\": \"{{target_account_id}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/delete_account",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/delete_account",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "delete_account"
+          ]
+        },
+        "description": "Controller: accounts#delete_account",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"password\": \"password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/accounts/leicester_notification",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/accounts/leicester_notification?app_name={{app_name}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "leicester_notification"
+          ],
+          "query": [
+            {
+              "key": "app_name",
+              "value": "{{app_name}}"
+            }
+          ]
+        },
+        "description": "Controller: accounts/patchwork_settings#leicester_news_notification",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed\": true,\n  \"app_name\": \"{{app_name}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/accounts/leicester_notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/accounts/leicester_notification?app_name={{app_name}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "leicester_notification"
+          ],
+          "query": [
+            {
+              "key": "app_name",
+              "value": "{{app_name}}"
+            }
+          ]
+        },
+        "description": "Controller: accounts/patchwork_settings#update_leicester_news_notification",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed\": true,\n  \"app_name\": \"{{app_name}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/accounts/subscribe_leicester",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/accounts/subscribe_leicester",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "subscribe_leicester"
+          ]
+        },
+        "description": "Controller: accounts/ghost_subscriptions#manage_subscription",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"subscribe\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/accounts/article_notifications",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/accounts/article_notifications?app_name={{app_name}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "article_notifications"
+          ],
+          "query": [
+            {
+              "key": "app_name",
+              "value": "{{app_name}}"
+            }
+          ]
+        },
+        "description": "Controller: accounts/patchwork_settings#article_notifications",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed\": true,\n  \"app_name\": \"{{app_name}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/accounts/article_notifications",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/accounts/article_notifications?app_name={{app_name}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "accounts",
+            "article_notifications"
+          ],
+          "query": [
+            {
+              "key": "app_name",
+              "value": "{{app_name}}"
+            }
+          ]
+        },
+        "description": "Controller: accounts/patchwork_settings#update_article_notifications",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed\": true,\n  \"app_name\": \"{{app_name}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/timelines/@:username/feed",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/timelines/@{{username}}/feed?local=true&remote=false&only_media=false&limit=20&max_id={{max_id}}&since_id={{since_id}}&min_id={{min_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "timelines",
+            "@{{username}}",
+            "feed"
+          ],
+          "query": [
+            {
+              "key": "local",
+              "value": "true"
+            },
+            {
+              "key": "remote",
+              "value": "false"
+            },
+            {
+              "key": "only_media",
+              "value": "false"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "max_id",
+              "value": "{{max_id}}"
+            },
+            {
+              "key": "since_id",
+              "value": "{{since_id}}"
+            },
+            {
+              "key": "min_id",
+              "value": "{{min_id}}"
+            }
+          ]
+        },
+        "description": "Controller: timelines/feeds#show"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/timelines/for_you_custom_timeline",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/timelines/for_you_custom_timeline?grouped_admin_statuses=true&exclude_direct_statuses=false&exclude_replies=false&limit=20&max_id={{max_id}}&since_id={{since_id}}&min_id={{min_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "timelines",
+            "for_you_custom_timeline"
+          ],
+          "query": [
+            {
+              "key": "grouped_admin_statuses",
+              "value": "true"
+            },
+            {
+              "key": "exclude_direct_statuses",
+              "value": "false"
+            },
+            {
+              "key": "exclude_replies",
+              "value": "false"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "max_id",
+              "value": "{{max_id}}"
+            },
+            {
+              "key": "since_id",
+              "value": "{{since_id}}"
+            },
+            {
+              "key": "min_id",
+              "value": "{{min_id}}"
+            }
+          ]
+        },
+        "description": "Controller: timelines/for_you_custom_timeline#show"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/custom_statuses/add_custom_boost_bot_status",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_statuses/add_custom_boost_bot_status",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_statuses",
+            "add_custom_boost_bot_status"
+          ]
+        },
+        "description": "Controller: custom_statuses/custom_boost_bot_status#add_custom_boost_bot_status",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status_url\": \"https://example.social/@user/123\",\n  \"client_id\": \"{{client_id}}\",\n  \"client_secret\": \"{{client_secret}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/custom_statuses/remove_custom_boost_bot_status",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/custom_statuses/remove_custom_boost_bot_status",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "custom_statuses",
+            "remove_custom_boost_bot_status"
+          ]
+        },
+        "description": "Controller: custom_statuses/custom_boost_bot_status#remove_custom_boost_bot_status",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status_id\": \"{{status_id}}\",\n  \"client_id\": \"{{client_id}}\",\n  \"client_secret\": \"{{client_secret}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/local_only_posts/getLocalOnlySetting",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/local_only_posts/getLocalOnlySetting",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "local_only_posts",
+            "getLocalOnlySetting"
+          ]
+        },
+        "description": "Controller: local_only_posts#getLocalOnlySetting"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/drafted_statuses",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/drafted_statuses",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "drafted_statuses"
+          ]
+        },
+        "description": "Controller: drafted_statuses#create",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Draft via Newman\",\n  \"drafted\": true,\n  \"visibility\": \"public\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/drafted_statuses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/drafted_statuses",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "drafted_statuses"
+          ]
+        },
+        "description": "Controller: drafted_statuses#index",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Draft via Newman\",\n  \"drafted\": true,\n  \"visibility\": \"public\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/drafted_statuses/:id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/drafted_statuses/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "drafted_statuses",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: drafted_statuses#show"
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH /api/v1/drafted_statuses/:id",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/drafted_statuses/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "drafted_statuses",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: drafted_statuses#update"
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /api/v1/drafted_statuses/:id",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/drafted_statuses/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "drafted_statuses",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: drafted_statuses#update"
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /api/v1/drafted_statuses/:id",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/drafted_statuses/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "drafted_statuses",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: drafted_statuses#destroy"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/drafted_statuses/:id/publish",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/drafted_statuses/{{id}}/publish",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "drafted_statuses",
+            "{{id}}",
+            "publish"
+          ]
+        },
+        "description": "Controller: drafted_statuses#publish"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/v1/utilities/link_preview",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/utilities/link_preview?url={{link_preview_url}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "utilities",
+            "link_preview"
+          ],
+          "query": [
+            {
+              "key": "url",
+              "value": "{{link_preview_url}}"
+            }
+          ]
+        },
+        "description": "Controller: utilities#link_preview"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/patchwork/relays",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/relays",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "relays"
+          ]
+        },
+        "description": "Controller: relays#create",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"inbox_url\": \"{{relay_inbox_url}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /api/v1/patchwork/relays/:id",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/patchwork/relays/{{id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "patchwork",
+            "relays",
+            "{{id}}"
+          ]
+        },
+        "description": "Controller: relays#destroy"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/ghost_webhooks",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/ghost_webhooks",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ghost_webhooks"
+          ]
+        },
+        "description": "Controller: webhooks#handle_ghost",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"post\": {\n    \"id\": \"1\",\n    \"title\": \"Example\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/v1/wordpress_webhooks",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/wordpress_webhooks?auth_token={{wordpress_auth_token}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "wordpress_webhooks"
+          ],
+          "query": [
+            {
+              "key": "auth_token",
+              "value": "{{wordpress_auth_token}}"
+            }
+          ]
+        },
+        "description": "Controller: webhooks#handle_wordpress",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Example\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -17,7 +17,7 @@ RELAY_INBOX_URL = ENV.fetch("RELAY_INBOX_URL", "https://relay.example.com/inbox"
 WORDPRESS_AUTH_TOKEN = ENV.fetch("WORDPRESS_AUTH_TOKEN", "")
 GHOST_SIGNATURE = ENV.fetch("GHOST_SIGNATURE", "sha256=example,t=1710000000")
 
-OUT_PATH = File.expand_path("../../tmp/newman.generated.env.json", __dir__)
+OUT_PATH = ENV.fetch("POSTMAN_ENV_OUTPUT_FILE", File.expand_path("../../tmp/newman.generated.env.json", __dir__))
 
 if ACCESS_TOKEN.empty?
   warn "ACCESS_TOKEN is required. Export ACCESS_TOKEN before running postman setup."

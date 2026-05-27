@@ -16,11 +16,11 @@ end
 
 desc "Run the Postman collection with Newman"
 task :postman do
-	sh "bash script/api/run_newman_suite.sh"
+  sh "bash script/api/run_newman_suite.sh"
 end
 
 namespace :api do
-  desc "Verify that routes, controllers, and Postman collections are in sync"
+  desc "Verify that routes, controllers, and the combined Postman collection are in sync"
   task :verify do
     sh "ruby script/api/verify_routes_and_docs.rb"
   end
@@ -30,7 +30,7 @@ namespace :api do
     sh "ruby script/api/postman_setup.rb"
   end
 
-  desc "Run all Postman collections via Newman"
+  desc "Run the combined Postman collection via Newman"
   task :postman do
     sh "bash script/api/run_newman_suite.sh"
   end
@@ -41,5 +41,5 @@ namespace :api do
   end
 
   desc "Run route/docs verification + Postman suite + request spec smoke suite"
-  task full_check: [:verify, :postman, :smoke]
+  task full_check: [ :verify, :postman, :smoke ]
 end
