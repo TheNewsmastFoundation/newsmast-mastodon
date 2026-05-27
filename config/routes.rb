@@ -50,6 +50,8 @@ NewsmastMastodon::Engine.routes.draw do
           end
         end
 
+        resources :account_deletion, only: [:destroy]
+
         # --- conversations ---
         resources :conversations, only: [] do
           collection do
