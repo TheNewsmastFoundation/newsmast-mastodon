@@ -8,7 +8,7 @@ require "time"
 require "fileutils"
 
 BASE_URL = ENV.fetch("BASE_URL", "http://localhost:3000").chomp("/")
-ACCESS_TOKEN = ENV.fetch("ACCESS_TOKEN", "mXMZhmcehQT937WEbpZGIWSaKKVpr4sq2oEHegaj4W4")
+ACCESS_TOKEN = ENV.fetch("ACCESS_TOKEN", "")
 PLATFORM_TYPE = ENV.fetch("PLATFORM_TYPE", "ios")
 STARTER_PACK_SOURCE = ENV.fetch("STARTER_PACK_SOURCE", "twt")
 APP_NAME = ENV.fetch("APP_NAME", "")
@@ -18,6 +18,11 @@ WORDPRESS_AUTH_TOKEN = ENV.fetch("WORDPRESS_AUTH_TOKEN", "")
 GHOST_SIGNATURE = ENV.fetch("GHOST_SIGNATURE", "sha256=example,t=1710000000")
 
 OUT_PATH = File.expand_path("../../tmp/newman.generated.env.json", __dir__)
+
+if ACCESS_TOKEN.empty?
+  warn "ACCESS_TOKEN is required. Export ACCESS_TOKEN before running postman setup."
+  exit 1
+end
 
 def request(method, path, body: nil, query: nil, auth: true)
   uri = URI.parse("#{BASE_URL}#{path}")
@@ -45,7 +50,8 @@ end
 
 def dig_id(payload, *paths)
   paths.each do |path|
-    value = path.reduce(payload) { |acc, key| acc.is_a?(Hash) ? acc[key] : nil }
+    keys = path.is_a?(Array) ? path : [ path ]
+    value = keys.reduce(payload) { |acc, key| acc.is_a?(Hash) ? acc[key] : nil }
     return value if value && value.to_s != ""
   end
   nil

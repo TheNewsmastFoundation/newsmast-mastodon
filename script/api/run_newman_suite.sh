@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 DOCS_DIR="$ROOT_DIR/docs"
+REPORT_DIR="$ROOT_DIR/tmp/newman-reports"
 
 if command -v newman >/dev/null 2>&1; then
   NEWMAN_BIN=(newman)
@@ -35,14 +36,20 @@ collections=(
 )
 
 failed=0
+rm -rf "$REPORT_DIR"
+mkdir -p "$REPORT_DIR"
+
 for collection in "${collections[@]}"; do
+  collection_base="$(basename "$collection" .postman_collection.json)"
+  report_json="$REPORT_DIR/${collection_base}.json"
+
   echo "Running $(basename "$collection")"
   if [[ ! -s "$collection" ]]; then
     echo "  skipped (missing or empty)"
     continue
   fi
 
-  if ! "${NEWMAN_BIN[@]}" run "$collection" --environment "$ENV_FILE" --reporters cli; then
+  if ! "${NEWMAN_BIN[@]}" run "$collection" --environment "$ENV_FILE" --reporters cli,json --reporter-json-export "$report_json"; then
     failed=1
   fi
   echo
@@ -50,6 +57,8 @@ for collection in "${collections[@]}"; do
   echo
 
 done
+
+ruby "$ROOT_DIR/script/api/summarize_newman_report.rb"
 
 if [[ "$failed" -ne 0 ]]; then
   echo "One or more collections failed"
