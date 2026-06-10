@@ -1,5 +1,5 @@
 module NewsmastMastodon::Api::V1::Patchwork
-  class AccountDeletionController < Api::BaseController
+  class AccountDeletionController < ::Api::BaseController
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
 
     before_action -> { doorkeeper_authorize! :read, :write }

@@ -11,16 +11,16 @@ module NewsmastMastodon::Concerns::CustomAuthenticationBehavior
       return
     end
 
-    if LoginService.new(oauth_params).two_factor_enabled?
+    if NewsmastMastodon::LoginService.new(oauth_params).two_factor_enabled?
       return render_error(I18n.t('login_service.errors.two_factor_enabled'))
     end
 
     error_message = if ENV.fetch('LOCAL_DOMAIN', nil) == 'thebristolcable.social' || Rails.env.development?
-      LoginService.new(oauth_params).bristol_cable_login || nil
+      NewsmastMastodon::LoginService.new(oauth_params).bristol_cable_login || nil
     elsif is_non_channel?
-      LoginService.new(oauth_params).non_channel_login || nil
+      NewsmastMastodon::LoginService.new(oauth_params).non_channel_login || nil
     else
-      LoginService.new(oauth_params).channel_login || nil
+      NewsmastMastodon::LoginService.new(oauth_params).channel_login || nil
     end
 
     error_message.nil? ? super : render_error(error_message)

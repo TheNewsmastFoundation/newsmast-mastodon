@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1::Patchwork
-  class ConversationsController < Api::BaseController
+  class ConversationsController < ::Api::BaseController
     LIMIT = 1
 
     before_action -> { doorkeeper_authorize! :read, :'read:statuses' }, only: :check_conversation

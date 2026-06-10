@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class NewsmastMastodon::AccountsIndex < Chewy::Index
-  include DatetimeClampingConcern
+if defined?(Chewy::Index) && defined?(DatetimeClampingConcern)
+  class NewsmastMastodon::AccountsIndex < Chewy::Index
+    include DatetimeClampingConcern
 
   settings index: index_preset(refresh_interval: '30s'), analysis: {
     filter: {
@@ -74,14 +75,18 @@ class NewsmastMastodon::AccountsIndex < Chewy::Index
   # CUSTOMIZED CODE < Adding index_scope to without_banned from content_filters gem >
   index_scope ::Account.searchable.without_banned.includes(:account_stat)
 
-  root date_detection: false do
-    field(:id, type: 'long')
-    field(:following_count, type: 'long')
-    field(:followers_count, type: 'long')
-    field(:properties, type: 'keyword', value: ->(account) { account.searchable_properties })
-    field(:last_status_at, type: 'date', value: ->(account) { clamp_date(account.last_status_at || account.created_at) })
-    field(:display_name, type: 'text', analyzer: 'verbatim') { field :edge_ngram, type: 'text', analyzer: 'edge_ngram', search_analyzer: 'verbatim' }
-    field(:username, type: 'text', analyzer: 'verbatim', value: ->(account) { [account.username, account.domain].compact.join('@') }) { field :edge_ngram, type: 'text', analyzer: 'edge_ngram', search_analyzer: 'verbatim' }
-    field(:text, type: 'text', analyzer: 'verbatim', value: ->(account) { account.searchable_text }) { field :stemmed, type: 'text', analyzer: 'natural' }
+    root date_detection: false do
+      field(:id, type: 'long')
+      field(:following_count, type: 'long')
+      field(:followers_count, type: 'long')
+      field(:properties, type: 'keyword', value: ->(account) { account.searchable_properties })
+      field(:last_status_at, type: 'date', value: ->(account) { clamp_date(account.last_status_at || account.created_at) })
+      field(:display_name, type: 'text', analyzer: 'verbatim') { field :edge_ngram, type: 'text', analyzer: 'edge_ngram', search_analyzer: 'verbatim' }
+      field(:username, type: 'text', analyzer: 'verbatim', value: ->(account) { [account.username, account.domain].compact.join('@') }) { field :edge_ngram, type: 'text', analyzer: 'edge_ngram', search_analyzer: 'verbatim' }
+      field(:text, type: 'text', analyzer: 'verbatim', value: ->(account) { account.searchable_text }) { field :stemmed, type: 'text', analyzer: 'natural' }
+    end
+  end
+else
+  class NewsmastMastodon::AccountsIndex
   end
 end

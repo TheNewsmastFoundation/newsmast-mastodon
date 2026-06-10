@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1::Patchwork
-  class AlttextSettingsController < Api::BaseController
+  class AlttextSettingsController < ::Api::BaseController
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
 
     before_action -> { doorkeeper_authorize! :read, :write }

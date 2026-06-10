@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module NewsmastMastodon::Api::V1
-  class RelaysController < Api::BaseController
+  class RelaysController < ::Api::BaseController
     before_action :require_user!
     before_action :check_owner!
     before_action :set_relay, except: [:create]

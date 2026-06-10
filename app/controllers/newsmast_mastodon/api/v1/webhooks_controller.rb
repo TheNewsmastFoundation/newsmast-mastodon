@@ -1,5 +1,5 @@
 module NewsmastMastodon::Api::V1
-  class WebhooksController < Api::BaseController
+  class WebhooksController < ::Api::BaseController
     before_action :authenticate_ghost_request!, only: [:handle_ghost]
     before_action :authenticate_wordpress_request!, only: [:handle_wordpress]
 

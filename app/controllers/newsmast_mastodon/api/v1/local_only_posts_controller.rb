@@ -1,5 +1,5 @@
 module NewsmastMastodon::Api::V1
-  class LocalOnlyPostsController < Api::BaseController
+  class LocalOnlyPostsController < ::Api::BaseController
     include Authorization
     before_action :require_user!, only: [:getLocalOnlySetting]
 

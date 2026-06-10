@@ -1,5 +1,5 @@
 module NewsmastMastodon::Api::V1::CustomStatuses
-  class CustomBoostBotStatusController < Api::BaseController
+  class CustomBoostBotStatusController < ::Api::BaseController
     include Redisable
 
     before_action :require_auth!

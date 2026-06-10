@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1
-  class CustomPasswordsController < Api::BaseController
+  class CustomPasswordsController < ::Api::BaseController
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
 
     ACCESS_TOKEN_SCOPES = 'read write follow push profile'

@@ -1,5 +1,5 @@
 module NewsmastMastodon::Api::V1
-  class UtilitiesController < Api::BaseController
+  class UtilitiesController < ::Api::BaseController
     def link_preview
       url = params[:url]
       unless url.present?

@@ -11,7 +11,7 @@ module PatchworkHelper
 
   def patchwork_table_exists?(table_name)
     ActiveRecord::Base.connection.data_source_exists?(table_name)
-  rescue ActiveRecord::NoDatabaseError, PG::ConnectionBad
+  rescue ActiveRecord::NoDatabaseError, ActiveRecord::ConnectionNotEstablished, PG::ConnectionBad
     false
   end
 

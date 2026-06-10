@@ -34,6 +34,42 @@ end
 
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
+def standalone_sqlite_test_mode?
+  !MASTODON_ROOT && ENV["DATABASE_URL"].blank? && ENV["DATABASE_HOST"].blank? && ENV["DATABASE_ADAPTER"].blank?
+end
+
+def bootstrap_standalone_test_database!
+  sqlite_database = File.expand_path("dummy/db/test.sqlite3", __dir__)
+  File.delete(sqlite_database) if File.exist?(sqlite_database)
+
+  sqlite_config = {
+    adapter: "sqlite3",
+    database: sqlite_database,
+  }
+
+  ActiveRecord::Base.configurations = {
+    Rails.env => sqlite_config.stringify_keys,
+  }
+  ActiveRecord::Base.establish_connection(sqlite_config)
+
+  return if ActiveRecord::Base.connection.data_source_exists?("server_settings")
+
+  ActiveRecord::Schema.verbose = false
+  ActiveRecord::Schema.define do
+    create_table :server_settings, force: true do |t|
+      t.string :name
+      t.string :optional_value
+      t.boolean :value
+      t.integer :position
+      t.bigint :parent_id
+      t.datetime :deleted_at
+      t.timestamps null: false
+    end
+  end
+end
+
+bootstrap_standalone_test_database! if standalone_sqlite_test_mode?
+
 require "rspec/rails"
 
 # factory_bot_rails is in the gem's own bundle; the Mastodon host bundle uses
@@ -65,12 +101,14 @@ end
 require "faker"
 
 # Ensure any pending migrations from the engine are run against the current DB.
-begin
-  ActiveRecord::Migration.maintain_test_schema!
-rescue ActiveRecord::PendingMigrationError => e
-  warn e.to_s.strip
-rescue ActiveRecord::NoDatabaseError, ActiveRecord::ConnectionNotEstablished
-  # Dummy DB may not exist yet; pending specs can still load.
+unless standalone_sqlite_test_mode?
+  begin
+    ActiveRecord::Migration.maintain_test_schema!
+  rescue ActiveRecord::PendingMigrationError => e
+    warn e.to_s.strip
+  rescue ActiveRecord::NoDatabaseError, ActiveRecord::ConnectionNotEstablished
+    # Dummy DB may not exist yet; pending specs can still load.
+  end
 end
 
 # Load all support files (shared contexts, shared examples, helpers).
@@ -101,7 +139,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods if defined?(FactoryBot)
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = standalone_sqlite_test_mode? ? :truncation : :transaction
     DatabaseCleaner.clean_with(:truncation) if ActiveRecord::Base.connected?
   rescue ActiveRecord::NoDatabaseError, ActiveRecord::ConnectionNotEstablished
     # DB may not exist yet; pending specs can still load.

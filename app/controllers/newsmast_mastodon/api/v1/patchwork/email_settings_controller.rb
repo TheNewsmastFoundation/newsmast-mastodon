@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1::Patchwork
-  class EmailSettingsController < Api::BaseController
+  class EmailSettingsController < ::Api::BaseController
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
     include ::NewsmastMastodon::Concerns::EmailNotificationAttributesConcern
 

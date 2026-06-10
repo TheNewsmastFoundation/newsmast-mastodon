@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1
-  class NotificationTokensController < Api::BaseController
+  class NotificationTokensController < ::Api::BaseController
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
 
     before_action :require_user!

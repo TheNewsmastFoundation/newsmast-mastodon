@@ -1,5 +1,5 @@
 module NewsmastMastodon::Api::V1::Timelines
-  class FeedsController < Api::V1::Timelines::BaseController
+  class FeedsController < ::Api::V1::Timelines::BaseController
     before_action -> { authorize_if_got_token! :read, :'read:statuses' }
 
     PERMITTED_PARAMS = %i(local remote limit only_media).freeze

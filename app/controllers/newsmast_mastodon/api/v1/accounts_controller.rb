@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1
-  class AccountsController < Api::BaseController
+  class AccountsController < ::Api::BaseController
     include Redisable
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
 

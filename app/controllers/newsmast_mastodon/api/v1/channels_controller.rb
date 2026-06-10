@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1
-  class ChannelsController < Api::BaseController
+  class ChannelsController < ::Api::BaseController
     include Redisable
 
     before_action :require_user!

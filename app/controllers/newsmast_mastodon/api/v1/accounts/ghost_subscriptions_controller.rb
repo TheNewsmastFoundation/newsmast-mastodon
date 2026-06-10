@@ -2,7 +2,7 @@ require 'httparty'
 require 'jwt'
 
 module NewsmastMastodon::Api::V1::Accounts
-  class GhostSubscriptionsController < Api::BaseController
+  class GhostSubscriptionsController < ::Api::BaseController
     include ::NewsmastMastodon::Concerns::ApiResponseHelper
     before_action -> { doorkeeper_authorize! :read, :write }
     before_action :require_user!

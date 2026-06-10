@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon::Api::V1
-  class DraftedStatusesController < Api::BaseController
+  class DraftedStatusesController < ::Api::BaseController
     include Authorization
     before_action -> { doorkeeper_authorize! :read, :'read:statuses' }, except: [:update, :destroy, :publish]
     before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only: [:create, :update, :destroy, :publish]

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class NewsmastMastodon::PublicStatusesIndex < Chewy::Index
-  include DatetimeClampingConcern
+if defined?(Chewy::Index) && defined?(DatetimeClampingConcern)
+  class NewsmastMastodon::PublicStatusesIndex < Chewy::Index
+    include DatetimeClampingConcern
 
   settings index: index_preset(refresh_interval: '30s', number_of_shards: 5), analysis: {
     filter: {
@@ -59,13 +60,17 @@ class NewsmastMastodon::PublicStatusesIndex < Chewy::Index
                       .without_banned
                       .includes(:media_attachments, :preloadable_poll, :tags, preview_cards_status: :preview_card)
 
-  root date_detection: false do
-    field(:id, type: 'long')
-    field(:account_id, type: 'long')
-    field(:text, type: 'text', analyzer: 'verbatim', value: ->(status) { status.searchable_text }) { field(:stemmed, type: 'text', analyzer: 'content') }
-    field(:tags, type: 'text', analyzer: 'hashtag', value: ->(status) { status.tags.map(&:display_name) })
-    field(:language, type: 'keyword')
-    field(:properties, type: 'keyword', value: ->(status) { status.searchable_properties })
-    field(:created_at, type: 'date', value: ->(status) { clamp_date(status.created_at) })
+    root date_detection: false do
+      field(:id, type: 'long')
+      field(:account_id, type: 'long')
+      field(:text, type: 'text', analyzer: 'verbatim', value: ->(status) { status.searchable_text }) { field(:stemmed, type: 'text', analyzer: 'content') }
+      field(:tags, type: 'text', analyzer: 'hashtag', value: ->(status) { status.tags.map(&:display_name) })
+      field(:language, type: 'keyword')
+      field(:properties, type: 'keyword', value: ->(status) { status.searchable_properties })
+      field(:created_at, type: 'date', value: ->(status) { clamp_date(status.created_at) })
+    end
+  end
+else
+  class NewsmastMastodon::PublicStatusesIndex
   end
 end
