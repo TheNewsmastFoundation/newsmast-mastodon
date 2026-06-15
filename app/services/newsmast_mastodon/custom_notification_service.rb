@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/services/custom_notification_service.rb
 
 module NewsmastMastodon
   class CustomNotificationService < BaseService

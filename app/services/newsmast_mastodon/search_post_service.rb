@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/services/posts/search_post_service.rb
 
 module NewsmastMastodon
   class SearchPostService < BaseService

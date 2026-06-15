@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/lib/overrides/extended_account_statuses_filter.rb
 # Namespace update: Posts::CommunityAdmin → NewsmastMastodon::CommunityAdmin
 module NewsmastMastodon
   module Overrides

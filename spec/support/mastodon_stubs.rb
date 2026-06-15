@@ -103,7 +103,7 @@ unless ActiveRecord::Base.respond_to?(:has_attached_file)
 end
 
 # ---------------------------------------------------------------------------
-# Constants defined in sibling gems (local_only_posts, posts / long_post)
+# Optional feature constants referenced by the engine
 # ---------------------------------------------------------------------------
 
 unless defined?(LocalOnlyPosts)

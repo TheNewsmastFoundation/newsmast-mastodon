@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Merged from:
-#   accounts/app/models/concerns/user_concern.rb (after_create callbacks, settings bootstrap)
-#   content_filters/app/models/content_filters/concerns/user_concern.rb (get_server_setting_exclude_domains)
 module NewsmastMastodon
   module Concerns
     module UserConcern

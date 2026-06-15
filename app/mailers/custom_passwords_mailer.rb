@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/mailers/custom_passwords_mailer.rb
 class CustomPasswordsMailer < ApplicationMailer
   layout 'email'
 

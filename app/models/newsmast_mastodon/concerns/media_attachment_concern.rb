@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/models/posts/concerns/media_attachment_concern.rb
 module NewsmastMastodon
   module Concerns
     module MediaAttachmentConcern

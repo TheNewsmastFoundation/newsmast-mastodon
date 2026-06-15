@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-# Merged from:
-#   accounts/app/helpers/patchwork_helper.rb (checked for Accounts::ServerSetting / Accounts::CommunityAdmin)
-#   posts/app/helpers/patchwork_helper.rb    (checked for Posts::ServerSetting   / Posts::CommunityAdmin)
 #
-# After consolidation both collapse to NewsmastMastodon::ServerSetting and
 # NewsmastMastodon::CommunityAdmin, so there is now a single unified helper.
 module PatchworkHelper
   extend ActiveSupport::Concern

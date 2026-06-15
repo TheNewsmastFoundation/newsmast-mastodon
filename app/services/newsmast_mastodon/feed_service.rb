@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/services/content_filters/feed_service.rb
 
 module NewsmastMastodon
   class FeedService

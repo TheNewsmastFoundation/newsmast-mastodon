@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/services/overrides/notify_service_extension.rb
 
 module NewsmastMastodon
   module Overrides

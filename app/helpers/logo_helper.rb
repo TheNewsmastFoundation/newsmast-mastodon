@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/helpers/logo_helper.rb
 module LogoHelper
   def mail_header_logo_image_url
     site_upload = SiteUpload.find_by(var: 'mail_header_logo')

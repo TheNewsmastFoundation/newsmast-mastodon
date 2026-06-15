@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: custom_feeds/app/models/custom_feeds/concerns/feed_manager_concern.rb
 # Extends FeedManager with custom timeline support.
 module NewsmastMastodon
   module Concerns

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/services/login_service.rb
 
 module NewsmastMastodon
   class LoginService

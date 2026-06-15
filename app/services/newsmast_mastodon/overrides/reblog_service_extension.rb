@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: local_only_posts/app/services/local_only_posts/reblog_service_extension.rb
 
 module NewsmastMastodon
   module Overrides

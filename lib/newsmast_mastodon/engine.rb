@@ -61,7 +61,7 @@ module NewsmastMastodon
       end
     end
 
-    # --- Chewy autoload exclusion (from content_filters engine) ---
+    # --- Chewy autoload exclusion ---
     initializer 'newsmast_mastodon.exclude_chewy_autoload', before: :set_autoload_paths do |app|
       gem_root = root.to_s
       chewy_path = File.join(gem_root, "app", "chewy", "newsmast_mastodon")

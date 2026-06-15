@@ -1,14 +1,7 @@
 # frozen_string_literal: true
 
-# Merged from:
-#   content_filters/.../feed_concern.rb      (ban-list filtering via FeedService, grouped_admin logic)
-#   timelines_extension/.../feed_concern.rb  (direct-visibility exclusion via where.not)
-#
-# Resolution:
-#   - exclude_direct_statuses uses `where.not(visibility: %i(direct))` (timelines_extension semantics)
-#     which preserves `private` visibility posts that the content_filters variant incorrectly excluded.
-#   - filter_and_cache_statuses keeps the content_filters ban-list superset behavior.
-#   - get() supports the superset of parameters from both engines.
+# Timeline fetch supports optional filters for direct visibility, followed tags,
+# replies, and grouped admin exclusions.
 module NewsmastMastodon
   module Concerns
     module FeedConcern
@@ -45,8 +38,7 @@ module NewsmastMastodon
 
         filter_and_cache_statuses(unhydrated)
 
-        # Use where.not(visibility: direct) per plan — preserves `private` visibility (the
-        # content_filters variant used `where(visibility: %i(public unlisted))` which dropped private posts).
+        # Exclude direct posts without dropping private visibility posts.
         @statuses = @statuses.where.not(visibility: %i[direct]) if exclude_direct_statuses
 
         if exclude_followed_tags
@@ -72,7 +64,7 @@ module NewsmastMastodon
         @statuses
       end
 
-      # Keep content_filters semantics: apply ban-list filtering from FeedService.
+      # Apply ban-list filtering before downstream timeline filters.
       def filter_and_cache_statuses(unhydrated)
         filter_service = NewsmastMastodon::FeedService.new
         banned_ids     = filter_service.excluded_status_ids

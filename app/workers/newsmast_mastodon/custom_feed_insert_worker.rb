@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: custom_feeds/app/workers/custom_feed_insert_worker.rb
 
 module NewsmastMastodon
   class CustomFeedInsertWorker

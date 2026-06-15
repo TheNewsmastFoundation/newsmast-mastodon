@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: custom_feeds/app/models/custom_feeds/concerns/fan_out_on_write_concern.rb
 # Prepended/included into FanOutOnWriteService to fan out posts into the custom timeline.
 module NewsmastMastodon
   module Concerns

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/serializers/long_post/instance_serializer_extension.rb
 # Namespace update: Posts::ServerSetting → NewsmastMastodon::ServerSetting
 module LongPost
   module InstanceSerializerExtension

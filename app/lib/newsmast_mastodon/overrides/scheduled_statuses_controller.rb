@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/lib/overrides/scheduled_statuses_controller.rb
 module NewsmastMastodon
   module Overrides
     module ScheduledStatusesController

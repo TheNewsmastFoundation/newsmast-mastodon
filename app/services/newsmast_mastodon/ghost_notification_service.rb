@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/services/posts/ghost_notification_service.rb
 
 module NewsmastMastodon
   class GhostNotificationService < BaseService

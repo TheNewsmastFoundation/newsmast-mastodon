@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/models/concerns/override_changed_password.rb
 module NewsmastMastodon
   module Concerns
     module OverrideChangedPassword

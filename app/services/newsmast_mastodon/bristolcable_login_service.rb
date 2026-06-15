@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/services/bristolcable_login_service.rb
 
 require 'httparty'
 

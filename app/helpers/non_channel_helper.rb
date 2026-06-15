@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/helpers/non_channel_helper.rb
 module NonChannelHelper
   extend ActiveSupport::Concern
 

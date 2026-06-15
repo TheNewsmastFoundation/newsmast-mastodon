@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: custom_feeds/app/services/custom_feeds/custom_timeline_service.rb
 
 module NewsmastMastodon
   class CustomTimelineService < BaseService

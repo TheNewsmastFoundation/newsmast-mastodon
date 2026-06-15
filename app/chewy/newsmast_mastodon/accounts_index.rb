@@ -72,7 +72,7 @@ if defined?(Chewy::Index) && defined?(DatetimeClampingConcern)
     },
   }
 
-  # CUSTOMIZED CODE < Adding index_scope to without_banned from content_filters gem >
+  # Include only searchable, non-banned accounts in the index scope.
   index_scope ::Account.searchable.without_banned.includes(:account_stat)
 
     root date_detection: false do

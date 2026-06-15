@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: local_only_posts/app/services/local_only_posts/post_status_service_extension.rb
 
 module NewsmastMastodon
   module Overrides
@@ -18,7 +17,6 @@ module NewsmastMastodon
         ActivityPub::QuoteRequestWorker.perform_async(@status.quote.id) if @status.quote&.quoted_status.present? && !@status.quote&.quoted_status&.local?
 
         # Below is from content filters gems, which need to know about the status regardless of whether it's local-only or not.
-        # /gems/content_filters/app/workers/ban_status_worker.rb
         NewsmastMastodon::BanStatusWorker.perform_async(@status.id) if @status&.id.present?
       end
 

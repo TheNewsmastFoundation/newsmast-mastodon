@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/services/posts/concerns/draft_status_service.rb
 
 module NewsmastMastodon
   module Concerns
