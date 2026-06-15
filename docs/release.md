@@ -12,6 +12,7 @@ Primary release mode in this repository:
 2. RubyGems trusted publishing is configured for this repository.
 3. Your local branch is up to date with `main`.
 4. Working tree is clean before starting the release.
+5. Commit and tag signing are configured for your Git identity.
 
 Check:
 
@@ -90,16 +91,18 @@ bundle exec rake build
 
 ```bash
 git add lib/newsmast_mastodon/version.rb CHANGELOG.md
-git commit -m "chore(release): vX.Y.Z"
+git commit -S -m "chore(release): vX.Y.Z"
 git push origin main
 ```
 
 5. Create and push the release tag.
 
 ```bash
-git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git tag -s vX.Y.Z -m "Release vX.Y.Z"
 git push origin vX.Y.Z
 ```
+
+If signing is not yet configured in your environment, set it up before release.
 
 6. Monitor GitHub Actions publish run.
 
@@ -179,5 +182,6 @@ Use this checklist for each release:
 4. Tests/lint/build pass.
 5. Release commit merged to `main`.
 6. Tag `vX.Y.Z` created and pushed.
-7. Publish workflow passed.
-8. RubyGems version verified.
+7. Release commit and tag are signed.
+8. Publish workflow passed.
+9. RubyGems version verified.

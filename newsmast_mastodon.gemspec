@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    Dir["{app,config,db,lib}/**/*", "LICENSE.txt", "Rakefile", "README.md"]
+    Dir["{app,config,db,lib}/**/*", "CHANGELOG.md", "LICENSE.txt", "Rakefile", "README.md"]
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
@@ -30,11 +30,9 @@ Gem::Specification.new do |spec|
 
   # Runtime dependencies (union of all 7 source gems)
   spec.add_dependency "rails",            ">= 7.1", "< 9.0"
-  spec.add_dependency "byebug",           "~> 11.1"
   spec.add_dependency "googleauth",       "~> 1.13", ">= 1.13.1"
   spec.add_dependency "httparty",         "~> 0.23.1"
   spec.add_dependency "link_thumbnailer", "~> 3.4"
-  spec.add_dependency "annotaterb",       "~> 4.13"
 
   # Development / test dependencies
   spec.add_development_dependency "rspec-rails",               "~> 7.0"
@@ -46,6 +44,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "faker",                     "~> 3.5"
   spec.add_development_dependency "simplecov",                 "~> 0.22"
   spec.add_development_dependency "pg",                        "~> 1.5"
+  spec.add_development_dependency "byebug",                    "~> 11.1"
+  spec.add_development_dependency "annotaterb",                "~> 4.13"
   spec.add_development_dependency "puma",                      "~> 6.0"
   spec.add_development_dependency "sidekiq",                   "~> 7.0"
   spec.add_development_dependency "sqlite3",                   "~> 1.4"

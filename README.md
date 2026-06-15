@@ -55,10 +55,10 @@ yarn build:production
 
 - Ruby: `>= 3.1.0`
 - Rails: `>= 7.1`, `< 9.0`
-- Host app: Mastodon-based Rails application
+- Host app: Mastodon 4.5.11 runtime target
 
-This repository does not pin a specific Mastodon release in its dependencies,
-so compatibility should be validated against your target Mastodon version.
+This gem is maintained against Mastodon 4.5.11. Use exact gem version pinning
+in your host app Gemfile to avoid unplanned compatibility drift.
 
 ## Runtime behavior
 
