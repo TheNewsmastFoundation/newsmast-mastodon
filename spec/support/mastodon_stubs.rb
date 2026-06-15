@@ -9,7 +9,7 @@
 #
 # These stubs are intentionally minimal — they only supply enough structure for
 # the engine files to be required without error.  Real behaviour is tested via
-# the host-app integration harness (CONSOLIDATION_PLAN.md Phase 13-14).
+# the host-app integration harness.
 
 # ---------------------------------------------------------------------------
 # External gem stubs (not pulled into the test bundle)

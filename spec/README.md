@@ -17,15 +17,14 @@ bundle exec rspec
 - `spec/dummy/` — minimal Rails application (PostgreSQL) that mounts the engine
 - `spec/support/` — shared contexts and shared examples
 - `spec/factories/` — FactoryBot factories for all `NewsmastMastodon::*` models
-- `spec/models/`, `spec/services/`, `spec/workers/`, `spec/serializers/`, `spec/validators/`, `spec/helpers/`, `spec/mailers/` — unit specs (Phase 13)
-- `spec/requests/`, `spec/routing/`, `spec/integration/` — integration specs (Phase 14)
+- `spec/models/`, `spec/services/`, `spec/workers/`, `spec/serializers/`, `spec/validators/`, `spec/helpers/`, `spec/mailers/` — unit specs
+- `spec/requests/`, `spec/routing/`, `spec/integration/` — integration specs
 
 ## Host dependency notice
 
 This engine extends Mastodon host classes (`Account`, `Status`, `User`,
 `Feed`, `FeedManager`, `PostStatusService`, …). The dummy app intentionally
 does **not** embed the full Mastodon codebase. Specs that exercise host-class
-behaviour are currently marked `pending` with a reference to
-`CONSOLIDATION_PLAN.md`. They become runnable once the host harness is added
+behaviour are currently marked `pending`. They become runnable once the host harness is added
 or when specs are executed against the real host Mastodon app that mounts
 `newsmast_mastodon`.

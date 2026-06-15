@@ -4,7 +4,7 @@
 #   content_filters/.../feed_concern.rb      (ban-list filtering via FeedService, grouped_admin logic)
 #   timelines_extension/.../feed_concern.rb  (direct-visibility exclusion via where.not)
 #
-# Resolution per CONSOLIDATION_PLAN.md:
+# Resolution:
 #   - exclude_direct_statuses uses `where.not(visibility: %i(direct))` (timelines_extension semantics)
 #     which preserves `private` visibility posts that the content_filters variant incorrectly excluded.
 #   - filter_and_cache_statuses keeps the content_filters ban-list superset behavior.
@@ -34,20 +34,20 @@ module NewsmastMastodon
       def from_redis(limit, max_id, since_id, min_id,
                      exclude_direct_statuses = nil, exclude_followed_tags = nil,
                      exclude_replies = nil, grouped_admin_statuses = nil)
-        max_id = '+inf' if max_id.blank?
+        max_id = "+inf" if max_id.blank?
         unhydrated =
           if min_id.blank?
-            since_id = '-inf' if since_id.blank?
-            redis.zrevrangebyscore(key, "(#{max_id}", "(#{since_id}", limit: [0, limit], with_scores: true).map { |id| id.first.to_i }
+            since_id = "-inf" if since_id.blank?
+            redis.zrevrangebyscore(key, "(#{max_id}", "(#{since_id}", limit: [ 0, limit ], with_scores: true).map { |id| id.first.to_i }
           else
-            redis.zrangebyscore(key, "(#{min_id}", "(#{max_id}", limit: [0, limit], with_scores: true).map { |id| id.first.to_i }
+            redis.zrangebyscore(key, "(#{min_id}", "(#{max_id}", limit: [ 0, limit ], with_scores: true).map { |id| id.first.to_i }
           end
 
         filter_and_cache_statuses(unhydrated)
 
         # Use where.not(visibility: direct) per plan — preserves `private` visibility (the
         # content_filters variant used `where(visibility: %i(public unlisted))` which dropped private posts).
-        @statuses = @statuses.where.not(visibility: %i(direct)) if exclude_direct_statuses
+        @statuses = @statuses.where.not(visibility: %i[direct]) if exclude_direct_statuses
 
         if exclude_followed_tags
           followed_tag_ids = @account.followed_tags.pluck(:id)
@@ -57,7 +57,7 @@ module NewsmastMastodon
         @statuses = @statuses.where(reply: false) if exclude_replies
 
         if grouped_admin_statuses
-          return @statuses unless Status.column_names.include?('local_only')
+          return @statuses unless Status.column_names.include?("local_only")
 
           grouped_admin_account_ids = fetch_grouped_admin_account_ids
           if grouped_admin_account_ids.any?
@@ -82,7 +82,7 @@ module NewsmastMastodon
       end
 
       def fetch_grouped_admin_account_ids
-        Rails.cache.fetch('grouped_admin_account_ids', expires_in: 1.hour) do
+        Rails.cache.fetch("grouped_admin_account_ids", expires_in: 1.hour) do
           NewsmastMastodon::CommunityAdmin
             .includes(:community)
             .where(

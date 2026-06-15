@@ -1,6 +1,5 @@
 # PostgreSQL dummy app config for NewsmastMastodon engine specs.
-# Per CONSOLIDATION_PLAN.md Phase 12: adapt dummy app for PostgreSQL to match
-# production Mastodon database.
+# Adapted for PostgreSQL to match the production Mastodon database.
 #
 default: &default
   adapter: postgresql

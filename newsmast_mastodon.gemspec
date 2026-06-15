@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "link_thumbnailer", "~> 3.4"
   spec.add_dependency "annotaterb",       "~> 4.13"
 
-  # Development / test dependencies (Phase 12)
+  # Development / test dependencies
   spec.add_development_dependency "rspec-rails",               "~> 7.0"
   spec.add_development_dependency "factory_bot_rails",         "~> 6.4"
   spec.add_development_dependency "shoulda-matchers",          "~> 6.4"
