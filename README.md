@@ -23,6 +23,8 @@ Add the gem to your Mastodon host app with a strict version constraint:
 gem "newsmast_mastodon", "4.5.11"
 ```
 
+**Important:** Do NOT use flexible version constraints like `~> 4.5` or `>= 4.5.11`, as these allow minor/patch version bumps that may not be compatible with your Mastodon version. Always pin to the exact version (e.g., `"4.5.11"`).
+
 Install dependencies:
 
 ```bash
