@@ -4,7 +4,7 @@ module NewsmastMastodon
   class Engine < ::Rails::Engine
     isolate_namespace NewsmastMastodon
 
-    # --- Doorkeeper password grant (from accounts engine) ---
+    # --- Doorkeeper password grant ---
     config.after_initialize do
       next unless defined?(Doorkeeper)
 
@@ -22,7 +22,7 @@ module NewsmastMastodon
       end
     end
 
-    # --- Append migrations (from all gems) ---
+    # --- Append migrations ---
     initializer :append_migrations do |app|
       unless app.root.to_s == root.to_s
         config.paths["db/migrate"].expanded.each do |expanded_path|
@@ -43,7 +43,7 @@ module NewsmastMastodon
     config.autoload_paths << File.expand_path("../app/workers", __FILE__)
     config.autoload_paths += %W(#{config.root}/app/presenters)
 
-    # --- Ghost & WordPress webhook host allowlisting (from posts engine) ---
+    # --- Ghost & WordPress webhook host allowlisting ---
     initializer 'newsmast_mastodon.extend_allowed_hosts' do |app|
       allowed_hosts = []
 

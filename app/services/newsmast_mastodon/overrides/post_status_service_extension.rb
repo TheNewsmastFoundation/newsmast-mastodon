@@ -16,7 +16,7 @@ module NewsmastMastodon
         PollExpirationNotifyWorker.perform_at(@status.poll.expires_at, @status.poll.id) if @status.poll
         ActivityPub::QuoteRequestWorker.perform_async(@status.quote.id) if @status.quote&.quoted_status.present? && !@status.quote&.quoted_status&.local?
 
-        # Below is from content filters gems, which need to know about the status regardless of whether it's local-only or not.
+        # Trigger content filter checks for status banning, regardless of local-only status.
         NewsmastMastodon::BanStatusWorker.perform_async(@status.id) if @status&.id.present?
       end
 
