@@ -17,10 +17,10 @@ behavior.
 
 ## Installation
 
-Add the gem to your Mastodon host app:
+Add the gem to your Mastodon host app with a strict version constraint:
 
 ```ruby
-gem "newsmast_mastodon"
+gem "newsmast_mastodon", "4.5.11"
 ```
 
 Install dependencies:
