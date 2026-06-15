@@ -36,13 +36,13 @@ module NewsmastMastodon
           thread: @in_reply_to,
           poll_attributes: poll_attributes,
           sensitive: @sensitive,
-          spoiler_text: @options[:spoiler_text] || '',
+          spoiler_text: @options[:spoiler_text] || "",
           visibility: @visibility,
           language: valid_locale_cascade(@options[:language], @account.user&.preferred_posting_language, I18n.default_locale),
           application: @options[:application],
           rate_limit: @options[:with_rate_limit],
           quote_approval_policy: @options[:quote_approval_policy],
-          local_only: local_only_option(@options[:local_only], @in_reply_to),
+          local_only: local_only_option(@options[:local_only], @in_reply_to)
         }.compact
       end
     end
