@@ -49,5 +49,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "puma",                      "~> 6.0"
   spec.add_development_dependency "sidekiq",                   "~> 7.0"
   spec.add_development_dependency "sqlite3",                   "~> 1.4"
-  spec.add_development_dependency "rubocop-rails-omakase",     require: false
+  spec.add_development_dependency "rubocop-rails-omakase"
 end
