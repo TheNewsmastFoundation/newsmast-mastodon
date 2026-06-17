@@ -10,8 +10,6 @@ class CustomPasswordsMailer < ApplicationMailer
   def reset_password_confirmation
     @user = params[:user]
 
-    sender_name = ENV.fetch("MAIL_SENDER_NAME", "Development Patchwork")
-
     if @user.present?
       @subject = "OTP verification code"
       mail(
