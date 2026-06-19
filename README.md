@@ -14,6 +14,7 @@ behavior.
 - Account and notification-related enhancements
 - Host-app concern/service prepends for Mastodon models and services
 - Install task for Chewy indexes and frontend override files
+- Deep linking support for iOS Universal Links and Android App Links
 
 ## Installation
 
@@ -68,6 +69,9 @@ in your host app Gemfile to avoid unplanned compatibility drift.
 - The engine appends gem migrations to the host migration path automatically.
 - If Ghost/WordPress environment variables are present, related hosts are
   allowlisted in `config.hosts`.
+- If deep linking environment variables are set, `/.well-known/apple-app-site-association`
+  and `/.well-known/assetlinks.json` serve the corresponding configuration;
+  otherwise they return 404.
 
 ## Example endpoints
 
@@ -77,8 +81,19 @@ The engine defines multiple `api/v1` routes, including:
 - `POST /api/v1/drafted_statuses/:id/publish`
 - `GET /api/v1/timelines/:username/feed`
 - `GET /api/v1/local_only_posts/getLocalOnlySetting`
+- `GET /.well-known/apple-app-site-association` — iOS Universal Links (AASA)
+- `GET /.well-known/assetlinks.json` — Android App Links
 
 See `config/routes.rb` for the full route list.
+
+### Deep linking environment variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `IOS_APP_ID` | Yes (for iOS) | Full iOS app identifier in `TeamID.BundleID` format (e.g., `VA45Q6RWV3.com.csidnetwork.social`). AASA returns 404 if not set. |
+| `IOS_DEEPLINK_PATHS` | No | Comma-separated URL path patterns (defaults to `/@*,/@*/*`). |
+| `ANDROID_PACKAGE_NAME` | Yes (for Android) | Android app package name (e.g., `com.csidnetwork.social`). Asset links returns 404 if not set. |
+| `ANDROID_SHA256_CERT_FINGERPRINTS` | Yes (for Android) | Comma-separated SHA-256 certificate fingerprints for Android app verification. Asset links returns 404 if not set. |
 
 ## Development
 

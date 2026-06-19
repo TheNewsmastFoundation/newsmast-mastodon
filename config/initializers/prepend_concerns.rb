@@ -24,6 +24,8 @@ Rails.application.config.to_prepare do
   MediaAttachment.include(NewsmastMastodon::Concerns::MediaAttachmentConcern)
 
   # --- Service overrides ---
+  SearchService.prepend(NewsmastMastodon::Overrides::SearchServiceExtension)
+  AccountSearchService.prepend(NewsmastMastodon::Overrides::AccountSearchServiceExtension)
   NotifyService.prepend(NewsmastMastodon::Overrides::NotifyServiceExtension)
   AppSignUpService.prepend(NewsmastMastodon::Overrides::AppSignUpServiceExtension)
   RemoveStatusService.prepend(NewsmastMastodon::Overrides::RemoveStatusServiceExtension)
@@ -53,6 +55,7 @@ Rails.application.config.to_prepare do
   Api::V2::NotificationsController.prepend(NewsmastMastodon::Overrides::NotificationExtendedController)
   Api::V1::Timelines::HomeController.prepend(NewsmastMastodon::Overrides::HomeExtendedTimeline)
   Api::V1::Timelines::PublicController.prepend(NewsmastMastodon::Overrides::PublicExtendedTimeline)
+  Api::V2::SearchController.prepend(NewsmastMastodon::Concerns::SearchControllerExtension)
 
   Auth::TokensController.prepend(NewsmastMastodon::Concerns::CustomAuthenticationBehavior) if Object.const_defined?('Auth::TokensController')
   OAuth::TokensController.prepend(NewsmastMastodon::Concerns::CustomAuthenticationBehavior) if Object.const_defined?('OAuth::TokensController')
