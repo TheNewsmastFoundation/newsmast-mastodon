@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/services/auto_follow_default_accounts_service.rb
 
 module NewsmastMastodon
   class AutoFollowDefaultAccountsService < BaseService

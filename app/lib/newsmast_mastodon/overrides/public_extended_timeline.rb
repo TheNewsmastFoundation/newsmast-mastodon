@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Merged from:
-#   content_filters/.../public_extended_timeline.rb  (grouped_admin_statuses, with_reblogs)
-#   timelines_extension/.../public_extended_timeline.rb (with_replies)
 module NewsmastMastodon
   module Overrides
     module PublicExtendedTimeline

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/services/content_filters/ban_status_service.rb
 
 module NewsmastMastodon
   class BanStatusService
@@ -14,9 +13,7 @@ module NewsmastMastodon
 
       with_read_replica do
         setting_filter_types.each do |setting_filter_type|
-          # The keys wil generated as below
-          # 1.) content_filters_banned_status_ids
-          # 2.) span_filters_banned_status_ids
+          # Build the redis key for each filter family.
           redis_key = "#{setting_filter_type.downcase.gsub(/\s+/, '_')}_banned_status_ids"
           server_setting = NewsmastMastodon::ServerSetting.find_by(name: setting_filter_type)
           next unless server_setting&.value

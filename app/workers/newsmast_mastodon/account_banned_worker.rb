@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/workers/account_banned_worker.rb
 
 module NewsmastMastodon
   class AccountBannedWorker

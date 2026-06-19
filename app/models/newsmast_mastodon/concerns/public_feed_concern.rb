@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/models/content_filters/concerns/public_feed_concern.rb
 module NewsmastMastodon
   module Concerns
     module PublicFeedConcern

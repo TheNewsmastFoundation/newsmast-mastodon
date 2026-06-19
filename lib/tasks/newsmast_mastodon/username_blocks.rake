@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Source: accounts/lib/tasks/username_block.rake
+# Import username blocks from CSV in batches.
 require 'csv'
 
 namespace :username_blocks do

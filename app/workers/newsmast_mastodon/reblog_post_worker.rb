@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/workers/reblog_post_worker.rb
 
 module NewsmastMastodon
   class ReblogPostWorker

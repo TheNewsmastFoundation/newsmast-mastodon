@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Source: accounts/lib/tasks/content_filters_install.rake
+# Import domain blocks from CSV in batches.
 require 'csv'
 
 namespace :domain_block do

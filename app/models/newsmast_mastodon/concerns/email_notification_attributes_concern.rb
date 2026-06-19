@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/models/concerns/email_notification_attributes_concern.rb
 module NewsmastMastodon
   module Concerns
     module EmailNotificationAttributesConcern

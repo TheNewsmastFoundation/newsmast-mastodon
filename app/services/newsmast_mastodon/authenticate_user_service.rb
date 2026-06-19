@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/services/posts/authenticate_user_service.rb
 
 module NewsmastMastodon
   class AuthenticateUserService < BaseService

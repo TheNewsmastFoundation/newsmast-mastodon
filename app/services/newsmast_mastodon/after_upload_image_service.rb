@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/services/posts/after_upload_image_service.rb
 
 module NewsmastMastodon
   class AfterUploadImageService < BaseService

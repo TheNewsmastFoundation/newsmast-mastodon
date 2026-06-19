@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/models/content_filters/concerns/tag_concern.rb
 # Prepended into Tag class to override matching_name / find_or_create_by_names with listable-ban handling.
 module NewsmastMastodon
   module Concerns

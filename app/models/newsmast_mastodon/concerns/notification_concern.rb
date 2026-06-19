@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/models/posts/concerns/notification_concern.rb
 module NewsmastMastodon
   module Concerns
     module NotificationConcern

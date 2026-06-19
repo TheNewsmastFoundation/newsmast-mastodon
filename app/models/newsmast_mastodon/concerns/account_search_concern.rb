@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/models/content_filters/concerns/account_search_concern.rb
 # Overrides Account::Search constants to include is_banned filtering.
 module NewsmastMastodon
   module Concerns

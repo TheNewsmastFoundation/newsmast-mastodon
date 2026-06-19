@@ -1,20 +1,6 @@
 # frozen_string_literal: true
 
-# Consolidated from 6 source-gem initializers:
-#   accounts/config/initializers/prepend_accounts.rb
-#   content_filters/config/initializers/prepend_concerns.rb
-#   custom_feeds/config/initializers/prepend_concerns.rb
-#   local_only_posts/config/initializers/prepend_local_only_posts.rb
-#   posts/config/initializers/prepend_max_chars.rb
-#   timelines_extension/config/initializers/prepend_concerns.rb
-#
-# Notes on conflicts resolved during consolidation:
-#   * StatusConcern / AccountConcern / FeedConcern / UserConcern from multiple gems
-#     are merged into single concerns under NewsmastMastodon::Concerns; each is
-#     included/prepended exactly once here.
-#   * HomeExtendedTimeline / PublicExtendedTimeline were defined by both
-#     content_filters and timelines_extension; the merged override modules live
-#     under NewsmastMastodon::Overrides and are prepended once.
+# Wire engine concerns and overrides into host Mastodon classes during reload.
 Rails.application.config.to_prepare do
   # Skip when running in the dummy app (Mastodon host classes not present)
   next unless defined?(Account)

@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-# Merged from:
-#   accounts/app/models/accounts/concerns/account_concern.rb (notification_tokens, patchwork_settings)
-#   content_filters/app/models/content_filters/concerns/account_concern.rb (followed_tags, without_banned, channel_admins, domain federation helpers)
-#   posts/app/models/posts/concerns/account_concern.rb (patchwork_drafted_statuses)
-#   timelines_extension/app/models/timelines_extension/concerns/account_concern.rb (followed_tags — duplicate, kept once)
 module NewsmastMastodon
   module Concerns
     module AccountConcern
@@ -27,7 +22,6 @@ module NewsmastMastodon
                  class_name: 'NewsmastMastodon::DraftedStatus'
 
         # Tag follows (via TagFollow model) — followed tags convenience association.
-        # Declared in both content_filters and timelines_extension — keep ONCE to avoid ArgumentError.
         has_many :followed_tags, through: :tag_follows, source: :tag
 
         scope :without_banned,  -> { where(accounts: { is_banned: false }) }

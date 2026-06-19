@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/helpers/mo_me_helper.rb
 module MoMeHelper
   extend ActiveSupport::Concern
 

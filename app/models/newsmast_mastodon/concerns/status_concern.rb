@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-# Merged from:
-#   content_filters/.../status_concern.rb (banned filtering, indexable, tagged_without, filter_banned_keywords, search_word_in_status, mentioned_account?)
 #   custom_feeds/.../status_concern.rb    (mix channel timeline callbacks)
-#   local_only_posts/.../status_concern.rb (without_local_only, set_locality, local_only?)
 #   posts/.../status_concern.rb           (fetch_reblogs, without_original_statuses, without_direct_statuses, boost_posts)
-#   timelines_extension/.../status_concern.rb (tagged_without — duplicate, kept once)
 module NewsmastMastodon
   module Concerns
     module StatusConcern
@@ -27,7 +23,6 @@ module NewsmastMastodon
         scope :without_original_statuses,  -> { where.not(reply: false) }
         scope :without_direct_statuses,    -> { where.not(visibility: Status.visibilities[:direct]) }
 
-        # Defined identically in content_filters and timelines_extension — keep once.
         scope :tagged_without, ->(tag_ids) {
           return all if tag_ids.blank?
 

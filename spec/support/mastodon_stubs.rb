@@ -9,7 +9,7 @@
 #
 # These stubs are intentionally minimal — they only supply enough structure for
 # the engine files to be required without error.  Real behaviour is tested via
-# the host-app integration harness (CONSOLIDATION_PLAN.md Phase 13-14).
+# the host-app integration harness.
 
 # ---------------------------------------------------------------------------
 # External gem stubs (not pulled into the test bundle)
@@ -103,7 +103,7 @@ unless ActiveRecord::Base.respond_to?(:has_attached_file)
 end
 
 # ---------------------------------------------------------------------------
-# Constants defined in sibling gems (local_only_posts, posts / long_post)
+# Optional feature constants referenced by the engine
 # ---------------------------------------------------------------------------
 
 unless defined?(LocalOnlyPosts)

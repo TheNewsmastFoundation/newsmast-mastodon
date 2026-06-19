@@ -21,5 +21,24 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
+      - name: Ensure tag matches gem version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          GEM_VERSION="$(ruby -e 'require_relative "lib/newsmast_mastodon/version"; print NewsmastMastodon::VERSION')"
+
+          if [ "$TAG_VERSION" != "$GEM_VERSION" ]; then
+            echo "Tag version ($TAG_VERSION) does not match gem version ($GEM_VERSION)."
+            exit 1
+          fi
+
+      - name: Run test suite
+        run: bundle exec rspec
+
+      - name: Run linter
+        run: bundle exec rubocop
+
+      - name: Build gem
+        run: bundle exec rake build
+
       - name: Release to RubyGems
         uses: rubygems/release-gem@v1

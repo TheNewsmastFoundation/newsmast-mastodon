@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: custom_feeds/app/presenters/custom_feeds_status_relationships_presenter.rb
 require 'set'
 
 class CustomFeedsStatusRelationshipsPresenter

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/services/update_channel_name_services.rb
 
 module NewsmastMastodon
   class UpdateChannelNameServices < BaseService

@@ -53,7 +53,7 @@ if defined?(Chewy::Index) && defined?(DatetimeClampingConcern)
     },
   }
 
-  # CUSTOMIZED CODE < Adding index_scope to without_banned from content_filters gem >
+  # Include only non-banned statuses in the public status index scope.
   index_scope ::Status.unscoped
                       .kept
                       .indexable

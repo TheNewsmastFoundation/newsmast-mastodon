@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/lib/overrides/notification_v1_extended_controller.rb
 module NewsmastMastodon
   module Overrides
     module NotificationV1ExtendedController

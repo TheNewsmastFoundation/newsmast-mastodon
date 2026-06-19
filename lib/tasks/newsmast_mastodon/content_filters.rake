@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-# Consolidated from:
-#   content_filters/lib/tasks/update_banned_tags.rake
-#   content_filters/lib/tasks/update_banned_accounts.rake
-#
-# Namespace updates:
-#   ContentFilters::KeywordFilter → NewsmastMastodon::KeywordFilter
-#   BanTagWorker                  → NewsmastMastodon::BanTagWorker
+# Tasks for refreshing banned tags and accounts from keyword filters.
 
 namespace :content_filters do
   desc 'Check tags against keyword filters and update banned status'

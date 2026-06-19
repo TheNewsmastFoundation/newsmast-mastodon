@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-# Consolidated routes from 5 source gems:
-#   accounts, conversations, custom_feeds, local_only_posts, posts
-#
-# (content_filters and timelines_extension define no routes.)
+# Engine API routes for account, conversation, timeline, local-only post,
+# draft/status, relay, and webhook features.
 NewsmastMastodon::Engine.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do

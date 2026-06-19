@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/serializers/long_post/drafted_status_serializer.rb
 class LongPost::DraftedStatusSerializer < ActiveModel::Serializer
   attributes :id, :params
 

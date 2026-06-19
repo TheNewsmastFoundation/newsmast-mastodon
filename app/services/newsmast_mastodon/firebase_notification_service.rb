@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Merged from:
-#   accounts/app/services/firebase_notification_service.rb
-#   posts/app/services/posts/firebase_notification_service.rb (duplicate — deleted)
 
 require 'googleauth'
 require 'httparty'

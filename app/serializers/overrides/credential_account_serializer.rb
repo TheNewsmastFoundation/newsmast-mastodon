@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/serializers/overrides/credential_account_serializer.rb
 module Overrides::CredentialAccountSerializer
   def source
     user = object&.user

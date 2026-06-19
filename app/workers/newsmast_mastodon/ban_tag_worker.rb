@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/workers/ban_tag_worker.rb
 
 module NewsmastMastodon
   class BanTagWorker

@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-# Consolidated install task: copies Chewy indexes and frontend overrides
-# from the newsmast_mastodon gem into the host Mastodon application.
-#
-# Supersedes the per-gem install tasks:
-#   * content_filters:install     (Chewy index files)
-#   * local_only_posts:install    (JS + view overrides)
+# Install task: copy Chewy indexes and frontend overrides from the
+# newsmast_mastodon gem into the host Mastodon application.
 require 'fileutils'
 
 namespace :newsmast_mastodon do
@@ -27,7 +23,6 @@ namespace :newsmast_mastodon do
   # -------------------
   # Chewy index install
   # -------------------
-  # (from content_filters/lib/tasks/content_filters_install.rake)
   def install_chewy_indexes!(gem_root)
     source_path      = File.join(gem_root, 'app', 'chewy', 'newsmast_mastodon')
     destination_path = Rails.root.join('app', 'chewy')
@@ -45,7 +40,7 @@ namespace :newsmast_mastodon do
       destination_file = File.join(destination_path, filename)
 
       # Strip the NewsmastMastodon:: namespace so the host app consumes the
-      # indexes as top-level constants (matches content_filters:install).
+      # indexes as top-level constants.
       content             = File.read(file)
       transformed_content = content.gsub(/class\s+NewsmastMastodon::(\w+Index)\s+</, 'class \1 <')
 
@@ -59,7 +54,6 @@ namespace :newsmast_mastodon do
   # ------------------------
   # Frontend overrides install
   # ------------------------
-  # (from local_only_posts/lib/tasks/local_only_posts_tasks.rake)
   def install_frontend_overrides!(gem_root)
     overrides = [
       {
@@ -123,7 +117,7 @@ end
 # Backward-compatibility aliases
 # ============================================
 # These tasks maintain compatibility with existing documentation
-# and scripts that reference the original per-gem install commands.
+# and scripts that use older task names.
 
 namespace :local_only_posts do
   desc 'Alias: Install local_only_posts features (delegates to newsmast_mastodon:install)'

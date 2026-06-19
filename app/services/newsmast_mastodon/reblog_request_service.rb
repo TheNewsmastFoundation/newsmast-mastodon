@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/services/content_filters/reblog_request_service.rb
 
 module NewsmastMastodon
   class ReblogRequestService < BaseService

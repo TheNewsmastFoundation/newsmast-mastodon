@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: content_filters/app/workers/reblog_channels_worker.rb
 
 module NewsmastMastodon
   class ReblogChannelsWorker

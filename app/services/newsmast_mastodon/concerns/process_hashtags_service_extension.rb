@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/services/posts/concerns/process_hashtags_service_extension.rb
 
 module NewsmastMastodon
   module Concerns

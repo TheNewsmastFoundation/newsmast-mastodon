@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/services/posts/alt_text_ai_api_service.rb
 
 module NewsmastMastodon
   class AltTextAiApiService

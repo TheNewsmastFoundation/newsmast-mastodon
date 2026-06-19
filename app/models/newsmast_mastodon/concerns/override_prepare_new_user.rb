@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: accounts/app/models/concerns/override_prepare_new_user.rb
 module NewsmastMastodon
   module Concerns
     module OverridePrepareNewUser

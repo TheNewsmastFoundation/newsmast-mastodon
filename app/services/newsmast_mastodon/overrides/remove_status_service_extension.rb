@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: custom_feeds/app/services/overrides/remove_status_service_extension.rb
 
 module NewsmastMastodon
   module Overrides

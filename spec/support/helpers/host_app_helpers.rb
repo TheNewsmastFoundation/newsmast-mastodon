@@ -22,7 +22,7 @@ module HostAppHelpers
   end
 
   def require_host!
-    return skip("Mastodon host integration required — see CONSOLIDATION_PLAN.md Phases 13-14") unless mastodon_host_loaded?
+    return skip("Mastodon host integration required") unless mastodon_host_loaded?
     return if mastodon_db_available?
 
     skip "Mastodon host database is unavailable — start PostgreSQL for host-mode specs"

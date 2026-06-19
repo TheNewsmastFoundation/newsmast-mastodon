@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/workers/generate_alt_text_worker.rb
 
 module NewsmastMastodon
   class GenerateAltTextWorker

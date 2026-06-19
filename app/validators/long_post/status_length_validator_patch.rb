@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Source: posts/app/validators/long_post/status_length_validator_patch.rb
 # Namespace update: Posts::ServerSetting → NewsmastMastodon::ServerSetting
 module LongPost
   module StatusLengthValidatorPatch
