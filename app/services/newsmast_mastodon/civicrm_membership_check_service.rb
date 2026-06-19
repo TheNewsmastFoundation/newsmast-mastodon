@@ -62,7 +62,7 @@ module NewsmastMastodon
     end
 
     def auth_token
-      ENV.fetch('CIVICRM_AUTH_TOKEN', nil).to_s.strip
+      ENV.fetch('CIVICRM_AUTH_TOKEN', nil).to_s.strip.gsub(/\A'+|'+\z/, '')
     end
 
     def endpoint_url
