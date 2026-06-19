@@ -3,6 +3,14 @@
 # Engine API routes for account, conversation, timeline, local-only post,
 # draft/status, relay, and webhook features.
 NewsmastMastodon::Engine.routes.draw do
+  # Deep link well-known routes (no auth required)
+  scope path: '.well-known' do
+    get 'apple-app-site-association', to: 'well_known/deep_links#apple_app_site_association',
+        as: :apple_app_site_association
+    get 'assetlinks.json', to: 'well_known/deep_links#asset_links',
+        as: :asset_links
+  end
+
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       # --- accounts ---
