@@ -63,6 +63,7 @@ kw:
         email_not_found: "E-bost ny gavas!"
         email_invalid: "Furv e-bost didhys"
         email_taken: "E-bost a veu usys"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Kemmys e-bost a veu treus"
         password_unmatch: "Ger-tremenaow nyns owth omwul"
         password_update_fail: "Kemmys ger-tremena a veu treus"

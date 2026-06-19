@@ -56,6 +56,7 @@ is:
         email_not_found: "Netfang fannst ekki!"
         email_invalid: "Ógilt netfangsform"
         email_taken: "Netfang er þegar í notkun"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Uppfærsla netfangs mistókst"
         password_unmatch: "Lykilorð stemma ekki"
         password_update_fail: "Uppfærsla lykilorðs mistókst"

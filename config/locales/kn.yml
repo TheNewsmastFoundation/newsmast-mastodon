@@ -63,6 +63,7 @@ kn:
         email_not_found: "ಇಮೇಲ್ ಕಂಡುಬಂದಿಲ್ಲ!"
         email_invalid: "ಅಮಾನ್ಯವಾದ ಇಮೇಲ್ ಸ್ವರೂಪ"
         email_taken: "ಈ ಇಮೇಲ್ ಈಗಾಗಲೇ ಬಳಸಲಾಗಿದೆ"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "ಇಮೇಲ್ ನವೀಕರಣ ವಿಫಲವಾಗಿದೆ"
         password_unmatch: "ಪಾಸ್ವರ್ಡ್ ಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ"
         password_update_fail: "ಪಾಸ್ವರ್ಡ್ ನವೀಕರಣ ವಿಫಲವಾಗಿದೆ"

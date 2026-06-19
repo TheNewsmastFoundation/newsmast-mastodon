@@ -55,6 +55,7 @@ my:
         email_not_found: "အီးမေးလ် မတွေ့ပါ!"
         email_invalid: "အီးမေးလ် ပုံစံ မမှန်ကန်ပါ"
         email_taken: "အီးမေးလ်ကို အသုံးပြုပြီးဖြစ်သည်"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "အီးမေးလ် ပြင်ဆင်မှု မအောင်မြင်ပါ"
         password_unmatch: "စကားဝှက်များ မတူညီပါ"
         password_update_fail: "စကားဝှက် ပြင်ဆင်မှု မအောင်မြင်ပါ"

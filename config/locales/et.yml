@@ -56,6 +56,7 @@ et:
         email_not_found: "E-posti ei leitud!"
         email_invalid: "Vigane e-posti formaat"
         email_taken: "E-post on juba kasutusel"
+        membership_not_eligible: "Registreerimine on avatud ainult põhiliikmetele, CSIDNeti meeskonnale ja toetajaliikmetele"
         email_update_fail: "E-posti uuendamine ebaõnnestus"
         password_unmatch: "Paroolid ei ühti"
         password_update_fail: "Parooli uuendamine ebaõnnestus"

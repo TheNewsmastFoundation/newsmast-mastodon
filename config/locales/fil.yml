@@ -56,6 +56,7 @@ fil:
         email_not_found: "Hindi natagpuan ang email!"
         email_invalid: "Di-wastong format ng email"
         email_taken: "Nagamit na ang email"
+        membership_not_eligible: "Ang pagpaparehistro ay bukas lamang sa mga miyembro ng Core, CSIDNet Team, at mga miyembro ng Supporter"
         email_update_fail: "Hindi nagtagumpay ang pag-update ng email"
         password_unmatch: "Hindi tugma ang mga password"
         password_update_fail: "Hindi nagtagumpay ang pag-update ng password"

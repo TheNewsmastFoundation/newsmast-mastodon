@@ -63,6 +63,7 @@ ckb:
         email_not_found: "ئیمەیڵ نەدۆزرایەوە!"
         email_invalid: "فۆرمی ئیمەیڵ نادروستە"
         email_taken: "ئیمەیڵ پێشتر بەکارهاتووە"
+        membership_not_eligible: "ناو تۆمارکردن تەنها کراوەیە بۆ ئەندامانی Core، CSIDNet Team، و ئەندامانی Supporter"
         email_update_fail: "نوێکردنەوەی ئیمەیڵ سەرکەوتوو نەبوو"
         password_unmatch: "وشەی نهێنی هاوتا نییە"
         password_update_fail: "نوێکردنەوەی وشەی نهێنی سەرکەوتوو نەبوو"

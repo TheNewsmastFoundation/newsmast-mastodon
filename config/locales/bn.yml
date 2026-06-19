@@ -55,6 +55,7 @@ bn:
         email_not_found: "ইমেল পাওয়া যায়নি!"
         email_invalid: "অবৈধ ইমেল ফরম্যাট"
         email_taken: "ইমেল ইতিমধ্যে নেওয়া হয়েছে"
+        membership_not_eligible: "রেজিস্ট্রেশন শুধুমাত্র মূল সদস্য, CSIDNet টিম এবং সমর্থক সদস্যদের জন্য উন্মুক্ত"
         email_update_fail: "ইমেল আপডেট সফল হয়নি"
         password_unmatch: "পাসওয়ার্ড মেলেনি"
         password_update_fail: "পাসওয়ার্ড আপডেট সফল হয়নি"

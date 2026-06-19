@@ -56,6 +56,7 @@ io:
         email_not_found: "E-mail ne trovita!"
         email_invalid: "Nevalida e-mail-formato"
         email_taken: "E-mail jam uzata"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "E-mail-aktualigo ne sukcesis"
         password_unmatch: "La pasvorti ne konformas"
         password_update_fail: "Pasvorto-aktualigo ne sukcesis"

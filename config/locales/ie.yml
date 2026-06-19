@@ -56,6 +56,7 @@ ie:
         email_not_found: "E-mail ne trovat!"
         email_invalid: "Invalid e-mail format"
         email_taken: "E-mail ja es in usu"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Li e-mail update ne successat"
         password_unmatch: "Li passwords ne concorda"
         password_update_fail: "Li password update ne successat"

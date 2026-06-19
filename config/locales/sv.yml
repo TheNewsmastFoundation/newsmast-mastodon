@@ -56,6 +56,7 @@ sv:
         email_not_found: "E-post hittades inte!"
         email_invalid: "Ogiltigt e-postformat"
         email_taken: "E-post används redan"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Uppdatering av e-post misslyckades"
         password_unmatch: "Lösenorden matchar inte"
         password_update_fail: "Uppdatering av lösenord misslyckades"

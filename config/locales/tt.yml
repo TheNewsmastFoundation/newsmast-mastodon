@@ -23,6 +23,12 @@ tt:
       invalid_role_access: "%{role} керү рөхсәт ителмәгән"
       deactivated_channel: "Сезнең канал деактивлаштырылган. Ярдәмгә мөрәҗәгать итегез"
       two_factor_enabled: "Ике факторлы аутентификация ачыктырылган. Зинһар, веб-интерфейс аша керегез"
+  bristolcable_login_service:
+    errors:
+      invalid_credentials: "Please try again. Invalid credentials from beebee.io"
+      registration_required: "Please register account in local. data: %{data}"
+      connection_error: "Error connecting to membership service: %{error}"
+
   api:
     errors:
       unauthorized: "Сез бу гамәлне үтәргә рөхсәт ителмәгән"
@@ -50,6 +56,7 @@ tt:
         email_not_found: "Электрон почта табылмады!"
         email_invalid: "Яраксыз электрон почта форматы"
         email_taken: "Электрон почта инде алынган"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Электрон почта яңарту уңышсыз булды"
         password_unmatch: "Парольләр туры килми"
         password_update_fail: "Пароль яңарту уңышсыз булды"

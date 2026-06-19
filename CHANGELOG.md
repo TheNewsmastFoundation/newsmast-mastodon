@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [4.5.11] - 2026-06-15
 
 ### Fixed
+
 - Resolved single-gem sync regressions in the consolidated engine.
 - Fixed API V1 behavior across account, channel, timeline, settings, webhook,
     notification token, drafted status, and local-only post endpoints.

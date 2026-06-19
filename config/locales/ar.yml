@@ -56,6 +56,7 @@ ar:
         email_not_found: "البريد الإلكتروني غير موجود!"
         email_invalid: "تنسيق البريد الإلكتروني غير صالح"
         email_taken: "البريد الإلكتروني مستخدم بالفعل"
+        membership_not_eligible: "التسجيل مفتوح فقط للأعضاء الأساسيين وفريق CSIDNet والأعضاء الداعمين"
         email_update_fail: "فشل تحديث البريد الإلكتروني"
         password_unmatch: "كلمة المرور غير متطابقة"
         password_update_fail: "فشل تحديث كلمة المرور"

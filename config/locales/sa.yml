@@ -23,6 +23,12 @@ sa:
       invalid_role_access: "%{role} प्रविष्टुं न अर्हति"
       deactivated_channel: "तव चैनल् निष्क्रियः अस्ति। सहायता सम्पर्कं कुरु"
       two_factor_enabled: "द्वि-कारक प्रमाणीकरणं सक्षमं अस्ति। कृपया जाल-अन्तःफलकेन प्रवेशं करोतु"
+  bristolcable_login_service:
+    errors:
+      invalid_credentials: "Please try again. Invalid credentials from beebee.io"
+      registration_required: "Please register account in local. data: %{data}"
+      connection_error: "Error connecting to membership service: %{error}"
+
   api:
     errors:
       unauthorized: "त्वं एतत् कर्तुं न अर्हसि"
@@ -50,6 +56,7 @@ sa:
         email_not_found: "ईमेल् न प्राप्तः!"
         email_invalid: "अमान्य ईमेल् प्रारूपम्"
         email_taken: "ईमेल् पूर्वमेव गृहीतः"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "ईमेल् अद्यतनीकरणं विफलम्"
         password_unmatch: "गुप्तशब्दौ न मेलयतः"
         password_update_fail: "गुप्तशब्दस्य अद्यतनीकरणं विफलम्"

@@ -56,6 +56,7 @@ eu:
         email_not_found: "E-posta ez da aurkitu!"
         email_invalid: "E-posta formatu baliogabea"
         email_taken: "E-posta dagoeneko erabilita dago"
+        membership_not_eligible: "Izen-ematea Oinarrizko kideentzat, CSIDNet Team eta Supporter kideentzat bakarrik dago zabalik"
         email_update_fail: "E-posta eguneratzea huts egin du"
         password_unmatch: "Pasahitzak ez datoz bat"
         password_update_fail: "Pasahitza eguneratzea huts egin du"

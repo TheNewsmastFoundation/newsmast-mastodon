@@ -56,6 +56,7 @@ hi:
         email_not_found: "ईमेल नहीं मिला!"
         email_invalid: "अमान्य ईमेल प्रारूप"
         email_taken: "ईमेल पहले से लिया जा चुका है"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "ईमेल अपडेट असफल रहा"
         password_unmatch: "पासवर्ड मेल नहीं खाते"
         password_update_fail: "पासवर्ड अपडेट असफल रहा"

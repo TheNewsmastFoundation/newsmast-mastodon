@@ -56,6 +56,7 @@ an:
         email_not_found: "Correo no trobato!"
         email_invalid: "Formato de correo no valido"
         email_taken: "O correo ya ye en uso"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "A actualización d'o correo ha fallau"
         password_unmatch: "As contraseñas no coinciden"
         password_update_fail: "A actualización d'a contraseña ha fallau"

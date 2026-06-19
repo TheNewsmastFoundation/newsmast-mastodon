@@ -56,6 +56,7 @@ de:
         email_not_found: "E-Mail nicht gefunden!"
         email_invalid: "Ungültiges E-Mail-Format"
         email_taken: "E-Mail ist bereits vergeben"
+        membership_not_eligible: "Die Registrierung steht nur Core-Mitgliedern, CSIDNet-Team- und Supporter-Mitgliedern offen"
         email_update_fail: "Die E-Mail-Aktualisierung war nicht erfolgreich"
         password_unmatch: "Passwörter stimmen nicht überein"
         password_update_fail: "Die Passwortaktualisierung war nicht erfolgreich"

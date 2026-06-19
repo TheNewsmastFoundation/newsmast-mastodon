@@ -56,6 +56,7 @@ sr-Latn:
         email_not_found: "E-mail nije pronađen!"
         email_invalid: "Neispravan format e-maila"
         email_taken: "E-mail je već zauzet"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Ažuriranje e-maila nije uspelo"
         password_unmatch: "Lozinke se ne poklapaju"
         password_update_fail: "Ažuriranje lozinke nije uspelo"

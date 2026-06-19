@@ -56,6 +56,7 @@ ur:
         email_not_found: "ای میل نہیں ملی!"
         email_invalid: "غلط ای میل فارمیٹ"
         email_taken: "ای میل پہلے سے لی جا چکی ہے"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "ای میل اپ ڈیٹ ناکام ہوئی"
         password_unmatch: "پاس ورڈ مماثل نہیں ہیں"
         password_update_fail: "پاس ورڈ اپ ڈیٹ ناکام ہوئی"

@@ -56,6 +56,7 @@ ms:
         email_not_found: "E-mel tidak dijumpai!"
         email_invalid: "Format e-mel tidak sah"
         email_taken: "E-mel sudah digunakan"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Kemas kini e-mel gagal"
         password_unmatch: "Kata laluan tidak sepadan"
         password_update_fail: "Kemas kini kata laluan gagal"

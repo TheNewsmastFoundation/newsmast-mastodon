@@ -27,6 +27,12 @@ kab:
       deactivated_channel: "Akal-ik yufa-d yella. Mudd-d tazmert"
       two_factor_enabled: "Tasestant s sin n yilugan ttwaktay. Ttxil-k kcem s usebter web"
 
+  bristolcable_login_service:
+    errors:
+      invalid_credentials: "Please try again. Invalid credentials from beebee.io"
+      registration_required: "Please register account in local. data: %{data}"
+      connection_error: "Error connecting to membership service: %{error}"
+
   api:
     errors:
       unauthorized: "Ur tesɛiḍ ara ad tgeḍ amek yella"
@@ -57,6 +63,7 @@ kab:
         email_not_found: "Imayl ur nufi ara!"
         email_invalid: "Amasal n imayl ur nelli d imezgi"
         email_taken: "Imayl yufa-d yella"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Imayl ur ttwali ara"
         password_unmatch: "Awalen n uɛeddi ur nelli d imezgi"
         password_update_fail: "Awalen n uɛeddi ur ttwali ara"

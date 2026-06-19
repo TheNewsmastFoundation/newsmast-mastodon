@@ -56,6 +56,7 @@ fi:
         email_not_found: "Sähköpostia ei löytynyt!"
         email_invalid: "Virheellinen sähköpostimuoto"
         email_taken: "Sähköposti on jo käytössä"
+        membership_not_eligible: "Rekisteröityminen on avoin vain Core-jäsenille, CSIDNet Teamille ja tukijajäsenille"
         email_update_fail: "Sähköpostin päivitys epäonnistui"
         password_unmatch: "Salasanat eivät täsmää"
         password_update_fail: "Salasanan päivitys epäonnistui"

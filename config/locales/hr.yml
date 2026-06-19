@@ -56,6 +56,7 @@ hr:
         email_not_found: "Email nije pronađen!"
         email_invalid: "Neispravan format emaila"
         email_taken: "Email je već zauzet"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Ažuriranje emaila nije uspjelo"
         password_unmatch: "Lozinke se ne podudaraju"
         password_update_fail: "Ažuriranje lozinke nije uspjelo"

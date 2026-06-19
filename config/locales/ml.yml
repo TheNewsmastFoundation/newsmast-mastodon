@@ -55,6 +55,7 @@ ml:
         email_not_found: "ഇമെയിൽ കണ്ടെത്തിയില്ല!"
         email_invalid: "അസാധുവായ ഇമെയിൽ ഫോർമാറ്റ്"
         email_taken: "ഇമെയിൽ ഇതിനകം ഉപയോഗത്തിലാണ്"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "ഇമെയിൽ അപ്ഡേറ്റ് പരാജയപ്പെട്ടു"
         password_unmatch: "പാസ്‌വേഡുകൾ പൊരുത്തപ്പെടുന്നില്ല"
         password_update_fail: "പാസ്‌വേഡ് അപ്ഡേറ്റ് പരാജയപ്പെട്ടു"

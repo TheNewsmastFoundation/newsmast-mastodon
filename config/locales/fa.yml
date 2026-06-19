@@ -56,6 +56,7 @@ fa:
         email_not_found: "ایمیل پیدا نشد!"
         email_invalid: "فرمت ایمیل نامعتبر است"
         email_taken: "ایمیل قبلاً استفاده شده است"
+        membership_not_eligible: "ثبت نام فقط برای اعضای اصلی، تیم CSIDNet و اعضای حامی باز است"
         email_update_fail: "به‌روزرسانی ایمیل موفق نبود"
         password_unmatch: "رمز عبور مطابقت ندارد"
         password_update_fail: "به‌روزرسانی رمز عبور موفق نبود"

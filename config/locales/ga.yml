@@ -56,6 +56,7 @@ ga:
         email_not_found: "Níor aimsíodh an ríomhphost!"
         email_invalid: "Formáid ríomhphoist neamhbhailí"
         email_taken: "Tá an ríomhphost tógtha cheana"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Theip ar nuashonrú an ríomhphoist"
         password_unmatch: "Ní ionann na focail faire"
         password_update_fail: "Theip ar nuashonraíodh an focal faire"

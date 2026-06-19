@@ -55,6 +55,7 @@ si:
         email_not_found: "ඊමේල් හමු නොවීය!"
         email_invalid: "අවලංගු ඊමේල් ආකෘතිය"
         email_taken: "ඊමේල් දැනටමත් භාවිතා වේ"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "ඊමේල් යාවත්කාලීන කිරීම අසාර්ථකයි"
         password_unmatch: "මුරපද නොගැලපේ"
         password_update_fail: "මුරපද යාවත්කාලීන කිරීම අසාර්ථකයි"

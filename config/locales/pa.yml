@@ -56,6 +56,7 @@ pa:
         email_not_found: "ਈਮੇਲ ਨਹੀਂ ਮਿਲੀ!"
         email_invalid: "ਅਵੈਧ ਈਮੇਲ ਫਾਰਮੈਟ"
         email_taken: "ਈਮੇਲ ਪਹਿਲਾਂ ਹੀ ਲੈ ਲਈ ਗਈ ਹੈ"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "ਈਮੇਲ ਅੱਪਡੇਟ ਅਸਫਲ ਰਹੀ"
         password_unmatch: "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ"
         password_update_fail: "ਪਾਸਵਰਡ ਅੱਪਡੇਟ ਅਸਫਲ ਰਹੀ"

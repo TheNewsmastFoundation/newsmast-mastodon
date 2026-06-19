@@ -56,6 +56,7 @@ da:
         email_not_found: "E-mail ikke fundet!"
         email_invalid: "Ugyldigt e-mailformat"
         email_taken: "E-mailen er allerede taget"
+        membership_not_eligible: "Registrering er kun åben for kernemedlemmer, CSIDNet Team og Supportermedlemmer"
         email_update_fail: "Opdatering af e-mailen mislykkedes"
         password_unmatch: "Adgangskoderne stemmer ikke overens"
         password_update_fail: "Opdatering af adgangskoden mislykkedes"

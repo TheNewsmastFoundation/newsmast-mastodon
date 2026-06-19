@@ -63,6 +63,7 @@ ko:
         email_not_found: "이메일을 찾을 수 없습니다!"
         email_invalid: "잘못된 이메일 형식입니다"
         email_taken: "이미 사용 중인 이메일입니다"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "이메일 업데이트에 실패했습니다"
         password_unmatch: "비밀번호가 일치하지 않습니다"
         password_update_fail: "비밀번호 업데이트에 실패했습니다"

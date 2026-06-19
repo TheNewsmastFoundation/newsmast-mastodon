@@ -27,6 +27,12 @@ ku:
       deactivated_channel: "Kanala te neçalak e. Ji kerema xwe bi piştgirê re têkilî bide"
       two_factor_enabled: "Rastkirina du-faktorî çalak e. Ji kerema xwe bi navgina têkiliya webê têkeve"
 
+  bristolcable_login_service:
+    errors:
+      invalid_credentials: "Please try again. Invalid credentials from beebee.io"
+      registration_required: "Please register account in local. data: %{data}"
+      connection_error: "Error connecting to membership service: %{error}"
+
   api:
     errors:
       unauthorized: "Te destûr nîne ku vê kiryarê bike"
@@ -57,6 +63,7 @@ ku:
         email_not_found: "E-name nehat dîtin!"
         email_invalid: "Şêwaza e-nameyê nederbasdar e"
         email_taken: "E-name jixwe tê bikaranîn"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Nûkirina e-nameyê serketin nedaye"
         password_unmatch: "Şîfre nehevgirtin"
         password_update_fail: "Nûkirina şîfreyê serketin nedaye"

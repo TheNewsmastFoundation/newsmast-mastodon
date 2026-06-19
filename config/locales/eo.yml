@@ -56,6 +56,7 @@ eo:
         email_not_found: "Retpoŝto ne trovita!"
         email_invalid: "Nevalida retpoŝta formato"
         email_taken: "Retpoŝto jam estas uzata"
+        membership_not_eligible: "Registrado estas malfermita nur al Kernaj membroj, CSIDNet Teamo kaj Subtenantaj membroj"
         email_update_fail: "La retpoŝta ĝisdatigo malsukcesis"
         password_unmatch: "Pasvortoj ne kongruas"
         password_update_fail: "La pasvorta ĝisdatigo malsukcesis"

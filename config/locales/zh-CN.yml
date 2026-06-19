@@ -56,6 +56,7 @@ zh-CN:
         email_not_found: "未找到邮箱!"
         email_invalid: "邮箱格式无效"
         email_taken: "邮箱已被占用"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "邮箱更新失败"
         password_unmatch: "密码不匹配"
         password_update_fail: "密码更新失败"

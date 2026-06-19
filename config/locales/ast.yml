@@ -56,6 +56,7 @@ ast:
         email_not_found: "¡Corréu electrónicu non atopáu!"
         email_invalid: "Formatu de corréu electrónicu non válidu"
         email_taken: "El corréu electrónicu yá ta usáu"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "La actualización del corréu electrónicu falló"
         password_unmatch: "Les contraseñes nun coinciden"
         password_update_fail: "La actualización de la contraseña falló"

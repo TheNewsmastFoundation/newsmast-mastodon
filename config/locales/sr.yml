@@ -56,6 +56,7 @@ sr:
         email_not_found: "Е-пошта није пронађена!"
         email_invalid: "Неисправан формат е-поште"
         email_taken: "Е-пошта је већ заузета"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Ажурирање е-поште није успело"
         password_unmatch: "Лозинке се не поклапају"
         password_update_fail: "Ажурирање лозинке није успело"

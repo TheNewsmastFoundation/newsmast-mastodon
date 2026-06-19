@@ -7,6 +7,9 @@ module NewsmastMastodon::Concerns::AccountsCreation
   include MoMeHelper
 
   def create
+    membership_result = NewsmastMastodon::CivicrmMembershipCheckService.new(account_params[:email]).call
+    return render_membership_error(membership_result.error_message) unless membership_result.valid?
+
     params_with_reason = account_params.merge(reason: "Signing up via #{ ENV.fetch('LOCAL_DOMAIN', nil) } App")
     token    = AppSignUpService.new.call(doorkeeper_token.application, request.remote_ip, params_with_reason)
     response = Doorkeeper::OAuth::TokenResponse.new(token)
@@ -23,6 +26,15 @@ module NewsmastMastodon::Concerns::AccountsCreation
   end
 
   private
+
+  def render_membership_error(message)
+    invalid_user = User.new
+    invalid_user.errors.add(:email, message)
+    exception = ActiveRecord::RecordInvalid.new(invalid_user)
+
+    render json: ValidationErrorFormatter.new(exception, 'user.email': :email).as_json,
+           status: 422
+  end
 
   def generate_opt_token
     user = User.find_by(email: account_params[:email])

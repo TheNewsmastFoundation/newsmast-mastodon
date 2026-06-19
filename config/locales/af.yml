@@ -56,6 +56,7 @@ af:
         email_not_found: "E-pos nie gevind nie!"
         email_invalid: "Ongeldige e-posformaat"
         email_taken: "E-pos is reeds geneem"
+        membership_not_eligible: "Registrasie is slegs oop vir kernlede, CSIDNet-span en ondersteunerlede"
         email_update_fail: "Die e-posopdatering was onsuksesvol"
         password_unmatch: "Wagwoorde stem nie ooreen nie"
         password_update_fail: "Die wagwoordopdatering was onsuksesvol"

@@ -27,6 +27,12 @@ kk:
       deactivated_channel: "Сіздің арнаңыз өшірілген. Қолдау қызметіне хабарласыңыз"
       two_factor_enabled: "Екі факторлы аутентификация қосылған. Өтінеміз, веб-интерфейс арқылы кіріңіз"
 
+  bristolcable_login_service:
+    errors:
+      invalid_credentials: "Please try again. Invalid credentials from beebee.io"
+      registration_required: "Please register account in local. data: %{data}"
+      connection_error: "Error connecting to membership service: %{error}"
+
   api:
     errors:
       unauthorized: "Сізге бұл әрекетті орындауға рұқсат жоқ"
@@ -57,6 +63,7 @@ kk:
         email_not_found: "Электрондық пошта табылмады!"
         email_invalid: "Жарамсыз электрондық пошта пішімі"
         email_taken: "Электрондық пошта бұрыннан алынған"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "Электрондық поштаны жаңарту сәтсіз аяқталды"
         password_unmatch: "Құпия сөздер сәйкес келмейді"
         password_update_fail: "Құпия сөзді жаңарту сәтсіз аяқталды"

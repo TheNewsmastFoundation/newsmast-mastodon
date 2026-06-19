@@ -55,6 +55,7 @@ br:
         email_not_found: "N'eo ket bet kavet ar postel!"
         email_invalid: "Furmskrid postel direizh"
         email_taken: "Implijet eo bet ar postel dija"
+        membership_not_eligible: "Digor eo an enskrivadurioù d'an izili diazez, d'ar skipailh CSIDNet ha d'an izili skoazeller hepken"
         email_update_fail: "N'eo ket bet berzhus hizivadur ar postel"
         password_unmatch: "N'eo ket heñvel ar gerioù-tremenn"
         password_update_fail: "N'eo ket bet berzhus hizivadur ar ger-tremenn"

@@ -56,6 +56,7 @@ co:
         email_not_found: "Email micca trovu!"
         email_invalid: "Formato email invalidu"
         email_taken: "L'email hè dighjà adupratu"
+        membership_not_eligible: "A registrazione hè aperta solu à i membri Core, a squadra CSIDNet è i membri Supporter"
         email_update_fail: "L'aghjurnamentu di l'email ùn hà micca riesciutu"
         password_unmatch: "E password ùn currispondenu"
         password_update_fail: "L'aghjurnamentu di a password ùn hà micca riesciutu"

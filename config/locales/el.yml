@@ -56,6 +56,7 @@ el:
         email_not_found: "Το email δεν βρέθηκε!"
         email_invalid: "Μη έγκυρη μορφή email"
         email_taken: "Το email έχει ήδη ληφθεί"
+        membership_not_eligible: "Η εγγραφή είναι ανοιχτή μόνο σε βασικά μέλη, ομάδα CSIDNet και μέλη Υποστηρικτές"
         email_update_fail: "Η ενημέρωση email δεν ήταν επιτυχής"
         password_unmatch: "Οι κωδικοί δεν ταιριάζουν"
         password_update_fail: "Η ενημέρωση κωδικού δεν ήταν επιτυχής"

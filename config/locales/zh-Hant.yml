@@ -63,6 +63,7 @@ zh-Hant:
         email_not_found: "電子郵件未找到！"
         email_invalid: "電子郵件格式無效"
         email_taken: "電子郵件已被使用"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "電子郵件更新失敗"
         password_unmatch: "密碼不相符"
         password_update_fail: "密碼更新失敗"

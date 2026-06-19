@@ -56,6 +56,7 @@ cy:
         email_not_found: "Heb ddod o hyd i e-bost!"
         email_invalid: "Fformat e-bost annilys"
         email_taken: "Mae'r e-bost eisoes wedi'i gymryd"
+        membership_not_eligible: "Mae cofrestru yn agored i aelodau Craidd, Tîm CSIDNet, ac aelodau Cefnogwyr yn unig"
         email_update_fail: "Methodd diweddaru'r e-bost"
         password_unmatch: "Nid yw'r cyfrineiriau'n cyfateb"
         password_update_fail: "Methodd diweddaru'r cyfrinair"

@@ -63,6 +63,7 @@ pt:
         email_not_found: "Email não encontrado!"
         email_invalid: "Formato de email inválido"
         email_taken: "Este email já está a ser utilizado"
+        membership_not_eligible: "Registration is only open to Core members, CSIDNet Team, and Supporter members"
         email_update_fail: "A atualização do email não foi bem-sucedida"
         password_unmatch: "As senhas não correspondem"
         password_update_fail: "A atualização da senha não foi bem-sucedida"

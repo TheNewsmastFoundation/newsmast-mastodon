@@ -56,6 +56,7 @@ cs:
         email_not_found: "E-mail nebyl nalezen!"
         email_invalid: "Neplatný formát e-mailu"
         email_taken: "E-mail je již používán"
+        membership_not_eligible: "Registrace je otevřena pouze členům Core, týmu CSIDNet a členům Supporter"
         email_update_fail: "Aktualizace e-mailu nebyla úspěšná"
         password_unmatch: "Hesla se neshodují"
         password_update_fail: "Aktualizace hesla nebyla úspěšná"
