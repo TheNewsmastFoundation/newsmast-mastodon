@@ -1,0 +1,108 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Detects drift in the upstream Mastodon files that newsmast_mastodon overrides.
+#
+# Each override (see lib/tasks/newsmast_mastodon/install.rake) replaces an
+# upstream file wholesale. If upstream changes that file in a new release, the
+# vendored override silently regresses. This script compares the SHA-256 of the
+# host app's *current* upstream file against the baseline recorded in
+# config/override_baselines.yml.
+#
+# Usage:
+#   bin/check-override-drift <host_mastodon_root>            # check (CI gate)
+#   bin/check-override-drift <host_mastodon_root> --update   # re-record baselines
+#
+# Exit codes: 0 = no drift, 1 = drift/missing baseline, 2 = bad invocation.
+
+require "digest"
+require "yaml"
+
+GEM_ROOT      = File.expand_path("..", __dir__)
+MANIFEST_PATH = File.join(GEM_ROOT, "config", "override_baselines.yml")
+
+MANIFEST_HEADER = <<~HEADER
+  # Baselines for the frontend/view files that newsmast_mastodon *overrides* in
+  # the host Mastodon app (see lib/tasks/newsmast_mastodon/install.rake).
+  #
+  # `bin/check-override-drift` compares the SHA-256 of the host's *current*
+  # upstream file against `baseline_sha256` (the upstream content the override
+  # was last re-based against) to catch silent regressions on a Mastodon bump.
+  #
+  #   bin/check-override-drift <host_root>            # check (CI gate)
+  #   bin/check-override-drift <host_root> --update   # re-record after re-basing
+  #
+  # `upstream: false` marks gem-added files with no upstream counterpart (skipped).
+HEADER
+
+host_root = ARGV[0]
+update    = ARGV.include?("--update")
+
+if host_root.nil? || host_root.start_with?("--")
+  warn "usage: bin/check-override-drift <host_mastodon_root> [--update]"
+  exit 2
+end
+
+unless File.directory?(host_root)
+  warn "error: host root not found: #{host_root}"
+  exit 2
+end
+
+manifest = YAML.safe_load_file(MANIFEST_PATH)
+entries  = manifest.fetch("overrides")
+
+drift   = []
+missing = []
+
+entries.each do |entry|
+  next unless entry["upstream"]
+
+  rel  = entry["path"]
+  file = File.join(host_root, rel)
+
+  unless File.exist?(file)
+    missing << rel
+    next
+  end
+
+  actual = Digest::SHA256.hexdigest(File.read(file))
+
+  if update
+    entry["baseline_sha256"] = actual
+    next
+  end
+
+  baseline = entry["baseline_sha256"]
+
+  if baseline.nil?
+    missing << rel
+  elsif baseline != actual
+    drift << rel
+  end
+end
+
+if update
+  File.write(MANIFEST_PATH, MANIFEST_HEADER + YAML.dump(manifest))
+  puts "Recorded baselines for #{entries.count { |e| e['upstream'] }} upstream override(s)."
+  exit 0
+end
+
+if missing.any?
+  warn "Missing upstream file or unrecorded baseline:"
+  missing.each { |rel| warn "  - #{rel}" }
+  warn "Run: bin/check-override-drift #{host_root} --update (after verifying the overrides)."
+end
+
+if drift.any?
+  warn "\nUpstream drift detected — these overridden files changed in the host:"
+  drift.each { |rel| warn "  - #{rel}" }
+  warn "\nRe-base the vendored overrides against the new upstream version, then:"
+  warn "  bin/check-override-drift #{host_root} --update"
+end
+
+if drift.any? || missing.any?
+  exit 1
+end
+
+puts "No override drift: all #{entries.count { |e| e['upstream'] }} upstream override(s) match recorded baselines."
+exit 0

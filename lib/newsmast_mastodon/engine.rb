@@ -4,6 +4,37 @@ module NewsmastMastodon
   class Engine < ::Rails::Engine
     isolate_namespace NewsmastMastodon
 
+    # --- Host Mastodon compatibility assertion ---
+    # The gem is built and tested against an exact Mastodon runtime (declared in
+    # newsmast_mastodon.gemspec as `mastodon_version_requirement`). Running it
+    # against a different host version is the most common source of subtle
+    # upgrade regressions, so surface a mismatch early: warn in development/test
+    # and abort in production where silent drift is unacceptable.
+    config.after_initialize do
+      NewsmastMastodon::Engine.verify_host_mastodon_compatibility!
+    end
+
+    def self.verify_host_mastodon_compatibility!
+      required = Gem.loaded_specs["newsmast_mastodon"]&.metadata&.fetch("mastodon_version_requirement", nil)
+      return if required.nil?
+      return unless defined?(::Mastodon::Version)
+
+      actual = ::Mastodon::Version.to_s
+      return if actual == required
+
+      message = "[newsmast_mastodon] host Mastodon version mismatch: " \
+                "gem targets #{required} but host reports #{actual}. " \
+                "Pin the gem version that matches this Mastodon release " \
+                "(see docs/UPGRADE_RUNBOOK.md)."
+
+      if defined?(Rails) && Rails.env.production?
+        abort(message)
+      else
+        Rails.logger&.warn(message)
+        warn(message)
+      end
+    end
+
     # --- Doorkeeper password grant ---
     config.after_initialize do
       next unless defined?(Doorkeeper)

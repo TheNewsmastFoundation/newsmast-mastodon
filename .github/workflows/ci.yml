@@ -102,3 +102,61 @@ jobs:
           name: screenshots-ruby-${{ matrix.ruby }}
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+  # Upgrade-safety gates. These are static checks (no DB/services needed) that
+  # protect every Mastodon upgrade cycle — see docs/UPGRADE_RUNBOOK.md.
+  compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Migration idempotency + version sync gates
+        run: bundle exec rspec spec/compatibility --format documentation
+
+  # Boots the gem against a real host Mastodon checkout (MASTODON_ROOT mode) and
+  # checks vendored frontend/view overrides for upstream drift. Opt-in: only
+  # runs when the repo variable HOST_MASTODON_REPO is configured (e.g.
+  # "patchwork-hub/patchwork-mastodon"), since it needs the private host repo.
+  host-integration:
+    runs-on: ubuntu-latest
+    if: ${{ vars.HOST_MASTODON_REPO != '' }}
+    steps:
+      - name: Checkout gem
+        uses: actions/checkout@v5
+        with:
+          path: gem
+
+      - name: Checkout host Mastodon
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ vars.HOST_MASTODON_REPO }}
+          ref: ${{ vars.HOST_MASTODON_REF || '' }}
+          token: ${{ secrets.HOST_MASTODON_TOKEN }}
+          path: host
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Check vendored override drift
+        working-directory: gem
+        run: ruby bin/check-override-drift "${GITHUB_WORKSPACE}/host"
+
+      - name: Install gem dependencies
+        working-directory: gem
+        run: bundle install
+
+      - name: Run gem specs against host Mastodon
+        working-directory: gem
+        env:
+          MASTODON_ROOT: ${{ github.workspace }}/host
+        run: bundle exec rspec --format documentation
+

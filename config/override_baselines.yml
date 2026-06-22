@@ -1,0 +1,34 @@
+# Baselines for the frontend/view files that newsmast_mastodon *overrides* in
+# the host Mastodon app (see lib/tasks/newsmast_mastodon/install.rake).
+#
+# `bin/check-override-drift` compares the SHA-256 of the host's *current*
+# upstream file against `baseline_sha256` (the upstream content the override
+# was last re-based against) to catch silent regressions on a Mastodon bump.
+#
+#   bin/check-override-drift <host_root>            # check (CI gate)
+#   bin/check-override-drift <host_root> --update   # re-record after re-basing
+#
+# `upstream: false` marks gem-added files with no upstream counterpart (skipped).
+---
+overrides:
+- path: app/javascript/mastodon/actions/compose.js
+  upstream: true
+  baseline_sha256: b3572588b928c097a7787c789b6481a0845b8af47da6fc58f8fdf412ee5467ab
+- path: app/javascript/mastodon/reducers/compose.js
+  upstream: true
+  baseline_sha256: 37814af93560e7efc95167949c0ba1b5f46018c9e9207a0c51f56ef4c84aa9b4
+- path: app/javascript/mastodon/features/compose/components/compose_form.jsx
+  upstream: true
+  baseline_sha256: 86f3ffe54e9b4ce6b85eec948e6478872e0c4d6b07f62c20023e529bfac0e363
+- path: app/javascript/mastodon/features/status/components/detailed_status.tsx
+  upstream: true
+  baseline_sha256: 20ffc27a56e12f4f8b274bee896106a4251a973a461caac093e6c502f3901ace
+- path: app/views/admin/shared/_status.html.haml
+  upstream: true
+  baseline_sha256: 39f81ce24f9bae216e8eeea8c1d49b223e51618373ca3162363e2ab50a8bd712
+- path: app/javascript/mastodon/features/compose/components/federated_dropdown.jsx
+  upstream: false
+  baseline_sha256:
+- path: app/javascript/mastodon/features/compose/containers/federated_dropdown_container.js
+  upstream: false
+  baseline_sha256:

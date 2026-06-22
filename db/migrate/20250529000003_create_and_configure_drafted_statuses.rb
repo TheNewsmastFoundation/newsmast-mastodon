@@ -28,7 +28,7 @@ class CreateAndConfigureDraftedStatuses < ActiveRecord::Migration[7.1]
         safety_assured do
           add_reference :media_attachments, :patchwork_drafted_status, foreign_key: { on_delete: :nullify }, index: false
         end
-        add_index :media_attachments, :patchwork_drafted_status_id, algorithm: :concurrently, name: 'index_media_attachments_on_patchwork_drafted_status_id'
+        add_index :media_attachments, :patchwork_drafted_status_id, algorithm: :concurrently, if_not_exists: true, name: 'index_media_attachments_on_patchwork_drafted_status_id'
       rescue StandardError => e
         Rails.logger.error("Failed to add patchwork_drafted_status_id to media_attachments: #{e.message}")
         raise
