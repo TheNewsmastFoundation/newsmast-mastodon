@@ -6,12 +6,12 @@ module NewsmastMastodon::Api::V1
         return render json: { error: 'URL must be present' }, status: :bad_request
       end
 
-      begin
-        data = LinkThumbnailer.generate(url)
-        render json: data, status: :ok
-      rescue LinkThumbnailer::Exceptions => e
-        render json: { error: e.message }, status: :unprocessable_entity
-      end
+      data = NewsmastMastodon::FetchLinkMetadataService.new.call(url)
+      render json: data, status: :ok
+    rescue NewsmastMastodon::FetchLinkMetadataService::InvalidURLError => e
+      render json: { error: e.message }, status: :bad_request
+    rescue NewsmastMastodon::FetchLinkMetadataService::FetchError => e
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 end

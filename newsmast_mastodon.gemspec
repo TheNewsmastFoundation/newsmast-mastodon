@@ -32,7 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails",            ">= 7.1", "< 9.0"
   spec.add_dependency "googleauth",       "~> 1.13", ">= 1.13.1"
   spec.add_dependency "httparty",         "~> 0.23.1"
-  spec.add_dependency "link_thumbnailer", "~> 3.4"
 
   # Development / test dependencies
   spec.add_development_dependency "rspec-rails",               "~> 7.0"
