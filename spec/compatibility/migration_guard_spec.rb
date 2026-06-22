@@ -45,7 +45,7 @@ RSpec.describe "Migration idempotency guards" do
             "#{name} calls `#{operation}` without an idempotency guard " \
             "(one of: #{tokens.join(', ')}). Gem migrations must be safe to " \
             "re-run against a host schema that may already have the column/table. " \
-            "See docs/UPGRADE_RUNBOOK.md (Phase D)."
+            "See docs/internal/mastodon-upgrade/RUNBOOK.md (Phase D)."
           )
         end
       end

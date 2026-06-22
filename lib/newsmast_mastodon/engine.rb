@@ -25,7 +25,7 @@ module NewsmastMastodon
       message = "[newsmast_mastodon] host Mastodon version mismatch: " \
                 "gem targets #{required} but host reports #{actual}. " \
                 "Pin the gem version that matches this Mastodon release " \
-                "(see docs/UPGRADE_RUNBOOK.md)."
+                "(see docs/internal/mastodon-upgrade/RUNBOOK.md)."
 
       if defined?(Rails) && Rails.env.production?
         abort(message)

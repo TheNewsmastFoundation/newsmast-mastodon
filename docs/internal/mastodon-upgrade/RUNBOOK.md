@@ -1,4 +1,8 @@
-# Mastodon Upgrade Runbook (`newsmast_mastodon`)
+# Internal Runbook — Upgrading `newsmast_mastodon` for a New Mastodon Version
+
+> **Audience: internal maintainers only.** This is for the team that develops
+> and releases the `newsmast_mastodon` engine gem. It is **not** a guide for
+> downstream consumers upgrading the gem dependency in their own app.
 
 This is the single source of truth for upgrading the host Mastodon fork
 (`patchwork-mastodon`) together with the `newsmast_mastodon` engine gem.
@@ -12,7 +16,7 @@ This is the single source of truth for upgrading the host Mastodon fork
 ## How to use this document
 
 1. Copy the **Release intake** block into a new file under
-   [`docs/reports/`](./reports/) named `report-<TO_VERSION>.md`.
+   [`reports/`](./reports/) named `report-<TO_VERSION>.md`.
 2. Fill the intake values for the cycle.
 3. Work top-to-bottom through the phases, checking items off in your report copy.
 4. Leave this template unfilled — it is reused every cycle.
@@ -258,7 +262,7 @@ Then:
 Only after all Phase E gates pass on the gem dev branch:
 
 1. Open a PR `mastodon-<TO_VERSION>` → `main`; require green CI.
-2. Merge, then release per [`docs/release.md`](./release.md):
+2. Merge, then release per [`release.md`](./release.md):
 
    ```bash
    git checkout main && git pull --ff-only

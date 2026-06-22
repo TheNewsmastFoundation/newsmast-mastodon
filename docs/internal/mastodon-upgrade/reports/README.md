@@ -1,7 +1,7 @@
 # Upgrade reports
 
 One file per upgrade cycle, named `report-<TO_VERSION>.md`, created by copying
-the **Release intake** block from [`../UPGRADE_RUNBOOK.md`](../UPGRADE_RUNBOOK.md)
+the **Release intake** block from [`../RUNBOOK.md`](../RUNBOOK.md)
 and filling it in as you work.
 
 These are the historical record of each Mastodon → `newsmast_mastodon` upgrade:

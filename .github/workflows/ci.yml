@@ -104,7 +104,7 @@ jobs:
           if-no-files-found: ignore
 
   # Upgrade-safety gates. These are static checks (no DB/services needed) that
-  # protect every Mastodon upgrade cycle — see docs/UPGRADE_RUNBOOK.md.
+  # protect every Mastodon upgrade cycle — see docs/internal/mastodon-upgrade/RUNBOOK.md.
   compatibility:
     runs-on: ubuntu-latest
     steps:
