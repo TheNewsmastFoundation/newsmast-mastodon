@@ -31,7 +31,7 @@ RSpec.describe NewsmastMastodon::CivicrmMembershipCheckService, type: :service d
     end
 
     it 'returns valid when CiviCRM finds at least one contact' do
-      response = instance_double('HTTParty::Response', success?: true, parsed_response: { 'count' => 1, 'values' => [{ 'id' => 7 }] })
+      response = instance_double('HTTParty::Response', success?: true, parsed_response: { 'count' => 1, 'values' => [ { 'id' => 7 } ] })
       allow(described_class).to receive(:get).and_return(response)
 
       result = service.call
@@ -51,7 +51,7 @@ RSpec.describe NewsmastMastodon::CivicrmMembershipCheckService, type: :service d
     end
 
     it 'returns invalid when API request fails' do
-      response = instance_double('HTTParty::Response', success?: false)
+      response = instance_double('HTTParty::Response', success?: false, code: 401, body: 'unauthorized')
       allow(described_class).to receive(:get).and_return(response)
 
       result = service.call

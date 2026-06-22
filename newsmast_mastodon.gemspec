@@ -48,6 +48,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "annotaterb",                "~> 4.13"
   spec.add_development_dependency "puma",                      "~> 6.0"
   spec.add_development_dependency "sidekiq",                   "~> 7.0"
-  spec.add_development_dependency "sqlite3",                   "~> 1.4"
+  spec.add_development_dependency "sqlite3",                   "~> 2.1"
   spec.add_development_dependency "rubocop-rails-omakase"
 end

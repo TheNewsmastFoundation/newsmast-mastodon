@@ -25,6 +25,26 @@ unless defined?(Chewy)
   end
 end
 
+# Sidekiq – workers `include Sidekiq::Worker`, but the minimal dummy app does
+# not boot Sidekiq. Require the real gem (present in the gem's dev bundle) so
+# `sidekiq_options` etc. resolve; fall back to a minimal stub if unavailable.
+unless defined?(Sidekiq::Worker)
+  begin
+    require "sidekiq"
+  rescue LoadError
+    module Sidekiq
+      module Worker
+        def self.included(base) = base.extend(ClassMethods)
+
+        module ClassMethods
+          def sidekiq_options(*); end
+          def perform_async(*); end
+        end
+      end
+    end
+  end
+end
+
 # ---------------------------------------------------------------------------
 # Mastodon application-level stubs
 # ---------------------------------------------------------------------------
