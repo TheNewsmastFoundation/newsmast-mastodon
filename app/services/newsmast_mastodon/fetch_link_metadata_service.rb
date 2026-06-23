@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module NewsmastMastodon
-  # Fetches link preview metadata for a given URL using Mastodon's native
-  # HTTP stack (Request) together with FetchOEmbedService and
-  # LinkDetailsExtractor. This replaces the previous link_thumbnailer based
-  # implementation so the host app no longer needs the faraday-typhoeus gem.
+  # Fetches link preview metadata for a given URL, with DB caching via Mastodon's
+  # preview_cards table. First checks if metadata is cached and fresh (< 2 weeks old).
+  # If found, returns it from the database. Otherwise, fetches real-time metadata
+  # using Mastodon's native HTTP stack (Request) together with FetchOEmbedService and
+  # LinkDetailsExtractor, saves it to preview_cards, and returns it.
   #
   # The returned hash keeps the backward-compatible shape that clients of the
   # /api/v1/utilities/link_preview endpoint already expect:
@@ -22,10 +23,17 @@ module NewsmastMastodon
     # Raised when the remote resource could not be fetched or yielded no metadata.
     class FetchError < StandardError; end
 
+    PREVIEW_CARD_CACHE_TTL = 2.weeks
+
     def call(url)
       @original_url = parse_url(url)
       @url          = @original_url.to_s
 
+      # Try to return cached preview card first
+      cached = fetch_cached_preview_card
+      return preview_card_to_response(cached) if cached.present?
+
+      # No cache, fetch real-time and save to DB
       fetch_html
 
       raise FetchError, "Unable to fetch the provided URL" if @html.nil?
@@ -33,6 +41,9 @@ module NewsmastMastodon
       attributes = extract_via_oembed || extract_via_opengraph
 
       raise FetchError, "No preview metadata found for the provided URL" if attributes.nil?
+
+      # Save to preview_cards table for future cache hits
+      save_preview_card(attributes)
 
       attributes
     rescue *Mastodon::HTTP_CONNECTION_ERRORS, Mastodon::LengthValidationError, Encoding::UndefinedConversionError => e
@@ -51,6 +62,52 @@ module NewsmastMastodon
       raise InvalidURLError, "URL is not valid" if uri.host.blank? || !%w[http https].include?(uri.scheme)
 
       uri
+    end
+
+    # Check if PreviewCard exists in the database and is still fresh.
+    def fetch_cached_preview_card
+      card = PreviewCard.find_by(url: @url)
+      return unless card
+
+      # Return cached card if updated within TTL
+      return card if card.updated_at > PREVIEW_CARD_CACHE_TTL.ago
+
+      nil
+    end
+
+    # Convert a PreviewCard record to the backward-compatible response shape.
+    def preview_card_to_response(card)
+      images = []
+      if card.image.present?
+        images = [ { src: card.image.url, width: card.width.to_i, height: card.height.to_i } ]
+      end
+
+      {
+        title: card.title.to_s,
+        description: card.description.to_s,
+        images: images,
+        url: card.url
+      }
+    end
+
+    # Save extracted metadata to PreviewCard table.
+    def save_preview_card(attributes)
+      card = PreviewCard.find_or_initialize_by(url: @url)
+      card.title = attributes[:title].to_s
+      card.description = attributes[:description].to_s
+      card.type = attributes[:type] || :link
+
+      # Handle images: if present, set image_remote_url for Paperclip attachment
+      if attributes[:images].present? && attributes[:images].first&.dig(:src)
+        card.image_remote_url = attributes[:images].first[:src]
+        card.width = attributes[:images].first[:width].to_i
+        card.height = attributes[:images].first[:height].to_i
+      end
+
+      card.save_with_optional_image!
+    rescue StandardError => e
+      Rails.logger.debug { "Error saving preview card for #{@url}: #{e.message}" }
+      # Don't raise; allow the already-computed response to be returned
     end
 
     # Mirrors FetchLinkCardService#html: only accept successful HTML responses,
@@ -89,7 +146,8 @@ module NewsmastMastodon
         title: embed[:title].to_s,
         description: "",
         images: images,
-        url: @url
+        url: @url,
+        type: embed[:type]
       }
     end
 
@@ -108,7 +166,8 @@ module NewsmastMastodon
         title: attributes[:title].to_s,
         description: attributes[:description].to_s,
         images: images,
-        url: @url
+        url: @url,
+        type: attributes[:type]
       }
     end
 
