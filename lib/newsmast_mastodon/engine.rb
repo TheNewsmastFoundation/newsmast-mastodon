@@ -69,10 +69,11 @@ module NewsmastMastodon
       end
     end
 
-    # --- Autoload paths for services, workers, presenters ---
+    # --- Autoload paths for services, workers, presenters, validators ---
     config.autoload_paths << File.expand_path("../app/services", __FILE__)
     config.autoload_paths << File.expand_path("../app/workers", __FILE__)
     config.autoload_paths += %W[#{config.root}/app/presenters]
+    config.autoload_paths += %W[#{config.root}/app/validators]
 
     # --- Ghost & WordPress webhook host allowlisting ---
     initializer "newsmast_mastodon.extend_allowed_hosts" do |app|

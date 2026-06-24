@@ -58,6 +58,12 @@ NewsmastMastodon::Engine.routes.draw do
 
         resources :account_deletion, only: [:destroy]
 
+        # --- status reactions ---
+        resources :statuses, only: [] do
+          resources :reactions, only: [:update, :destroy],
+            controller: 'status_reactions'
+        end
+
         # --- conversations ---
         resources :conversations, only: [] do
           collection do
