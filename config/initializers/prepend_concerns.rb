@@ -23,6 +23,9 @@ Rails.application.config.to_prepare do
   Notification.prepend(NewsmastMastodon::Concerns::NotificationConcern)
   MediaAttachment.include(NewsmastMastodon::Concerns::MediaAttachmentConcern)
 
+  # --- ActivityPub relay interception ---
+  ActivityPub::Activity::Create.prepend(NewsmastMastodon::Overrides::ActivityCreateRelayExtension)
+
   # --- Service overrides ---
   SearchService.prepend(NewsmastMastodon::Overrides::SearchServiceExtension)
   AccountSearchService.prepend(NewsmastMastodon::Overrides::AccountSearchServiceExtension)

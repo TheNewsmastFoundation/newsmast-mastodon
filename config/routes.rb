@@ -83,6 +83,13 @@ NewsmastMastodon::Engine.routes.draw do
       namespace :timelines do
         get '@:username/feed', to: 'feeds#show', as: :custom_feed
         get 'for_you_custom_timeline', to: 'for_you_custom_timeline#show', as: :for_you_custom_timeline
+
+        # Instances timeline (home + selected relay domains)
+        # Domain can be omitted, single, or multiple via query string:
+        #   /api/v1/timelines/instances_timeline
+        #   /api/v1/timelines/instances_timeline?domain=mastodon.social
+        #   /api/v1/timelines/instances_timeline?domain=mastodon.social,mastodon.beer
+        get 'instances_timeline', to: 'instances_timeline#show', as: :instances_timeline
       end
 
       namespace :custom_statuses do
