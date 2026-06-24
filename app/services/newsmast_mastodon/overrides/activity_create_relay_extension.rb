@@ -25,15 +25,30 @@ module NewsmastMastodon
       # Returns true only when the status was delivered through one of the
       # ENV-configured custom relay domains.
       def relay_status?
-        return false unless @status.present?
-        return false unless @options[:relayed_through_actor].present?
+        unless @status.present?
+          log_relay_debug('Skipping relay feed insert: no status created')
+          return false
+        end
+
+        unless @options[:relayed_through_actor].present?
+          log_relay_debug("Skipping relay feed insert: status_id=#{@status.id} was not delivered through a relay")
+          return false
+        end
 
         relay_account = @options[:relayed_through_actor]
         relay = Relay.find_by(inbox_url: relay_account.inbox_url)
-        return false unless relay&.enabled?
+        unless relay&.enabled?
+          log_relay_debug("Skipping relay feed insert: status_id=#{@status.id} relay_inbox=#{relay_account.inbox_url} is not enabled")
+          return false
+        end
 
         domain = NewsmastMastodon::CustomRelayConfig.domain_from_inbox_url(relay.inbox_url)
-        domain.present? && custom_relay_domains.include?(domain)
+        unless domain.present? && custom_relay_domains.include?(domain)
+          log_relay_debug("Skipping relay feed insert: status_id=#{@status.id} relay_domain=#{domain.inspect} is not in CUSTOM_RELAY_DOMAINS")
+          return false
+        end
+
+        true
       end
 
       def add_to_relay_feed
@@ -44,16 +59,25 @@ module NewsmastMastodon
         key           = NewsmastMastodon::RelayFeed.timeline_key(domain)
 
         with_redis do |redis|
-          redis.zadd(key, @status.id, @status.id)
+          inserted = redis.zadd(key, @status.id, @status.id)
           # Trim oldest entries beyond the cap (rank 0 = oldest)
           redis.zremrangebyrank(key, 0, -(RELAY_FEED_MAX_ITEMS + 1))
           # 30-day TTL as a safety net for stale feeds
           redis.expire(key, 30.days.to_i)
+
+          log_relay_debug(
+            "Relay feed insert: status_id=#{@status.id} domain=#{domain} key=#{key} " \
+            "zadd_result=#{inserted.inspect} zcard=#{redis.zcard(key)}"
+          )
         end
       end
 
       def custom_relay_domains
         NewsmastMastodon::CustomRelayConfig.domains
+      end
+
+      def log_relay_debug(message)
+        Rails.logger.info("[newsmast_mastodon] #{message}")
       end
     end
   end
