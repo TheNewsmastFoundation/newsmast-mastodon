@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'httparty'
+require 'json'
 require 'uri'
 
 module NewsmastMastodon
@@ -19,6 +20,7 @@ module NewsmastMastodon
     def call
       return valid_result unless feature_enabled?
       return invalid_result if @email.blank?
+      return valid_result if allowlisted_email?
       return invalid_result unless config_present?
 
       response = self.class.get(endpoint_url, headers: request_headers, query: { params: request_params.to_json })
@@ -95,6 +97,29 @@ module NewsmastMastodon
         ],
         limit: 1
       }
+    end
+
+    def allowlisted_email?
+      allowlisted_emails.include?(@email.to_s.strip.downcase)
+    end
+
+    def allowlisted_emails
+      allowed_mails = ENV.fetch('CSID_MEMBERSHIP_ALLOWLIST_EMAILS', nil).to_s.strip
+      return [] if allowed_mails.blank?
+
+      parsed_emails = parse_allowlisted_emails(allowed_mails)
+      parsed_emails
+        .map { |email| email.to_s.strip.downcase }
+        .reject(&:blank?)
+        .uniq
+    end
+
+    def parse_allowlisted_emails(raw_value)
+      return JSON.parse(raw_value) if raw_value.start_with?('[')
+
+      raw_value.split(/\s*,\s*/)
+    rescue JSON::ParserError
+      raw_value.split(/\s*,\s*/)
     end
 
     def valid_result
