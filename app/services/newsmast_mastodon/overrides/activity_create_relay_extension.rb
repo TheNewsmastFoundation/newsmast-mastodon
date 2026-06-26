@@ -20,9 +20,19 @@ module NewsmastMastodon
         author_domain = @status.account&.domain
         log_relay_debug("Before: status_id=#{@status.id} domain=#{author_domain}")
         if @status.present?
-          if author_domain.present? && custom_relay_domains.include?(author_domain)
-            log_relay_debug("Added relay feed insert: status_id=#{@status.id} domain=#{author_domain}")
-            add_to_relay_feed(author_domain)
+          # Normalize domains to avoid mismatches caused by case/whitespace
+          author_domain_norm = author_domain.to_s.downcase.strip
+          configured_domains_norm = custom_relay_domains.map { |d| d.to_s.downcase.strip }
+
+          unless configured_domains_norm.any?
+            log_relay_debug("CUSTOM_RELAY_DOMAINS appears empty or not configured: #{custom_relay_domains.inspect}")
+          end
+
+          if author_domain_norm.present? && configured_domains_norm.include?(author_domain_norm)
+            log_relay_debug("Added relay feed insert: status_id=#{@status.id} domain=#{author_domain_norm}")
+            add_to_relay_feed(author_domain_norm)
+          else
+            log_relay_debug("Author domain not in configured custom relay domains: author=#{author_domain_norm} configured=#{configured_domains_norm.inspect}")
           end
 
           if relay_status?
