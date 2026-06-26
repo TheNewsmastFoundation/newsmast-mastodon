@@ -17,7 +17,19 @@ module NewsmastMastodon
       def create_status
         @status = super
 
-        add_to_relay_feed if relay_status?
+        if @status.present?
+          author_domain = @status.account&.domain
+          if author_domain.present? && custom_relay_domains.include?(author_domain)
+            log_relay_debug("Added relay feed insert: status_id=#{@status.id} domain=#{author_domain}")
+            add_to_relay_feed(author_domain)
+          end
+
+          if relay_status?
+            relay_account = @options[:relayed_through_actor]
+            relay_domain  = NewsmastMastodon::CustomRelayConfig.domain_from_inbox_url(relay_account.inbox_url)
+            add_to_relay_feed(relay_domain)
+          end
+        end
 
         @status
       end
@@ -30,10 +42,8 @@ module NewsmastMastodon
           return false
         end
 
-        log_relay_debug("*** @options =#{@options.inspect} ***")
-
         unless @options[:relayed_through_actor].present?
-          log_relay_debug("Skipping relay feed insert: status_id=#{@status.id} was not delivered through a relay")
+          log_relay_debug("Skipping relay feed insert: status_id=#{@status.id} was not delivered through a relay @options[:relayed_through_actor]=#{@options[:relayed_through_actor].inspect}")
           return false
         end
 
@@ -53,9 +63,7 @@ module NewsmastMastodon
         true
       end
 
-      def add_to_relay_feed
-        relay_account = @options[:relayed_through_actor]
-        domain        = NewsmastMastodon::CustomRelayConfig.domain_from_inbox_url(relay_account.inbox_url)
+      def add_to_relay_feed(domain)
         return unless domain.present?
 
         key           = NewsmastMastodon::RelayFeed.timeline_key(domain)
