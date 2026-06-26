@@ -17,8 +17,9 @@ module NewsmastMastodon
       def create_status
         @status = super
 
+        author_domain = @status.account&.domain
+        log_relay_debug("Before: status_id=#{@status.id} domain=#{author_domain}")
         if @status.present?
-          author_domain = @status.account&.domain
           if author_domain.present? && custom_relay_domains.include?(author_domain)
             log_relay_debug("Added relay feed insert: status_id=#{@status.id} domain=#{author_domain}")
             add_to_relay_feed(author_domain)
