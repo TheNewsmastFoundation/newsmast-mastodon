@@ -30,6 +30,8 @@ module NewsmastMastodon
           return false
         end
 
+        log_relay_debug("*** @options =#{@options.inspect} ***")
+
         unless @options[:relayed_through_actor].present?
           log_relay_debug("Skipping relay feed insert: status_id=#{@status.id} was not delivered through a relay")
           return false
