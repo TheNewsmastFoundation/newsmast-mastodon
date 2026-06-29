@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "httparty",         "~> 0.23.1"
 
   # Development / test dependencies
-  spec.add_development_dependency "rspec-rails",               "~> 7.0"
+  spec.add_development_dependency "rspec-rails",               "~> 8.0"
   spec.add_development_dependency "factory_bot_rails",         "~> 6.4"
   spec.add_development_dependency "shoulda-matchers",          "~> 6.4"
   spec.add_development_dependency "database_cleaner-active_record", "~> 2.2"
