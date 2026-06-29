@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   # Runtime dependencies (union of all 7 source gems)
   spec.add_dependency "rails",            ">= 7.1", "< 9.0"
   spec.add_dependency "googleauth",       "~> 1.13", ">= 1.13.1"
-  spec.add_dependency "httparty",         "~> 0.23.1"
+  spec.add_dependency "httparty",         ">= 0.23.1", "< 0.25.0"
 
   # Development / test dependencies
   spec.add_development_dependency "rspec-rails",               "~> 7.0"
