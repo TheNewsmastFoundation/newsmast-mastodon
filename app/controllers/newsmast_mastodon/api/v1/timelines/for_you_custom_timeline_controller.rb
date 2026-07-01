@@ -10,8 +10,10 @@ module NewsmastMastodon::Api::V1::Timelines
 
     def show
       cache_if_unauthenticated!
-      @statuses = load_statuses
-      @patchwork_post_reactions = build_patchwork_post_reactions(@statuses)
+      with_read_replica do
+        @statuses = load_statuses
+        @patchwork_post_reactions = build_patchwork_post_reactions(@statuses)
+      end
 
       render json: @statuses,
              each_serializer: REST::StatusSerializer,

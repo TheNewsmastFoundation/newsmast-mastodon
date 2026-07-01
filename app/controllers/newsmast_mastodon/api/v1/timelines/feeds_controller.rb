@@ -5,6 +5,8 @@ module NewsmastMastodon::Api::V1::Timelines
     PERMITTED_PARAMS = %i[local remote limit only_media].freeze
 
     def show
+     cache_if_unauthenticated!
+
       @statuses = []
       username = params[:username]
       return render json: { error: "Username is required" }, status: :bad_request unless username.present?
@@ -19,8 +21,9 @@ module NewsmastMastodon::Api::V1::Timelines
           return render json: { error: "Account is not a community admin" }, status: :not_found
       end
 
-      cache_if_unauthenticated!
-      @statuses = load_statuses
+      with_read_replica do
+        @statuses = load_statuses
+      end
       render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
     end
 

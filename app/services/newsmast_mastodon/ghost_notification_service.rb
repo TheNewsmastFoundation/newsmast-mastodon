@@ -8,13 +8,14 @@ module NewsmastMastodon
     def call(ghost_post_data)
       tokens_table = NewsmastMastodon::NotificationToken.table_name
       settings_table = NewsmastMastodon::PatchworkSetting.table_name
-      @notification_tokens = NewsmastMastodon::NotificationToken
-        .joins("INNER JOIN #{settings_table} ON #{settings_table}.account_id = #{tokens_table}.account_id")
-        .where("#{settings_table}.settings ->> 'leicester_notification' = ?", "true")
-        .select("#{tokens_table}.*")
-
-      app_title = ENV["GHOST_NOTIFICATION_SENDER_NAME"] || "Development Patchwork"
-      body = ghost_post_data["title"].truncate_words(8)
+      with_read_replica do
+        @notification_tokens = NewsmastMastodon::NotificationToken
+          .joins("INNER JOIN #{settings_table} ON #{settings_table}.account_id = #{tokens_table}.account_id")
+          .where("#{settings_table}.settings ->> 'leicester_notification' = ?", "true")
+          .select("#{tokens_table}.*")
+      end
+      app_title = ENV['GHOST_NOTIFICATION_SENDER_NAME'] || 'Development Patchwork'
+      body = ghost_post_data['title'].truncate_words(8)
       data = {
         noti_type: "ghost_articles",
         article_id: ghost_post_data["article_id"]
