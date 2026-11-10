@@ -1,0 +1,64 @@
+---
+uk:
+  locale:
+    name: Ukrainian
+    native_name: Українська
+  notification:
+    poll:
+      ended_you: Ваше опитування завершено
+      ended_voted: Опитування, в якому ви брали участь, завершено
+    mention:
+      direct_message: "%{name} надіслав вам повідомлення"
+      direct_message_attachment: "%{name} надіслав(ла) вам вкладення"
+      conversation_request: У вас новий запит на розмову.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Шановний %{name},
+      instruction: 'Ваш код OTP для підтвердження акаунта нижче:'
+      note: Якщо ви не запитували це, просто ігноруйте цей лист
+  api:
+    errors:
+      unauthorized: Ви не маєте права виконувати цю дію
+      forbidden: Доступ заборонено!
+      not_found: Ресурс не знайдено
+      unprocessable_entity: Запит не може бути оброблений
+      internal_server_error: Виникла внутрішня помилка сервера
+      validation_failed: Валідація не вдалася!
+      invalid_request: Невірний запит!
+      rate_limit_exceeded: Перевищено ліміт запитів. Спробуйте пізніше
+      unknown_relay_domains: "Невідомі relay-домени: %{domains}"
+    messages:
+      success: Операцію успішно завершено
+      created: Ресурс успішно створено
+      updated: Ресурс успішно оновлено
+      deleted: Ресурс успішно видалено
+    notification:
+      messages:
+        token_already_exists: Токен сповіщення вже існує
+        token_saved: Токен сповіщення збережено
+        token_deleted: Токен сповіщення успішно видалено
+        token_not_found: Токени сповіщення не знайдено
+        mute_updated: Статус "Без звуку" успішно оновлено
+    account:
+      errors:
+        email_not_found: Електронну пошту не знайдено!
+        email_invalid: Невірний формат електронної пошти
+        email_taken: Електронна пошта вже зайнята
+        email_update_fail: Оновлення електронної пошти не вдалося
+        password_unmatch: Паролі не співпадають
+        password_update_fail: Оновлення пароля не вдалося
+        otp_invalid: Невірний OTP!
+        missing_field: Відсутні обов'язкові поля
+        password_incorrect: Поточний пароль невірний
+      messages:
+        password_updated: Пароль оновлено
+    domain:
+      messages:
+        dns_verified: DNS налаштовано правильно
+    conversation:
+      messages:
+        marked_read: "%{updated_count} розмову(и) позначено як прочитано"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Реакція не розпізнана
+      emoji_limit_exceeded: Лімітом емодз​ї перевищено

@@ -1,0 +1,64 @@
+---
+nn:
+  locale:
+    name: Norwegian Nynorsk
+    native_name: Norsk nynorsk
+  notification:
+    poll:
+      ended_you: Din avstemming er avslutta
+      ended_voted: Ei avstemming du stemte i er avslutta
+    mention:
+      direct_message: "%{name} sende deg ei melding"
+      direct_message_attachment: "%{name} sende deg eit vedlegg"
+      conversation_request: Du har ei ny samtaleførespurnad.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Kjære %{name},
+      instruction: 'OTP-koden for kontoverifiseringa di er:'
+      note: Om du ikkje bad om dette, ignorer denne e-posten
+  api:
+    errors:
+      unauthorized: Du har ikkje løyve til å utføre denne handlinga
+      forbidden: Tilgang nekta!
+      not_found: Ressurs ikkje funnen
+      unprocessable_entity: Førespurnaden kunne ikkje behandlast
+      internal_server_error: Ein intern serverfeil oppstod
+      validation_failed: Validering feila!
+      invalid_request: Ugyldig førespurnad!
+      rate_limit_exceeded: Førespurnadsgrensa er overskriden. Prøv igjen seinare
+      unknown_relay_domains: "Ukjende relay-domene: %{domains}"
+    messages:
+      success: Handlinga vart fullført
+      created: Ressurs oppretta
+      updated: Ressurs oppdatert
+      deleted: Ressurs sletta
+    notification:
+      messages:
+        token_already_exists: Varslingstoken finst frå før
+        token_saved: Varslingstoken lagra
+        token_deleted: Varslingstoken sletta
+        token_not_found: Ingen varslingstoken funne
+        mute_updated: Stillemodus oppdatert
+    account:
+      errors:
+        email_not_found: E-post ikkje funnen!
+        email_invalid: Ugyldig e-postformat
+        email_taken: E-post er allereie i bruk
+        email_update_fail: Oppdatering av e-post feila
+        password_unmatch: Passorda stemmer ikkje overeins
+        password_update_fail: Oppdatering av passord feila
+        otp_invalid: Ugyldig OTP!
+        missing_field: Manglar påkravde felt
+        password_incorrect: Noverande passord er feil
+      messages:
+        password_updated: Passordet er oppdatert
+    domain:
+      messages:
+        dns_verified: DNS er rett konfigurert
+    conversation:
+      messages:
+        marked_read: "%{updated_count} samtale(r) merka som lese"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reaksjon ikkje gjenkjend
+      emoji_limit_exceeded: Emoji-grense overskreden

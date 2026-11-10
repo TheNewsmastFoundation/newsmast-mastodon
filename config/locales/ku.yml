@@ -1,0 +1,64 @@
+---
+ku:
+  locale:
+    name: Kurdish
+    native_name: Kurdî
+  notification:
+    poll:
+      ended_you: Dengdanê te qediyayê
+      ended_voted: Dengdanek ku tu de destnîşan kirî, qediyayê
+    mention:
+      direct_message: "%{name} ji te re peyamê şand"
+      direct_message_attachment: "%{name} ji te re pêvekek şand"
+      conversation_request: Daxwaziya axaftineke nû heye.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Eziz %{name},
+      instruction: 'Koda OTP ya piştrastkirina hesabê te ye:'
+      note: Ger tu vê daxwaz nekirî, ji kerema xwe vê e-nameyê bêbextî bibîre
+  api:
+    errors:
+      unauthorized: Te destûr nîne ku vê kiryarê bike
+      forbidden: Destûr red kirin!
+      not_found: Çavkaniyê nehat dîtin
+      unprocessable_entity: Daxwazê nehat xebitandin
+      internal_server_error: Çewtiya serverê ya hundirîn derket holê
+      validation_failed: Pêwîstiyê têk çû!
+      invalid_request: Daxwazê nederbasdar!
+      rate_limit_exceeded: Sînorê daxwazê tê derbas kirin. Ji kerema xwe paşê biceribîne
+      unknown_relay_domains: "Domênên relay yên nenas: %{domains}"
+    messages:
+      success: Kar bi serketinî qediyayê
+      created: Çavkaniyê bi serketinî hate çêkirin
+      updated: Çavkaniyê bi serketinî hate nûkirin
+      deleted: Çavkaniyê bi serketinî hate jêbirin
+    notification:
+      messages:
+        token_already_exists: Tokena agahdariyê jixwe heye
+        token_saved: Tokena agahdariyê hate tomar kirin
+        token_deleted: Tokena agahdariyê bi serketinî hate jêbirin
+        token_not_found: Tokenên agahdariyê nehatin dîtin
+        mute_updated: Rewşa bêdengî bi serketinî hate nûkirin
+    account:
+      errors:
+        email_not_found: E-name nehat dîtin!
+        email_invalid: Şêwaza e-nameyê nederbasdar e
+        email_taken: E-name jixwe tê bikaranîn
+        email_update_fail: Nûkirina e-nameyê serketin nedaye
+        password_unmatch: Şîfre nehevgirtin
+        password_update_fail: Nûkirina şîfreyê serketin nedaye
+        otp_invalid: OTP nederbasdar e!
+        missing_field: Zeviyên pêwîst tune ne
+        password_incorrect: Şîfreya heyî şaş e
+      messages:
+        password_updated: Şîfre hate nûkirin
+    domain:
+      messages:
+        dns_verified: DNS bi rastî hate saz kirin
+    conversation:
+      messages:
+        marked_read: "%{updated_count} gotûbêj(an) wek xwendî hate nîşandan"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Bersiv nayê nasîn
+      emoji_limit_exceeded: Sînorê emoji derbasî

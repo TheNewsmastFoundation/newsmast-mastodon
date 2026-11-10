@@ -1,0 +1,422 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      host_mastodon_repo:
+        description: "Host Mastodon repository (owner/repo) for host-integration job"
+        required: false
+        type: string
+        default: "patchwork-hub/patchwork-mastodon"
+      host_mastodon_ref:
+        description: "Host Mastodon ref (branch/tag/SHA)"
+        required: false
+        type: string
+        default: "patchwork-mastodon-demo-4.6.3"
+      host_integration_profile:
+        description: "Host integration mode"
+        required: false
+        type: choice
+        options:
+          - lightweight
+          - full
+          - both
+        default: lightweight
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changelog-policy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: ${{ github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'no-changelog') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Require changelog update for code changes
+        run: |
+          set -e
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA"...HEAD)
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          # Check if any code or behavior files changed
+          CODE_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^(app/|lib/|bin/|db/|spec/|Gemfile|newsmast_mastodon\.gemspec|Rakefile|\.github/workflows)' || true)
+
+          # Check if CHANGELOG.md was updated
+          CHANGELOG_CHANGED=$(echo "$CHANGED_FILES" | grep -E '^CHANGELOG\.md$' || true)
+
+          if [ -n "$CODE_CHANGES" ] && [ -z "$CHANGELOG_CHANGED" ]; then
+            echo "❌ CHANGELOG.md must be updated when code or behavior changes."
+            echo "Changed code files:"
+            echo "$CODE_CHANGES"
+            exit 1
+          fi
+          echo "✅ Changelog policy passed"
+
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.3", "3.4", "4.0"]
+    timeout-minutes: 15
+    env:
+      RUBOCOP_CACHE_ROOT: tmp/rubocop
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          persist-credentials: false
+
+      - name: Setup runtime
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Prepare RuboCop cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        env:
+          DEPENDENCIES_HASH: ${{ hashFiles('**/.rubocop.yml', '**/.rubocop_todo.yml', 'Gemfile.lock') }}
+        with:
+          path: ${{ env.RUBOCOP_CACHE_ROOT }}
+          key: rubocop-${{ runner.os }}-${{ matrix.ruby }}-${{ env.DEPENDENCIES_HASH }}-${{ github.ref_name == github.event.repository.default_branch && github.run_id || 'default' }}
+          restore-keys: |
+            rubocop-${{ runner.os }}-${{ matrix.ruby }}-${{ env.DEPENDENCIES_HASH }}-
+
+      - name: Lint code for consistent style
+        run: bundle exec rubocop --format github
+
+  api-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          persist-credentials: false
+
+      - name: Setup runtime
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: "3.4"
+
+      - name: Verify routes, controllers, and Postman docs are in sync
+        run: bundle exec rake api:verify
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.3", "3.4", "4.0"]
+    timeout-minutes: 30
+
+    services:
+      redis:
+        image: valkey/valkey:8
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      REDIS_URL: redis://localhost:6379/0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          persist-credentials: false
+
+      - name: Setup runtime
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Run specs
+        run: |
+          if [ "${{ matrix.ruby }}" = "4.0" ]; then
+            COVERAGE_MINIMUM=1 bundle exec rspec --format documentation
+          else
+            bundle exec rspec --format documentation
+          fi
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: coverage-ruby-${{ matrix.ruby }}
+          path: coverage
+          if-no-files-found: ignore
+
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: failure()
+        with:
+          name: screenshots-ruby-${{ matrix.ruby }}
+          path: ${{ github.workspace }}/tmp/screenshots
+          if-no-files-found: ignore
+
+  # Separate Postgres validation keeps default specs in sqlite mode while still
+  # running a targeted spec subset against a real Postgres service.
+  test-postgres-subset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: newsmast_mastodon_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: valkey/valkey:8
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/newsmast_mastodon_test
+      REDIS_URL: redis://localhost:6379/0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          persist-credentials: false
+
+      - name: Setup runtime
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: "3.4"
+
+      - name: Bootstrap minimal Postgres schema for standalone specs
+        run: |
+          bundle exec rails runner script/ci/bootstrap_postgres_subset.rb
+
+      - name: Run Postgres-backed spec subset
+        run: |
+          bundle exec rspec \
+            spec/models/newsmast_mastodon/server_setting_spec.rb \
+            spec/models/newsmast_mastodon/notification_token_spec.rb \
+            spec/models/newsmast_mastodon/community_spec.rb \
+            --format documentation
+
+  # Upgrade-safety gates. These are static checks (no DB/services needed) that
+  # protect every Mastodon upgrade cycle.
+  compatibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          persist-credentials: false
+
+      - name: Setup runtime
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: "3.4"
+
+      - name: Migration idempotency + version sync gates
+        run: bundle exec rspec spec/compatibility --format documentation
+
+  # Lightweight host-integration smoke check: manual-only via workflow_dispatch.
+  # Keeps default PR/push CI fast and avoids host-app boot variability.
+  # This mode runs override drift validation + gem specs against host code
+  # without provisioning full host runtime services.
+  host-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.host_mastodon_repo != '' && (inputs.host_integration_profile == 'lightweight' || inputs.host_integration_profile == 'both') }}
+    steps:
+      - name: Checkout gem
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          path: gem
+          persist-credentials: false
+
+      - name: Checkout host Mastodon
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          repository: ${{ github.event.inputs.host_mastodon_repo || 'patchwork-hub/patchwork-mastodon' }}
+          ref: ${{ github.event.inputs.host_mastodon_ref || 'patchwork-mastodon-demo-4.6.3' }}
+          token: ${{ github.token }}
+          path: host
+          persist-credentials: false
+
+      - name: Setup runtime
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: "4.0.5"
+
+      - name: Check vendored override drift
+        working-directory: gem
+        run: ruby bin/check-override-drift "${GITHUB_WORKSPACE}/host"
+
+      - name: Install host dependencies
+        working-directory: host
+        run: bundle install
+
+      - name: Run gem specs against host Mastodon
+        working-directory: gem
+        env:
+          BUNDLE_GEMFILE: ${{ github.workspace }}/host/Gemfile
+          MASTODON_ROOT: ${{ github.workspace }}/host
+          NEWSMAST_STRICT_HOST_BOOT: "1"
+          RAILS_ENV: test
+        run: bundle exec rspec --format documentation
+
+  # Full host-integration run with host runtime services enabled. This mode is
+  # intended for deeper validation when host app DB/Redis/ES dependencies are
+  # required during boot or spec execution.
+  host-integration-full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.host_mastodon_repo != '' && (inputs.host_integration_profile == 'full' || inputs.host_integration_profile == 'both') }}
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mastodon_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: valkey/valkey:8
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: "false"
+          ES_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -fsS http://localhost:9200/_cluster/health || exit 1"
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 20
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/mastodon_test
+      REDIS_URL: redis://localhost:6379/0
+      ES_ENABLED: "true"
+      ES_HOST: localhost
+      ES_PORT: "9200"
+
+    steps:
+      - name: Checkout gem
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          path: gem
+          persist-credentials: false
+
+      - name: Checkout host Mastodon
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          repository: ${{ inputs.host_mastodon_repo }}
+          ref: ${{ inputs.host_mastodon_ref || '' }}
+          token: ${{ github.token }}
+          path: host
+          persist-credentials: false
+
+      - name: Setup runtime
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: "4.0.5"
+
+      - name: Install host dependencies
+        working-directory: host
+        run: bundle install
+
+      - name: Prepare host test database
+        working-directory: host
+        run: bundle exec rails db:prepare
+
+      - name: Check vendored override drift
+        working-directory: gem
+        run: ruby bin/check-override-drift "${GITHUB_WORKSPACE}/host"
+
+      - name: Run gem specs against full host runtime services
+        working-directory: gem
+        env:
+          BUNDLE_GEMFILE: ${{ github.workspace }}/host/Gemfile
+          MASTODON_ROOT: ${{ github.workspace }}/host
+          NEWSMAST_STRICT_HOST_BOOT: "1"
+          RAILS_ENV: test
+        run: bundle exec rspec --format documentation
+
+  ci-ok:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs:
+      - changelog-policy
+      - lint
+      - api-contract
+      - test
+      - test-postgres-subset
+      - compatibility
+    if: always()
+    steps:
+      - name: Verify required CI jobs passed
+        env:
+          NEEDS_JSON: ${{ toJson(needs) }}
+        run: |
+          echo "$NEEDS_JSON" > needs.json
+          ruby -rjson -e '
+            results = JSON.parse(File.read("needs.json")).values.map { |v| v.fetch("result") }
+            blocked = results.any? { |r| r == "failure" || r == "cancelled" }
+            abort("One or more required CI jobs failed or were cancelled") if blocked
+            puts "All required CI jobs passed (or were skipped when not applicable)."
+          '
+

@@ -1,0 +1,64 @@
+---
+ur:
+  locale:
+    name: Urdu
+    native_name: اردو
+  notification:
+    poll:
+      ended_you: آپ کا پول ختم ہو گیا ہے
+      ended_voted: جس پول میں آپ نے ووٹ دیا وہ ختم ہو گیا ہے
+    mention:
+      direct_message: "%{name} نے آپ کو پیغام بھیجا"
+      direct_message_attachment: "%{name} نے آپ کو ایک منسلکہ بھیجا ہے"
+      conversation_request: آپ کے پاس ایک نئی بات چیت کی درخواست ہے۔
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: محترم %{name},
+      instruction: 'آپ کے اکاؤنٹ کی تصدیق کے لیے OTP کوڈ درج ذیل ہے:'
+      note: اگر آپ نے یہ درخواست نہیں کی تو براہ کرم اس ای میل کو نظر انداز کریں
+  api:
+    errors:
+      unauthorized: آپ کو یہ عمل کرنے کی اجازت نہیں ہے
+      forbidden: رسائی مسترد کر دی گئی!
+      not_found: وسیلہ نہیں ملا
+      unprocessable_entity: درخواست پر عمل نہیں ہو سکا
+      internal_server_error: اندرونی سرور کی خرابی ہوئی
+      validation_failed: تصدیق ناکام ہوئی!
+      invalid_request: غلط درخواست!
+      rate_limit_exceeded: درخواست کی حد تجاوز کر گئی ہے۔ براہ کرم بعد میں کوشش کریں
+      unknown_relay_domains: "نامعلوم ریلے ڈومینز: %{domains}"
+    messages:
+      success: عمل کامیابی سے مکمل ہوا
+      created: وسیلہ کامیابی سے بنایا گیا
+      updated: وسیلہ کامیابی سے اپ ڈیٹ ہوا
+      deleted: وسیلہ کامیابی سے حذف ہوا
+    notification:
+      messages:
+        token_already_exists: نوٹیفکیشن ٹوکن پہلے سے موجود ہے
+        token_saved: نوٹیفکیشن ٹوکن محفوظ ہو گیا
+        token_deleted: نوٹیفکیشن ٹوکن کامیابی سے حذف ہو گیا
+        token_not_found: کوئی نوٹیفکیشن ٹوکن نہیں ملا
+        mute_updated: خاموشی کی حالت کامیابی سے اپ ڈیٹ ہو گئی
+    account:
+      errors:
+        email_not_found: ای میل نہیں ملی!
+        email_invalid: غلط ای میل فارمیٹ
+        email_taken: ای میل پہلے سے لی جا چکی ہے
+        email_update_fail: ای میل اپ ڈیٹ ناکام ہوئی
+        password_unmatch: پاس ورڈ مماثل نہیں ہیں
+        password_update_fail: پاس ورڈ اپ ڈیٹ ناکام ہوئی
+        otp_invalid: غلط OTP!
+        missing_field: ضروری فیلڈز غائب ہیں
+        password_incorrect: موجودہ پاس ورڈ غلط ہے
+      messages:
+        password_updated: پاس ورڈ اپ ڈیٹ ہو گیا
+    domain:
+      messages:
+        dns_verified: DNS درست طریقے سے ترتیب دیا گیا ہے
+    conversation:
+      messages:
+        marked_read: "%{updated_count} گفتگو(ئیں) بطور پڑھی ہوئی نشان زد کی گئی"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: ردعمل شناخت نہیں
+      emoji_limit_exceeded: ای موجی کی حد سے تجاوز

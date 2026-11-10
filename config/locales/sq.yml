@@ -1,0 +1,64 @@
+---
+sq:
+  locale:
+    name: Albanian
+    native_name: Shqip
+  notification:
+    poll:
+      ended_you: Sondazhi juaj ka përfunduar
+      ended_voted: Një sondazh ku keni votuar ka përfunduar
+    mention:
+      direct_message: "%{name} ju ka dërguar një mesazh"
+      direct_message_attachment: "%{name} ju ka dërguar një bashkëngjitje"
+      conversation_request: Keni një kërkesë të re bisede.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: I dashur %{name},
+      instruction: 'Kodi juaj OTP për verifikimin e llogarisë është:'
+      note: Nëse nuk e keni kërkuar këtë, ju lutemi injoroni këtë email
+  api:
+    errors:
+      unauthorized: Nuk jeni të autorizuar të kryeni këtë veprim
+      forbidden: Akses i mohuar!
+      not_found: Burimi nuk u gjet
+      unprocessable_entity: Kërkesa nuk mund të përpunohej
+      internal_server_error: Ndodhi një gabim i brendshëm i serverit
+      validation_failed: Verifikimi dështoi!
+      invalid_request: Kërkesë e pavlefshme!
+      rate_limit_exceeded: Limiti i kërkesave u tejkalua. Ju lutemi provoni më vonë
+      unknown_relay_domains: "Domene relay të panjohura: %{domains}"
+    messages:
+      success: Operacioni u përfundua me sukses
+      created: Burimi u krijua me sukses
+      updated: Burimi u përditësua me sukses
+      deleted: Burimi u fshi me sukses
+    notification:
+      messages:
+        token_already_exists: Tokeni i njoftimit ekziston tashmë
+        token_saved: Tokeni i njoftimit u ruajt
+        token_deleted: Tokeni i njoftimit u fshi me sukses
+        token_not_found: Nuk u gjetën tokenë njoftimi
+        mute_updated: Statusi i heshtjes u përditësua me sukses
+    account:
+      errors:
+        email_not_found: Emaili nuk u gjet!
+        email_invalid: Format emaili i pavlefshëm
+        email_taken: Emaili është marrë tashmë
+        email_update_fail: Përditësimi i emailit dështoi
+        password_unmatch: Fjalëkalimet nuk përputhen
+        password_update_fail: Përditësimi i fjalëkalimit dështoi
+        otp_invalid: OTP i pavlefshëm!
+        missing_field: Fusha të kërkuara mungojnë
+        password_incorrect: Fjalëkalimi aktual është i pasaktë
+      messages:
+        password_updated: Fjalëkalimi është përditësuar
+    domain:
+      messages:
+        dns_verified: DNS është konfiguruar saktë
+    conversation:
+      messages:
+        marked_read: "%{updated_count} bisedë(a) u shënua si e lexuar"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Përgjigja nuk është njohur
+      emoji_limit_exceeded: Kufiri i emoji-t është tejkaluar

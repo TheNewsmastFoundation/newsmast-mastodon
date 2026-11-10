@@ -1,0 +1,64 @@
+---
+szl:
+  locale:
+    name: Silesian
+    native_name: Ślůnski
+  notification:
+    poll:
+      ended_you: Twoja ankieta sie skończyła
+      ended_voted: Ankieta, w kerej głosowołś, sie skończyła
+    mention:
+      direct_message: "%{name} posłał ci wiadōmość"
+      direct_message_attachment: "%{name} posłoł ci przidowek"
+      conversation_request: Mosz nowe żōndanie kōnwersacyje.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Drogi %{name},
+      instruction: 'Twōj kod OTP do weryfikacyje konta to:'
+      note: Jak niy prosiłś o to, zignoruj tyn email
+  api:
+    errors:
+      unauthorized: Niy masz uprawniyń do wykōnania tego działania
+      forbidden: Dostymp zabroniōny!
+      not_found: Niy znaleziono zasobu
+      unprocessable_entity: Niy idzie przetwōrzyć żōndanie
+      internal_server_error: Wystōmpił wewnętrzny błąd serwera
+      validation_failed: Weryfikacyjo niy powiodła sie!
+      invalid_request: Niywłaściwe żōndanie!
+      rate_limit_exceeded: Przekroczōno limit żōndań. Sprōbuj jeszcze raz pōźni
+      unknown_relay_domains: "Niyznōme dōmyny relay: %{domains}"
+    messages:
+      success: Operacyjo zakończōno z powodzeniem
+      created: Zasōb stworzōny z powodzeniem
+      updated: Zasōb zaktualizowany z powodzeniem
+      deleted: Zasōb skasowany z powodzeniem
+    notification:
+      messages:
+        token_already_exists: Token powiadomień już je
+        token_saved: Token powiadomień zapisany
+        token_deleted: Token powiadomień skasowany z powodzeniem
+        token_not_found: Niy znaleziono tokenōw powiadomień
+        mute_updated: Status wyciszynio zaktualizowany z powodzeniem
+    account:
+      errors:
+        email_not_found: Niy znaleziono e-maila!
+        email_invalid: Niywłaściwy format e-maila
+        email_taken: E-mail już je zajęty
+        email_update_fail: Aktualizacyjo e-maila niy powiodła sie
+        password_unmatch: Hasła niy pasujōm do siebie
+        password_update_fail: Aktualizacyjo hasła niy powiodła sie
+        otp_invalid: Niywłaściwy OTP!
+        missing_field: Brakuje wymaganych pól
+        password_incorrect: Aktualne hasło je niywłaściwe
+      messages:
+        password_updated: Hasło zaktualizowane
+    domain:
+      messages:
+        dns_verified: DNS je poprawnie skonfigurowany
+    conversation:
+      messages:
+        marked_read: "%{updated_count} rozmowa(y) oznaczōno jako przeczytano"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reaktja niy rozpoznana
+      emoji_limit_exceeded: Limit emoji przykroczony

@@ -1,0 +1,64 @@
+---
+sr-Latn:
+  locale:
+    name: Serbian (Latin)
+    native_name: Srpski (Latinica)
+  notification:
+    poll:
+      ended_you: Vaša anketa je završena
+      ended_voted: Anketa u kojoj ste glasali je završena
+    mention:
+      direct_message: "%{name} vam je poslao poruku"
+      direct_message_attachment: "%{name} vam je poslao prilog"
+      conversation_request: Imate novi zahtev za razgovor.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Poštovani %{name},
+      instruction: 'Vaš OTP kod za verifikaciju naloga je:'
+      note: Ako niste tražili ovo, ignorišite ovaj email
+  api:
+    errors:
+      unauthorized: Nemate ovlašćenja za ovu radnju
+      forbidden: Pristup odbijen!
+      not_found: Resurs nije pronađen
+      unprocessable_entity: Zahtev nije moguće obraditi
+      internal_server_error: Došlo je do interne greške servera
+      validation_failed: Validacija nije uspela!
+      invalid_request: Neispravan zahtev!
+      rate_limit_exceeded: Premašen je limit zahteva. Pokušajte kasnije
+      unknown_relay_domains: "Nepoznati relay domeni: %{domains}"
+    messages:
+      success: Operacija uspešno završena
+      created: Resurs uspešno kreiran
+      updated: Resurs uspešno ažuriran
+      deleted: Resurs uspešno obrisan
+    notification:
+      messages:
+        token_already_exists: Token za obaveštenje već postoji
+        token_saved: Token za obaveštenje sačuvan
+        token_deleted: Token za obaveštenje uspešno obrisan
+        token_not_found: Nema pronađenih tokena za obaveštenje
+        mute_updated: Status utišanosti uspešno ažuriran
+    account:
+      errors:
+        email_not_found: E-mail nije pronađen!
+        email_invalid: Neispravan format e-maila
+        email_taken: E-mail je već zauzet
+        email_update_fail: Ažuriranje e-maila nije uspelo
+        password_unmatch: Lozinke se ne poklapaju
+        password_update_fail: Ažuriranje lozinke nije uspelo
+        otp_invalid: Neispravan OTP!
+        missing_field: Nedostaju obavezna polja
+        password_incorrect: Trenutna lozinka je netačna
+      messages:
+        password_updated: Lozinka je ažurirana
+    domain:
+      messages:
+        dns_verified: DNS je pravilno konfigurisan
+    conversation:
+      messages:
+        marked_read: "%{updated_count} razgovor(a) označeno kao pročitano"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reakcija nije prepoznata
+      emoji_limit_exceeded: Granica emojija je premašena

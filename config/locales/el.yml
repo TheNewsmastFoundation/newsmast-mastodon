@@ -1,0 +1,64 @@
+---
+el:
+  locale:
+    name: Greek
+    native_name: Ελληνικά
+  notification:
+    poll:
+      ended_you: Η δημοσκόπησή σας ολοκληρώθηκε
+      ended_voted: Μια δημοσκόπηση στην οποία ψηφίσατε ολοκληρώθηκε
+    mention:
+      direct_message: "%{name} σας έστειλε ένα μήνυμα"
+      direct_message_attachment: "%{name} σας έστειλε ένα συνημμένο"
+      conversation_request: Έχετε ένα νέο αίτημα συνομιλίας.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Αγαπητέ/ή %{name},
+      instruction: 'Ο κωδικός OTP επαλήθευσης λογαριασμού σας είναι:'
+      note: Αν δεν το ζητήσατε, αγνοήστε αυτό το email
+  api:
+    errors:
+      unauthorized: Δεν έχετε εξουσιοδότηση για αυτήν την ενέργεια
+      forbidden: Η πρόσβαση απορρίφθηκε!
+      not_found: Ο πόρος δεν βρέθηκε
+      unprocessable_entity: Το αίτημα δεν μπόρεσε να επεξεργαστεί
+      internal_server_error: Παρουσιάστηκε εσωτερικό σφάλμα διακομιστή
+      validation_failed: Η επικύρωση απέτυχε!
+      invalid_request: Μη έγκυρο αίτημα!
+      rate_limit_exceeded: Υπέρβαση ορίου αιτημάτων. Δοκιμάστε ξανά αργότερα
+      unknown_relay_domains: "Άγνωστοι τομείς relay: %{domains}"
+    messages:
+      success: Η λειτουργία ολοκληρώθηκε με επιτυχία
+      created: Ο πόρος δημιουργήθηκε με επιτυχία
+      updated: Ο πόρος ενημερώθηκε με επιτυχία
+      deleted: Ο πόρος διαγράφηκε με επιτυχία
+    notification:
+      messages:
+        token_already_exists: Το διακριτικό ειδοποίησης υπάρχει ήδη
+        token_saved: Το διακριτικό ειδοποίησης αποθηκεύτηκε
+        token_deleted: Το διακριτικό ειδοποίησης διαγράφηκε με επιτυχία
+        token_not_found: Δεν βρέθηκαν διακριτικά ειδοποίησης
+        mute_updated: Η κατάσταση σίγασης ενημερώθηκε με επιτυχία
+    account:
+      errors:
+        email_not_found: Το email δεν βρέθηκε!
+        email_invalid: Μη έγκυρη μορφή email
+        email_taken: Το email έχει ήδη ληφθεί
+        email_update_fail: Η ενημέρωση email δεν ήταν επιτυχής
+        password_unmatch: Οι κωδικοί δεν ταιριάζουν
+        password_update_fail: Η ενημέρωση κωδικού δεν ήταν επιτυχής
+        otp_invalid: Μη έγκυρο OTP!
+        missing_field: Λείπουν απαιτούμενα πεδία
+        password_incorrect: Ο τρέχων κωδικός είναι λανθασμένος
+      messages:
+        password_updated: Ο κωδικός ενημερώθηκε
+    domain:
+      messages:
+        dns_verified: Το DNS έχει ρυθμιστεί σωστά
+    conversation:
+      messages:
+        marked_read: Σημειώθηκαν %{updated_count} συνομιλίες ως αναγνωσμένες
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Άγνωστη αντίδραση
+      emoji_limit_exceeded: Υπέρβαση ορίου emoji

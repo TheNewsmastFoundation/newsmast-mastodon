@@ -1,0 +1,64 @@
+---
+ckb:
+  locale:
+    name: Central Kurdish
+    native_name: کوردیی ناوەندی
+  notification:
+    poll:
+      ended_you: ڕاپرسییەکەت کۆتایی هات
+      ended_voted: ڕاپرسییەکەی کە تۆ تێیدا دەنگت دا کۆتایی هات
+    mention:
+      direct_message: "%{name} نامەیەکت بۆ نارد"
+      direct_message_attachment: "%{name} پەڕگەیەکی هاوپێچی بۆ ناردیت"
+      conversation_request: داواکاریی گفتوگۆیەکی نوێت هەیە.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: بەڕێز %{name}،
+      instruction: 'کۆدی OTPی پشتڕاستکردنی هەژمارت ئەمەیە:'
+      note: ئەگەر داوای ئەمە نەکردووە، تکایە ئەم ئیمەیڵە پەڕە بکەوە
+  api:
+    errors:
+      unauthorized: دەسەڵاتت نییە بۆ ئەم کردارە
+      forbidden: دەسەڵات ڕەتکرایەوە!
+      not_found: سەرچاوە نەدۆزرایەوە
+      unprocessable_entity: داواکارییەکە نەتوانرا پڕۆسە بکرێت
+      internal_server_error: هەڵەیەکی ناوخۆیی سێرڤەر ڕووی دا
+      validation_failed: پشتڕاستکردن سەرکەوتوو نەبوو!
+      invalid_request: داواکاری نادروست!
+      rate_limit_exceeded: سنوری داواکاری تێپەڕدرا. تکایە دوای کاتێک هەوڵ بدەوە
+      unknown_relay_domains: "دۆمەینی ریلەی نەناسراو: %{domains}"
+    messages:
+      success: کردار بەسەرکەوتوویی تەواو بوو
+      created: سەرچاوە بەسەرکەوتوویی دروستکرا
+      updated: سەرچاوە بەسەرکەوتوویی نوێکرایەوە
+      deleted: سەرچاوە بەسەرکەوتوویی سڕایەوە
+    notification:
+      messages:
+        token_already_exists: تۆکنی ئاگادارکردنەوە پێشتر هەیە
+        token_saved: تۆکنی ئاگادارکردنەوە پاشەکەوتکرا
+        token_deleted: تۆکنی ئاگادارکردنەوە بەسەرکەوتوویی سڕایەوە
+        token_not_found: هیچ تۆکنی ئاگادارکردنەوە نەدۆزرایەوە
+        mute_updated: دۆخی بێدەنگی بەسەرکەوتوویی نوێکرایەوە
+    account:
+      errors:
+        email_not_found: ئیمەیڵ نەدۆزرایەوە!
+        email_invalid: فۆرمی ئیمەیڵ نادروستە
+        email_taken: ئیمەیڵ پێشتر بەکارهاتووە
+        email_update_fail: نوێکردنەوەی ئیمەیڵ سەرکەوتوو نەبوو
+        password_unmatch: وشەی نهێنی هاوتا نییە
+        password_update_fail: نوێکردنەوەی وشەی نهێنی سەرکەوتوو نەبوو
+        otp_invalid: OTP نادروستە!
+        missing_field: خانە پێویستەکان نەمانەوە
+        password_incorrect: وشەی نهێنی ئێستا هەڵەیە
+      messages:
+        password_updated: وشەی نهێنی نوێکرایەوە
+    domain:
+      messages:
+        dns_verified: DNS بە دروستی ڕێکخراوە
+    conversation:
+      messages:
+        marked_read: "%{updated_count} گفتوگۆ وەک خوێندراو نیشاندران"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: بۆچوونی بەدیدانبوو
+      emoji_limit_exceeded: سنووری ئیموجی تێدرایە

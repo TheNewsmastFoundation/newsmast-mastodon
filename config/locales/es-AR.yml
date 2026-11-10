@@ -1,0 +1,65 @@
+---
+es-AR:
+  locale:
+    name: Spanish (Argentina)
+    native_name: Español (Argentina)
+  notification:
+    poll:
+      ended_you: Tu encuesta ha terminado
+      ended_voted: Una encuesta en la que votaste ha terminado
+    mention:
+      direct_message: "%{name} te envió un mensaje"
+      direct_message_attachment: "%{name} te envió un archivo adjunto"
+      conversation_request: Tenés una nueva solicitud de conversación.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Estimado/a %{name},
+      instruction: 'Tu código OTP de verificación de cuenta es:'
+      note: Si no solicitaste esto, por favor ignorá este correo electrónico
+  api:
+    errors:
+      unauthorized: No estás autorizado para realizar esta acción
+      forbidden: "¡Acceso denegado!"
+      not_found: Recurso no encontrado
+      unprocessable_entity: No se pudo procesar la solicitud
+      internal_server_error: Se produjo un error interno del servidor
+      validation_failed: "¡La validación falló!"
+      invalid_request: "¡Solicitud no válida!"
+      rate_limit_exceeded: Límite de solicitudes excedido. Por favor, intentá más
+        tarde
+      unknown_relay_domains: "Dominios de relay desconocidos: %{domains}"
+    messages:
+      success: Operación completada con éxito
+      created: Recurso creado con éxito
+      updated: Recurso actualizado con éxito
+      deleted: Recurso eliminado con éxito
+    notification:
+      messages:
+        token_already_exists: El token de notificación ya existe
+        token_saved: Token de notificación guardado
+        token_deleted: Token de notificación eliminado con éxito
+        token_not_found: No se encontraron tokens de notificación
+        mute_updated: Estado de silencio actualizado con éxito
+    account:
+      errors:
+        email_not_found: "¡Correo electrónico no encontrado!"
+        email_invalid: Formato de correo electrónico no válido
+        email_taken: El correo electrónico ya está en uso
+        email_update_fail: La actualización del correo electrónico no tuvo éxito
+        password_unmatch: Las contraseñas no coinciden
+        password_update_fail: La actualización de la contraseña no tuvo éxito
+        otp_invalid: "¡OTP no válido!"
+        missing_field: Faltan campos obligatorios
+        password_incorrect: La contraseña actual es incorrecta
+      messages:
+        password_updated: La contraseña ha sido actualizada
+    domain:
+      messages:
+        dns_verified: El DNS está configurado correctamente
+    conversation:
+      messages:
+        marked_read: Se marcaron %{updated_count} conversación(es) como leídas
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reacción no reconocida
+      emoji_limit_exceeded: Límite de emoji excedido

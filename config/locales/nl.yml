@@ -1,0 +1,64 @@
+---
+nl:
+  locale:
+    name: Dutch
+    native_name: Nederlands
+  notification:
+    poll:
+      ended_you: Je poll is beëindigd
+      ended_voted: Een poll waarin je hebt gestemd is beëindigd
+    mention:
+      direct_message: "%{name} heeft je een bericht gestuurd"
+      direct_message_attachment: "%{name} heeft je een bijlage gestuurd"
+      conversation_request: Je hebt een nieuw gespreksverzoek.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Beste %{name},
+      instruction: 'Je accountverificatie OTP-code is:'
+      note: Als je dit niet hebt aangevraagd, negeer deze e-mail dan
+  api:
+    errors:
+      unauthorized: Je bent niet gemachtigd om deze actie uit te voeren
+      forbidden: Toegang geweigerd!
+      not_found: Bron niet gevonden
+      unprocessable_entity: Het verzoek kon niet worden verwerkt
+      internal_server_error: Er is een interne serverfout opgetreden
+      validation_failed: Validatie mislukt!
+      invalid_request: Ongeldig verzoek!
+      rate_limit_exceeded: Limiet van verzoeken overschreden. Probeer het later opnieuw
+      unknown_relay_domains: "Onbekende relay-domeinen: %{domains}"
+    messages:
+      success: Actie succesvol voltooid
+      created: Bron succesvol aangemaakt
+      updated: Bron succesvol bijgewerkt
+      deleted: Bron succesvol verwijderd
+    notification:
+      messages:
+        token_already_exists: Notificatietoken bestaat al
+        token_saved: Notificatietoken opgeslagen
+        token_deleted: Notificatietoken succesvol verwijderd
+        token_not_found: Geen notificatietokens gevonden
+        mute_updated: Stiltestatus succesvol bijgewerkt
+    account:
+      errors:
+        email_not_found: E-mail niet gevonden!
+        email_invalid: Ongeldig e-mailformaat
+        email_taken: E-mail is al in gebruik
+        email_update_fail: E-mail bijwerken mislukt
+        password_unmatch: Wachtwoorden komen niet overeen
+        password_update_fail: Wachtwoord bijwerken mislukt
+        otp_invalid: Ongeldige OTP!
+        missing_field: Vereiste velden ontbreken
+        password_incorrect: Huidig wachtwoord is onjuist
+      messages:
+        password_updated: Wachtwoord is bijgewerkt
+    domain:
+      messages:
+        dns_verified: DNS is correct geconfigureerd
+    conversation:
+      messages:
+        marked_read: "%{updated_count} gesprek(ken) gemarkeerd als gelezen"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reactie niet herkend
+      emoji_limit_exceeded: Emoji-limiet overschreden

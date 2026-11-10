@@ -1,0 +1,65 @@
+---
+cy:
+  locale:
+    name: Welsh
+    native_name: Cymraeg
+  notification:
+    poll:
+      ended_you: Mae eich pôl wedi dod i ben
+      ended_voted: Mae pôl y gwnaethoch bleidleisio ynddo wedi dod i ben
+    mention:
+      direct_message: "%{name} anfonodd neges atoch chi"
+      direct_message_attachment: "%{name} anfonodd atodiad atoch chi"
+      conversation_request: Mae gennych gais sgwrs newydd.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Annwyl %{name},
+      instruction: 'Eich cod OTP dilysu cyfrif yw:'
+      note: Os nad ydych wedi gofyn am hyn, anwybyddwch yr e-bost hwn
+  api:
+    errors:
+      unauthorized: Nid ydych wedi'ch awdurdodi i gyflawni'r weithred hon
+      forbidden: Gwahardd mynediad!
+      not_found: Heb ddod o hyd i'r adnodd
+      unprocessable_entity: Methu prosesu'r cais
+      internal_server_error: Digwyddodd gwall gweinydd mewnol
+      validation_failed: Methodd y dilysiad!
+      invalid_request: Cais annilys!
+      rate_limit_exceeded: Wedi rhagori ar y terfyn ceisiadau. Ceisiwch eto yn nes
+        ymlaen
+      unknown_relay_domains: "Parthau relay anhysbys: %{domains}"
+    messages:
+      success: Cwblhawyd y gweithrediad yn llwyddiannus
+      created: Crëwyd yr adnodd yn llwyddiannus
+      updated: Diweddarwyd yr adnodd yn llwyddiannus
+      deleted: Dilewyd yr adnodd yn llwyddiannus
+    notification:
+      messages:
+        token_already_exists: Mae tocyn hysbysu eisoes yn bodoli
+        token_saved: Tocyn hysbysu wedi'i gadw
+        token_deleted: Tocyn hysbysu wedi'i ddileu'n llwyddiannus
+        token_not_found: Heb ddod o hyd i docynnau hysbysu
+        mute_updated: Diweddarwyd statws tawel yn llwyddiannus
+    account:
+      errors:
+        email_not_found: Heb ddod o hyd i e-bost!
+        email_invalid: Fformat e-bost annilys
+        email_taken: Mae'r e-bost eisoes wedi'i gymryd
+        email_update_fail: Methodd diweddaru'r e-bost
+        password_unmatch: Nid yw'r cyfrineiriau'n cyfateb
+        password_update_fail: Methodd diweddaru'r cyfrinair
+        otp_invalid: OTP annilys!
+        missing_field: Mae meysydd gofynnol ar goll
+        password_incorrect: Mae'r cyfrinair presennol yn anghywir
+      messages:
+        password_updated: Diweddarwyd y cyfrinair
+    domain:
+      messages:
+        dns_verified: Mae DNS wedi'i ffurfweddu'n gywir
+    conversation:
+      messages:
+        marked_read: Wedi marcio %{updated_count} sgwrs fel wedi'u darllen
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Adwaith heb ei hadnabod
+      emoji_limit_exceeded: Terfyn emoji wedi'i ormodwytho

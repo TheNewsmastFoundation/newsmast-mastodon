@@ -1,0 +1,17 @@
+/.bundle/
+/doc/
+/log/*.log
+/pkg/
+/tmp/
+/spec/dummy/db/*.sqlite3
+/spec/dummy/db/*.sqlite3-*
+/spec/dummy/log/*.log
+/spec/dummy/storage/
+/spec/dummy/tmp/
+/spec/examples.txt
+*.gem
+/coverage/
+Gemfile.lock
+/vendor/bundle/
+plan.md
+progress.md

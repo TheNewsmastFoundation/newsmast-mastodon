@@ -1,0 +1,64 @@
+---
+vi:
+  locale:
+    name: Vietnamese
+    native_name: Tiếng Việt
+  notification:
+    poll:
+      ended_you: Cuộc thăm dò của bạn đã kết thúc
+      ended_voted: Cuộc thăm dò bạn đã tham gia đã kết thúc
+    mention:
+      direct_message: "%{name} đã gửi cho bạn một tin nhắn"
+      direct_message_attachment: "%{name} đã gửi cho bạn một tệp đính kèm"
+      conversation_request: Bạn có một yêu cầu hội thoại mới.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Kính gửi %{name},
+      instruction: 'Mã OTP xác thực tài khoản của bạn là:'
+      note: Nếu bạn không yêu cầu, vui lòng bỏ qua email này
+  api:
+    errors:
+      unauthorized: Bạn không được phép thực hiện hành động này
+      forbidden: Truy cập bị từ chối!
+      not_found: Không tìm thấy tài nguyên
+      unprocessable_entity: Yêu cầu không thể xử lý
+      internal_server_error: Đã xảy ra lỗi máy chủ nội bộ
+      validation_failed: Xác thực thất bại!
+      invalid_request: Yêu cầu không hợp lệ!
+      rate_limit_exceeded: Vượt quá giới hạn yêu cầu. Vui lòng thử lại sau
+      unknown_relay_domains: "Miền relay không xác định: %{domains}"
+    messages:
+      success: Thao tác hoàn tất thành công
+      created: Tài nguyên được tạo thành công
+      updated: Tài nguyên được cập nhật thành công
+      deleted: Tài nguyên được xóa thành công
+    notification:
+      messages:
+        token_already_exists: Token thông báo đã tồn tại
+        token_saved: Token thông báo đã lưu
+        token_deleted: Token thông báo đã xóa thành công
+        token_not_found: Không tìm thấy token thông báo
+        mute_updated: Trạng thái tắt thông báo đã được cập nhật thành công
+    account:
+      errors:
+        email_not_found: Không tìm thấy email!
+        email_invalid: Định dạng email không hợp lệ
+        email_taken: Email đã được sử dụng
+        email_update_fail: Cập nhật email không thành công
+        password_unmatch: Mật khẩu không khớp
+        password_update_fail: Cập nhật mật khẩu không thành công
+        otp_invalid: OTP không hợp lệ!
+        missing_field: Thiếu trường bắt buộc
+        password_incorrect: Mật khẩu hiện tại không đúng
+      messages:
+        password_updated: Mật khẩu đã được cập nhật
+    domain:
+      messages:
+        dns_verified: DNS đã được cấu hình đúng
+    conversation:
+      messages:
+        marked_read: Đã đánh dấu %{updated_count} cuộc trò chuyện là đã đọc
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Phản ứng không được nhận biết
+      emoji_limit_exceeded: Vượt quá giới hạn emoji

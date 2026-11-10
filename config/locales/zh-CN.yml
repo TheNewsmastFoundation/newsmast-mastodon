@@ -1,0 +1,64 @@
+---
+zh-CN:
+  locale:
+    name: Chinese (Simplified)
+    native_name: 简体中文
+  notification:
+    poll:
+      ended_you: 您的投票已结束
+      ended_voted: 您参与的投票已结束
+    mention:
+      direct_message: "%{name} 给您发送了一条消息"
+      direct_message_attachment: "%{name} 给你发送了一个附件"
+      conversation_request: 您有一个新的对话请求。
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: 亲爱的 %{name},
+      instruction: 您的账户验证 OTP 码如下：
+      note: 如果您没有请求此操作，请忽略此邮件
+  api:
+    errors:
+      unauthorized: 您无权执行此操作
+      forbidden: 访问被拒绝!
+      not_found: 未找到资源
+      unprocessable_entity: 请求无法处理
+      internal_server_error: 发生内部服务器错误
+      validation_failed: 验证失败!
+      invalid_request: 无效请求!
+      rate_limit_exceeded: 请求次数过多。请稍后再试
+      unknown_relay_domains: "未知的中继域名：%{domains}"
+    messages:
+      success: 操作成功完成
+      created: 资源创建成功
+      updated: 资源更新成功
+      deleted: 资源删除成功
+    notification:
+      messages:
+        token_already_exists: 通知令牌已存在
+        token_saved: 通知令牌已保存
+        token_deleted: 通知令牌已成功删除
+        token_not_found: 未找到通知令牌
+        mute_updated: 静音状态已成功更新
+    account:
+      errors:
+        email_not_found: 未找到邮箱!
+        email_invalid: 邮箱格式无效
+        email_taken: 邮箱已被占用
+        email_update_fail: 邮箱更新失败
+        password_unmatch: 密码不匹配
+        password_update_fail: 密码更新失败
+        otp_invalid: OTP 无效!
+        missing_field: 缺少必填字段
+        password_incorrect: 当前密码不正确
+      messages:
+        password_updated: 密码已更新
+    domain:
+      messages:
+        dns_verified: DNS 已正确配置
+    conversation:
+      messages:
+        marked_read: 已标记 %{updated_count} 个会话为已读
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: 无法识别的反应
+      emoji_limit_exceeded: 表情符号限制超过

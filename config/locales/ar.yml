@@ -1,0 +1,64 @@
+---
+ar:
+  locale:
+    name: Arabic
+    native_name: العربية
+  notification:
+    poll:
+      ended_you: انتهى الاستطلاع الخاص بك
+      ended_voted: انتهى الاستطلاع الذي صوت فيه
+    mention:
+      direct_message: "%{name} أرسل لك رسالة"
+      direct_message_attachment: "%{name} أرسل لك مرفقًا"
+      conversation_request: لديك طلب محادثة جديد.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: عزيزي %{name}،
+      instruction: 'رمز التحقق OTP الخاص بحسابك هو:'
+      note: إذا لم تطلب هذا، يرجى تجاهل هذا البريد الإلكتروني
+  api:
+    errors:
+      unauthorized: غير مصرح لك بتنفيذ هذا الإجراء
+      forbidden: تم رفض الوصول!
+      not_found: المورد غير موجود
+      unprocessable_entity: تعذر معالجة الطلب
+      internal_server_error: حدث خطأ داخلي في الخادم
+      validation_failed: فشل التحقق!
+      invalid_request: طلب غير صالح!
+      rate_limit_exceeded: تم تجاوز الحد الأقصى للطلبات. يرجى المحاولة لاحقًا
+      unknown_relay_domains: "نطاقات الترحيل غير المعروفة: %{domains}"
+    messages:
+      success: تمت العملية بنجاح
+      created: تم إنشاء المورد بنجاح
+      updated: تم تحديث المورد بنجاح
+      deleted: تم حذف المورد بنجاح
+    notification:
+      messages:
+        token_already_exists: رمز الإشعار موجود بالفعل
+        token_saved: تم حفظ رمز الإشعار
+        token_deleted: تم حذف رمز الإشعار بنجاح
+        token_not_found: لم يتم العثور على رموز إشعار
+        mute_updated: تم تحديث حالة كتم الصوت بنجاح
+    account:
+      errors:
+        email_not_found: البريد الإلكتروني غير موجود!
+        email_invalid: تنسيق البريد الإلكتروني غير صالح
+        email_taken: البريد الإلكتروني مستخدم بالفعل
+        email_update_fail: فشل تحديث البريد الإلكتروني
+        password_unmatch: كلمة المرور غير متطابقة
+        password_update_fail: فشل تحديث كلمة المرور
+        otp_invalid: OTP غير صالح!
+        missing_field: الحقول المطلوبة مفقودة
+        password_incorrect: كلمة المرور الحالية غير صحيحة
+      messages:
+        password_updated: تم تحديث كلمة المرور
+    domain:
+      messages:
+        dns_verified: تم تكوين DNS بشكل صحيح
+    conversation:
+      messages:
+        marked_read: تم تعليم %{updated_count} محادثة كمقروءة
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: لم يتم التعرف على التفاعل
+      emoji_limit_exceeded: تم تجاوز حد الرموز التعبيرية

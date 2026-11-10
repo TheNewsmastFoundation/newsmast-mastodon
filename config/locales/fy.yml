@@ -1,0 +1,64 @@
+---
+fy:
+  locale:
+    name: Western Frisian
+    native_name: Frysk
+  notification:
+    poll:
+      ended_you: Jo peiling is ôfrûn
+      ended_voted: In peiling dêr't jo yn stimd hawwe is ôfrûn
+    mention:
+      direct_message: "%{name} hat jo in berjocht stjoerd"
+      direct_message_attachment: "%{name} hat jo in taheaksel stjoerd"
+      conversation_request: Jo hawwe in nij petear fersyk.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Achte %{name},
+      instruction: 'Jo akkount-ferifikaasje OTP-koade is:'
+      note: As jo dit net oanfrege hawwe, negearje dizze e-post dan
+  api:
+    errors:
+      unauthorized: Jo binne net autorisearre om dizze aksje út te fieren
+      forbidden: Tagong wegere!
+      not_found: Boarne net fûn
+      unprocessable_entity: It fersyk koe net ferwurke wurde
+      internal_server_error: Der is in ynterne serverflater bard
+      validation_failed: Falidaasje mislearre!
+      invalid_request: Unjildich fersyk!
+      rate_limit_exceeded: Fersyklimyt oerskreau. Besykje it letter nochris
+      unknown_relay_domains: "Unbekende relay-domeinen: %{domains}"
+    messages:
+      success: Operaasje suksesfol foltôge
+      created: Boarne suksesfol oanmakke
+      updated: Boarne suksesfol bywurke
+      deleted: Boarne suksesfol fuorthelle
+    notification:
+      messages:
+        token_already_exists: Notifikaasje-token bestiet al
+        token_saved: Notifikaasje-token bewarre
+        token_deleted: Notifikaasje-token suksesfol fuorthelle
+        token_not_found: Gjin notifikaasje-tokens fûn
+        mute_updated: Stilstatus suksesfol bywurke
+    account:
+      errors:
+        email_not_found: E-post net fûn!
+        email_invalid: Unjildich e-postformaat
+        email_taken: E-post is al yn gebrûk
+        email_update_fail: De e-postbywurking is mislearre
+        password_unmatch: Wachtwurden komme net oerien
+        password_update_fail: De wachtwurdbywurking is mislearre
+        otp_invalid: Unjildige OTP!
+        missing_field: Fereaske fjilden ûntbrekke
+        password_incorrect: Hjoeddeistige wachtwurd is ferkeard
+      messages:
+        password_updated: It wachtwurd is bywurke
+    domain:
+      messages:
+        dns_verified: DNS is goed ynsteld
+    conversation:
+      messages:
+        marked_read: "%{updated_count} petear(ren) markearre as lêzen"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reaksje net herkend
+      emoji_limit_exceeded: Emoji-limyt oerskrêden

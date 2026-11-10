@@ -1,0 +1,64 @@
+---
+eu:
+  locale:
+    name: Basque
+    native_name: Euskara
+  notification:
+    poll:
+      ended_you: Zure inkesta amaitu da
+      ended_voted: Bozkatu duzun inkesta amaitu da
+    mention:
+      direct_message: "%{name}k mezu bat bidali dizu"
+      direct_message_attachment: "%{name}k eranskin bat bidali dizu"
+      conversation_request: Elkarrizketa eskaera berri bat duzu.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Jauna/Andre %{name},
+      instruction: 'Zure kontuaren egiaztapeneko OTP kodea hau da:'
+      note: Hau eskatu ez baduzu, mesedez, ez ikusi egin mezu honi
+  api:
+    errors:
+      unauthorized: Ez duzu ekintza hau egiteko baimenik
+      forbidden: Sarbidea ukatuta!
+      not_found: Baliabidea ez da aurkitu
+      unprocessable_entity: Ezin izan da eskaera prozesatu
+      internal_server_error: Barneko zerbitzari errorea gertatu da
+      validation_failed: Balidazioa huts egin du!
+      invalid_request: Baliogabeko eskaera!
+      rate_limit_exceeded: Eskaera-muga gaindituta. Saiatu berriro geroago
+      unknown_relay_domains: "Relay domeinu ezezagunak: %{domains}"
+    messages:
+      success: Eragiketa arrakastaz burutu da
+      created: Baliabidea arrakastaz sortu da
+      updated: Baliabidea arrakastaz eguneratu da
+      deleted: Baliabidea arrakastaz ezabatu da
+    notification:
+      messages:
+        token_already_exists: Jakinarazpen tokena dagoeneko existitzen da
+        token_saved: Jakinarazpen tokena gordeta
+        token_deleted: Jakinarazpen tokena arrakastaz ezabatu da
+        token_not_found: Ez da jakinarazpen tokenik aurkitu
+        mute_updated: Isilpeko egoera arrakastaz eguneratu da
+    account:
+      errors:
+        email_not_found: E-posta ez da aurkitu!
+        email_invalid: E-posta formatu baliogabea
+        email_taken: E-posta dagoeneko erabilita dago
+        email_update_fail: E-posta eguneratzea huts egin du
+        password_unmatch: Pasahitzak ez datoz bat
+        password_update_fail: Pasahitza eguneratzea huts egin du
+        otp_invalid: OTP baliogabea!
+        missing_field: Beharrezko eremuak falta dira
+        password_incorrect: Uneko pasahitza ez da zuzena
+      messages:
+        password_updated: Pasahitza eguneratu da
+    domain:
+      messages:
+        dns_verified: DNS behar bezala konfiguratuta dago
+    conversation:
+      messages:
+        marked_read: "%{updated_count} elkarrizketa irakurrita gisa markatu da"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Erreakzioa ezezaguna
+      emoji_limit_exceeded: Emoji muga gainditu

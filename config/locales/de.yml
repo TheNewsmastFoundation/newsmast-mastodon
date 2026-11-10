@@ -1,0 +1,64 @@
+---
+de:
+  locale:
+    name: German
+    native_name: Deutsch
+  notification:
+    poll:
+      ended_you: Deine Umfrage ist beendet
+      ended_voted: Eine Umfrage, an der du teilgenommen hast, ist beendet
+    mention:
+      direct_message: "%{name} hat dir eine Nachricht gesendet"
+      direct_message_attachment: "%{name} hat dir einen Anhang gesendet"
+      conversation_request: Du hast eine neue Konversationsanfrage.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Lieber %{name},
+      instruction: 'Dein OTP-Code zur Kontoverifizierung lautet:'
+      note: Wenn du dies nicht angefordert hast, ignoriere bitte diese E-Mail
+  api:
+    errors:
+      unauthorized: Du bist nicht berechtigt, diese Aktion auszuführen
+      forbidden: Zugriff verweigert!
+      not_found: Ressource nicht gefunden
+      unprocessable_entity: Die Anfrage konnte nicht verarbeitet werden
+      internal_server_error: Ein interner Serverfehler ist aufgetreten
+      validation_failed: Validierung fehlgeschlagen!
+      invalid_request: Ungültige Anfrage!
+      rate_limit_exceeded: Anfragelimit überschritten. Bitte versuche es später erneut
+      unknown_relay_domains: "Unbekannte Relay-Domains: %{domains}"
+    messages:
+      success: Vorgang erfolgreich abgeschlossen
+      created: Ressource erfolgreich erstellt
+      updated: Ressource erfolgreich aktualisiert
+      deleted: Ressource erfolgreich gelöscht
+    notification:
+      messages:
+        token_already_exists: Benachrichtigungstoken existiert bereits
+        token_saved: Benachrichtigungstoken gespeichert
+        token_deleted: Benachrichtigungstoken erfolgreich gelöscht
+        token_not_found: Keine Benachrichtigungstoken gefunden
+        mute_updated: Stummschaltungsstatus erfolgreich aktualisiert
+    account:
+      errors:
+        email_not_found: E-Mail nicht gefunden!
+        email_invalid: Ungültiges E-Mail-Format
+        email_taken: E-Mail ist bereits vergeben
+        email_update_fail: Die E-Mail-Aktualisierung war nicht erfolgreich
+        password_unmatch: Passwörter stimmen nicht überein
+        password_update_fail: Die Passwortaktualisierung war nicht erfolgreich
+        otp_invalid: Ungültiges OTP!
+        missing_field: Erforderliche Felder fehlen
+        password_incorrect: Aktuelles Passwort ist falsch
+      messages:
+        password_updated: Das Passwort wurde aktualisiert
+    domain:
+      messages:
+        dns_verified: DNS ist korrekt konfiguriert
+    conversation:
+      messages:
+        marked_read: "%{updated_count} Konversation(en) als gelesen markiert"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reaktion nicht erkannt
+      emoji_limit_exceeded: Emoji-Limit überschritten

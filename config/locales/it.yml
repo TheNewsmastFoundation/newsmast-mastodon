@@ -1,0 +1,64 @@
+---
+it:
+  locale:
+    name: Italian
+    native_name: Italiano
+  notification:
+    poll:
+      ended_you: Il tuo sondaggio è terminato
+      ended_voted: Un sondaggio a cui hai votato è terminato
+    mention:
+      direct_message: "%{name} ti ha inviato un messaggio"
+      direct_message_attachment: "%{name} ti ha inviato un allegato"
+      conversation_request: Hai una nuova richiesta di conversazione.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Caro/a %{name},
+      instruction: 'Il tuo codice OTP di verifica account è:'
+      note: Se non hai richiesto questo, ignora questa email
+  api:
+    errors:
+      unauthorized: Non sei autorizzato a eseguire questa azione
+      forbidden: Accesso negato!
+      not_found: Risorsa non trovata
+      unprocessable_entity: Impossibile elaborare la richiesta
+      internal_server_error: Si è verificato un errore interno del server
+      validation_failed: Validazione fallita!
+      invalid_request: Richiesta non valida!
+      rate_limit_exceeded: Limite di richieste superato. Riprova più tardi
+      unknown_relay_domains: "Domini relay sconosciuti: %{domains}"
+    messages:
+      success: Operazione completata con successo
+      created: Risorsa creata con successo
+      updated: Risorsa aggiornata con successo
+      deleted: Risorsa eliminata con successo
+    notification:
+      messages:
+        token_already_exists: Il token di notifica esiste già
+        token_saved: Token di notifica salvato
+        token_deleted: Token di notifica eliminato con successo
+        token_not_found: Nessun token di notifica trovato
+        mute_updated: Stato silenzioso aggiornato con successo
+    account:
+      errors:
+        email_not_found: Email non trovata!
+        email_invalid: Formato email non valido
+        email_taken: Email già utilizzata
+        email_update_fail: Aggiornamento email non riuscito
+        password_unmatch: Le password non corrispondono
+        password_update_fail: Aggiornamento password non riuscito
+        otp_invalid: OTP non valido!
+        missing_field: Campi obbligatori mancanti
+        password_incorrect: La password attuale non è corretta
+      messages:
+        password_updated: La password è stata aggiornata
+    domain:
+      messages:
+        dns_verified: DNS configurato correttamente
+    conversation:
+      messages:
+        marked_read: "%{updated_count} conversazione(i) contrassegnata(e) come letta(e)"
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reazione non riconosciuta
+      emoji_limit_exceeded: Limite di emoji superato

@@ -1,0 +1,64 @@
+---
+gl:
+  locale:
+    name: Galician
+    native_name: Galego
+  notification:
+    poll:
+      ended_you: A túa enquisa rematou
+      ended_voted: Unha enquisa na que votaches rematou
+    mention:
+      direct_message: "%{name} enviouche unha mensaxe"
+      direct_message_attachment: "%{name} enviouche un anexo"
+      conversation_request: Tes unha nova solicitude de conversa.
+  custom_passwords_mailer:
+    reset_password_confirmation:
+      greeting: Estimado/a %{name},
+      instruction: 'O teu código OTP de verificación de conta é:'
+      note: Se non solicitaches isto, ignora este correo electrónico
+  api:
+    errors:
+      unauthorized: Non tes autorización para realizar esta acción
+      forbidden: Acceso denegado!
+      not_found: Recurso non atopado
+      unprocessable_entity: Non se puido procesar a solicitude
+      internal_server_error: Produciuse un erro interno do servidor
+      validation_failed: A validación fallou!
+      invalid_request: Solicitude non válida!
+      rate_limit_exceeded: Límite de solicitudes superado. Inténtao de novo máis tarde
+      unknown_relay_domains: "Dominios de relay descoñecidos: %{domains}"
+    messages:
+      success: Operación completada con éxito
+      created: Recurso creado con éxito
+      updated: Recurso actualizado con éxito
+      deleted: Recurso eliminado con éxito
+    notification:
+      messages:
+        token_already_exists: O token de notificación xa existe
+        token_saved: Token de notificación gardado
+        token_deleted: Token de notificación eliminado con éxito
+        token_not_found: Non se atoparon tokens de notificación
+        mute_updated: Estado de silencio actualizado con éxito
+    account:
+      errors:
+        email_not_found: Non se atopou o correo electrónico!
+        email_invalid: Formato de correo electrónico non válido
+        email_taken: O correo electrónico xa está en uso
+        email_update_fail: A actualización do correo electrónico non tivo éxito
+        password_unmatch: Os contrasinais non coinciden
+        password_update_fail: A actualización do contrasinal non tivo éxito
+        otp_invalid: OTP non válido!
+        missing_field: Faltan campos obrigatorios
+        password_incorrect: O contrasinal actual é incorrecto
+      messages:
+        password_updated: O contrasinal foi actualizado
+    domain:
+      messages:
+        dns_verified: O DNS está correctamente configurado
+    conversation:
+      messages:
+        marked_read: Marcadas %{updated_count} conversación(s) como lidas
+  patchwork_status_reactions:
+    errors:
+      unrecognized_reaction: Reacción non recoñecida
+      emoji_limit_exceeded: Límite de emoji superada

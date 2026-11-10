@@ -1,0 +1,23 @@
+# PostgreSQL dummy app config for NewsmastMastodon engine specs.
+# Adapted for PostgreSQL to match the production Mastodon database.
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host:     <%= ENV.fetch("DATABASE_HOST",     "localhost") %>
+  port:     <%= ENV.fetch("DATABASE_PORT",     5432) %>
+  username: <%= ENV.fetch("DATABASE_USER",     "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
+
+development:
+  <<: *default
+  database: newsmast_mastodon_dummy_development
+
+test:
+  <<: *default
+  database: newsmast_mastodon_dummy_test
+
+production:
+  <<: *default
+  database: newsmast_mastodon_dummy_production
