@@ -28,7 +28,12 @@ jobs:
   changelog-policy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: ${{ github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'no-changelog') }}
+    # Runs on pull requests and on pushes to main (which compares the pushed
+    # range and honours the no-changelog label of the PR that was merged).
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - name: Checkout code
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
@@ -37,9 +42,36 @@ jobs:
           persist-credentials: false
 
       - name: Require changelog update for code changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
         run: |
-          set -e
-          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          set -euo pipefail
+
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            BASE_SHA="$PR_BASE_SHA"
+            LABELS="$PR_LABELS"
+          else
+            BASE_SHA="$PUSH_BEFORE_SHA"
+            # Labels of the pull request(s) the pushed commit came from.
+            LABELS=$(gh api "repos/${REPO}/commits/${HEAD_SHA}/pulls" --jq '[.[].labels[].name]')
+          fi
+
+          if echo "$LABELS" | grep -q '"no-changelog"'; then
+            echo "✅ Skipped: pull request is labelled no-changelog"
+            exit 0
+          fi
+
+          if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "✅ No previous commit to compare against"
+            exit 0
+          fi
+
           CHANGED_FILES=$(git diff --name-only "$BASE_SHA"...HEAD)
           echo "Changed files:"
           echo "$CHANGED_FILES"

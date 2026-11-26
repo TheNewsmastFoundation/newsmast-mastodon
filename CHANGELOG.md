@@ -19,6 +19,7 @@ tracks the target Mastodon version and `N` is the gem patch level).
 
 ### Changed
 
+- `changelog-policy` and `dependency-review` now also run on pushes to `main` instead of being skipped. On push they check the pushed range, and `changelog-policy` honours the `no-changelog` label of the merged pull request.
 - `host-integration` now runs on every pull request and push: it installs this checkout into upstream Mastodon at the target version, runs the install task and the gem's migrations, and runs the full spec suite in host mode. It previously never ran (wrong setup action path) and tested the gem version pinned by the host instead of this repository.
 - Override drift is checked in its own `override-drift` job against upstream Mastodon instead of a host fork.
 - Host-mode specs now load the engine (it was skipped when the gem was required before Rails), no longer drop the host's `collections` tables, and the three skipped serializer specs run against real records.
