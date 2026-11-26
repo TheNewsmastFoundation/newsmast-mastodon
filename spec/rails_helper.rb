@@ -26,16 +26,11 @@ unless defined?(MASTODON_ROOT)
   end
 end
 
-if MASTODON_ROOT
-  begin
-    require "newsmast_mastodon"
-  rescue LoadError
-    # In host-bundle mode, this gem may not be listed in the host Gemfile.
-    # Preload from local source before host Rails initializes.
-    require "rails/engine"
-    require File.expand_path("../lib/newsmast_mastodon", __dir__)
-  end
-end
+# In host mode the host's Gemfile must list this gem (CI points it at this
+# checkout with `path:`), and the host's `Bundler.require` loads it. Don't
+# require it here first: lib/newsmast_mastodon.rb only loads the engine when
+# Rails::Engine is already defined, so loading it before Rails would skip the
+# engine (and every concern and override it installs) for the whole run.
 
 host_environment_loaded = false
 host_environment_path = File.join(MASTODON_ROOT.to_s, "config", "environment.rb")
@@ -47,6 +42,10 @@ if defined?(Rails) && Rails.application && Rails.application.initialized?
 elsif !MASTODON_ROOT.to_s.empty? && File.exist?(host_environment_path)
   begin
     require host_environment_path
+    unless defined?(NewsmastMastodon::Engine)
+      raise "newsmast_mastodon's engine is not loaded. Add it to the host Gemfile, e.g. " \
+            "gem \"newsmast_mastodon\", path: \"#{File.expand_path("..", __dir__)}\""
+    end
     host_environment_loaded = true
   rescue Exception => e
     raise if e.is_a?(SystemExit) || e.is_a?(SignalException) || e.is_a?(NoMemoryError)
