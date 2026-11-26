@@ -1,207 +1,80 @@
-# Newsmast Mastodon v4.6.3 Release Notes
+# Releases
 
-## Upgrade Overview
+Each `newsmast_mastodon` release is a `v<version>` tag on `main` (for example
+`v4.6.5.1`). The [release workflow](.github/workflows/release.yml) then runs
+the tests, builds the gem, generates `SHA256SUMS` and a build provenance
+attestation, and publishes to RubyGems.
 
-This release upgrades Newsmast Mastodon to track **Mastodon 4.6.3** and includes several enhancements, governance improvements, and bug fixes.
+- **What changed:** [`CHANGELOG.md`](CHANGELOG.md) is the source of truth for
+  every version.
+- **Published releases:** [GitHub Releases](https://github.com/TheNewsmastFoundation/newsmast-mastodon/releases)
+  and [RubyGems](https://rubygems.org/gems/newsmast_mastodon).
+- **How to cut a release (maintainers):** follow
+  [`docs/internal/mastodon-upgrade/release.md`](docs/internal/mastodon-upgrade/release.md).
+- **Moving to a new Mastodon version (maintainers):** follow the
+  [upgrade guide](docs/internal/mastodon-upgrade/GUIDE.md) and record the run
+  in [`docs/internal/mastodon-upgrade/reports/`](docs/internal/mastodon-upgrade/reports/README.md).
 
-**Special notes for upgrading:**
+## Upgrading a server
 
-- **Database migrations** – New migrations included for status reactions and account profile fields. Standard Rails migration process applies.
-- **Ruby version requirement** – Now requires Ruby 3.3 or 3.4; Ruby 3.1 and 3.2 are no longer supported.
-- **Rails 8.1 compatibility** – Upgraded to Rails ~> 8.1.0 and Sidekiq ~> 8.1.0.
-- **No breaking changes** – All changes are backward compatible within the supported version range.
-- **Rebuild recommended** – If using compiled assets, rebuild with `bundle exec rails assets:precompile` after upgrading.
+The gem version must match your Mastodon version (`X.Y.Z` of the gem is the
+Mastodon version), so upgrade Mastodon and the gem together.
 
----
+1. Back up your database and media.
+2. Upgrade Mastodon to the target version by following Mastodon's own
+   release notes.
+3. Update the pin in Mastodon's `Gemfile`, then install:
 
-## Changelog
+   ```bash
+   bundle update newsmast_mastodon
+   ```
 
-### Security
+4. Copy the gem's Chewy indexes and frontend overrides for the new version:
 
-No security vulnerabilities addressed in this release. For reporting security issues, see [SECURITY.md](SECURITY.md).
+   ```bash
+   RAILS_ENV=production bin/rails newsmast_mastodon:install
+   ```
 
-### Added
+5. Run migrations and rebuild assets:
 
-- **Governance & Documentation**
-  - Added [GOVERNANCE.md](GOVERNANCE.md) documenting decision, merge, and release policy
-  - Added [MAINTAINERS.md](MAINTAINERS.md) to document ownership and review responsibilities
-  - Added [SUPPORT.md](SUPPORT.md) with support routing and response expectations
-  - Added [NOTICE](NOTICE) with license and dependency attribution guidance
+   ```bash
+   RAILS_ENV=production bin/rails db:migrate
+   RAILS_ENV=production bin/rails assets:precompile
+   ```
 
-- **Dependencies**
-  - Added runtime dependencies `jwt`, `faraday`, and `parslet` to `newsmast_mastodon.gemspec`, pinned to compatible versions matching Mastodon 4.6.3
+6. Restart the web, Sidekiq and streaming services.
+7. Confirm the loaded version:
 
-### Changed
+   ```bash
+   RAILS_ENV=production bin/rails runner 'puts NewsmastMastodon::VERSION'
+   ```
 
-- **Dependency Alignment**
-  - Aligned `newsmast_mastodon.gemspec` with Mastodon 4.6.3:
-    - Rails `~> 8.1.0`
-    - Ruby `>= 3.3.0, < 4.1.0`
-    - Sidekiq `~> 8.1.0` (development)
-    - All runtime dependencies aligned with host Mastodon version
+To roll back, pin the previous gem version, run `bundle install` and
+`bin/rails newsmast_mastodon:install` again, and restore the database backup
+if the new release included migrations.
 
-- **CI/CD & Release Workflows**
-  - Refactored CI workflows to use shared runtime setup action and added per-job timeouts
-  - Introduced `ci-ok` as a stable aggregate required check
-  - Hardened release workflow with checksum generation and build provenance attestation
-  - Added `no-changelog` PR label bypass support to `changelog-policy` for approved non-behavioral changes
-  - Grouped Dependabot major updates for Bundler and GitHub Actions to reduce noise
-  - Hardened release gating with protected `rubygems` environment and ancestry verification
-  - Expanded security automation with `bundler-audit`, `actionlint`, and `zizmor`
+## Release notes template
 
-- **Ruby Version Support**
-  - **Dropped end-of-life Ruby 3.1** from CI and support; CI now covers Ruby 3.2, 3.3, and 3.4
-  - Updated documentation with new CI coverage guidelines
+Copy this into the GitHub Release body, filling it in from the matching
+`CHANGELOG.md` section.
 
-- **Notification Handling**
-  - Adjusted mention notification copy selection in `CustomNotificationService` to account for notification request presence with direct/public visibility
+```markdown
+## newsmast_mastodon vX.Y.Z.N
 
-- **Documentation Updates**
-  - Expanded [CONTRIBUTING.md](CONTRIBUTING.md) with versioning, breaking-change, and release guidance
-  - Aligned `CONTRIBUTING.md` release checklist with checksum and provenance attestation workflow steps
-  - Added community/governance/support links to [README.md](README.md)
-  - Linked non-security conduct reporting path from [SECURITY.md](SECURITY.md)
-  - Cross-linked governance, maintainer, and support documents for easier navigation
+**Targets Mastodon:** X.Y.Z · **Ruby:** >= 3.3, < 4.1 · **Rails:** ~> 8.1
 
-### Fixed
+### Upgrade notes
+- Migrations: yes / no
+- Re-run `bin/rails newsmast_mastodon:install`: yes / no (frontend overrides or Chewy indexes changed)
+- New or changed environment variables: none / list them
+- Breaking changes: none / describe them, with migration steps
 
-- **Database Schema**
-  - Fixed `spec/dummy/db/schema.rb` declaring `ActiveRecord::Schema[8.1]`, which broke Postgres-backed specs under Rails 8.0 by causing `maintain_test_schema\!` to abort and leave bootstrap tables unreachable
+### Changes
+<!-- Paste the Added / Changed / Fixed / Security sections from CHANGELOG.md -->
 
-- **Status Creation & Domain Handling**
-  - Improved logging in `create_status` method to include author domain information
-  - Fixed author domain retrieval in `create_status` method to handle nil status cases
+### Verification
+- SHA256 checksums: `SHA256SUMS` attached to this release
+- Build provenance: attested by the release workflow
 
-- **Account Creation**
-  - Fixed response body serialization in accounts creation endpoint
-
-- **Database Resilience**
-  - Handle database connection errors gracefully in `UserConcern` methods with updated test coverage
-
-- **Migrations**
-  - Added conditional checks to index and foreign key definitions in `patchwork_status_reactions` migration to prevent errors on re-runs
-
-- **Installation Guard**
-  - Implemented installation guard for Newsmast Mastodon gem to prevent issues in non-Newsmast installations
-
-- **Chewy Integration**
-  - Added Chewy autoload exclusion initializer to prevent unwanted autoloading
-
-- **Tag Normalization**
-  - Refactored tag normalization methods in `TagConcern` for consistency
-
----
-
-## Upgrade Instructions
-
-### Prerequisites
-
-Before upgrading, ensure:
-
-- You are currently running Newsmast Mastodon **v4.5.11** or later
-- Your system has **Ruby 3.3 or 3.4** installed (3.2 is no longer supported)
-- You have **Rails 8.1** compatible with Mastodon 4.6.3
-- You have a **recent backup** of your database and media storage
-
-### Step-by-Step Upgrade
-
-#### 1. Backup Your Database and Media
-
-```bash
-# Create a backup of your database
-pg_dump -Fc mastodon_production > ~/mastodon_backup_$(date +%Y%m%d_%H%M%S).dump
-
-# Backup media directory (optional but recommended)
-tar czf ~/mastodon_media_backup_$(date +%Y%m%d_%H%M%S).tar.gz /var/lib/mastodon/public/system
+**Full changelog:** https://github.com/TheNewsmastFoundation/newsmast-mastodon/compare/vPREVIOUS...vX.Y.Z.N
 ```
-
-#### 2. Update the Repository
-
-```bash
-cd /path/to/newsmast_mastodon
-git fetch origin
-git checkout v4.6.3  # or git checkout mastodon-4.6.3
-```
-
-#### 3. Install Dependencies
-
-```bash
-bundle install --deployment --without development:test
-yarn install --frozen-lockfile
-```
-
-#### 4. Run Database Migrations
-
-```bash
-RAILS_ENV=production bundle exec rails db:migrate
-```
-
-#### 5. Recompile Assets (if using pre-compiled assets)
-
-```bash
-RAILS_ENV=production bundle exec rails assets:precompile
-```
-
-#### 6. Restart Services
-
-```bash
-# Restart Puma
-systemctl restart mastodon-web
-
-# Restart Sidekiq
-systemctl restart mastodon-sidekiq
-
-# Restart Streaming API (if running separately)
-systemctl restart mastodon-streaming
-```
-
-#### 7. Verify the Upgrade
-
-```bash
-# Check Rails version
-RAILS_ENV=production bundle exec rails --version
-
-# Verify gem version
-RAILS_ENV=production bundle exec rails -e production -c 'puts NewsmastMastodon::VERSION'
-
-# Check logs for errors
-tail -f /var/log/mastodon/production.log
-```
-
-### Post-Upgrade Tasks
-
-- Review [CHANGELOG.md](CHANGELOG.md) for the full list of changes
-- Update your deployment documentation with Ruby 3.3+ as the minimum requirement
-
-### Rollback Plan
-
-If you encounter issues during the upgrade:
-
-```bash
-# Restore the previous backup
-git checkout v4.5.11
-bundle install --deployment --without development:test
-
-# Restore the database from backup
-pg_restore -d mastodon_production < ~/mastodon_backup_YYYYMMDD_HHMMSS.dump
-
-# Restart services
-systemctl restart mastodon-web mastodon-sidekiq
-```
-
----
-
-## Support & Issues
-
-For support:
-
-- **Documentation**: See [SUPPORT.md](SUPPORT.md) for routing and response expectations
-- **Governance**: See [GOVERNANCE.md](GOVERNANCE.md) for decision and release policy
-- **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-- **Security Issues**: See [SECURITY.md](SECURITY.md) for responsible disclosure
-
----
-
-## Contributors
-
-This release includes contributions from the Newsmast Mastodon and Patchwork Hub teams. See [MAINTAINERS.md](MAINTAINERS.md) and commit history for full attribution.

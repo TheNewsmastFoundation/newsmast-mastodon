@@ -164,6 +164,16 @@ if defined?(VCR)
   end
 end
 
+# Opens the connection if needed. The connection is otherwise opened lazily by
+# the first query, so checking `connected?` alone skips cleaning for the first
+# example and its rows leak into later examples on Postgres.
+def database_available?
+  ActiveRecord::Base.lease_connection
+  true
+rescue ActiveRecord::NoDatabaseError, ActiveRecord::ConnectionNotEstablished
+  false
+end
+
 RSpec.configure do |config|
   config.fixture_paths = [ File.join(NEWSMAST_GEM_ROOT, "spec/fixtures") ]
   config.use_transactional_fixtures = false
@@ -180,7 +190,7 @@ RSpec.configure do |config|
   end
 
   config.around do |example|
-    if ActiveRecord::Base.connected?
+    if database_available?
       DatabaseCleaner.cleaning { example.run }
     else
       example.run
