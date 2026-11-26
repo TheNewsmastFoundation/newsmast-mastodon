@@ -8,6 +8,10 @@ tracks the target Mastodon version and `N` is the gem patch level).
 
 ## [Unreleased]
 
+### Changed
+
+- Release workflow no longer waits for the gem to propagate on RubyGems, so a successful publish isn't reported as a failed run.
+
 ## [4.6.5.1] - 2026-11-26
 
 ### Changed
