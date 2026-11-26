@@ -374,7 +374,12 @@ jobs:
 
       - name: Prepare host test database
         working-directory: host
-        run: bin/rails db:prepare
+        run: |
+          bin/rails db:prepare
+          # Loading the host schema marks the gem's older migrations as run
+          # without running them; clear and run them so its tables exist.
+          bin/rails runner "${GITHUB_WORKSPACE}/gem/script/ci/reset_gem_migrations.rb"
+          bin/rails db:migrate
 
       - name: Run gem specs in host mode
         working-directory: gem
