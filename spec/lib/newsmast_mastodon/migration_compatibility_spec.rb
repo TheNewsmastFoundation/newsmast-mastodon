@@ -47,7 +47,7 @@ RSpec.describe NewsmastMastodon::MigrationCompatibility do
     example.run
   ensure
     connection.drop_table(NON_TARGET_TABLE) if connection.table_exists?(NON_TARGET_TABLE)
-    created_new_tables.each do |table_name|
+    Array(created_new_tables).each do |table_name|
       connection.drop_table(table_name) if connection.table_exists?(table_name)
     end
     connection.remove_column(TARGET_COLUMN_TABLE, NON_TARGET_COLUMN) if connection.column_exists?(TARGET_COLUMN_TABLE, NON_TARGET_COLUMN)

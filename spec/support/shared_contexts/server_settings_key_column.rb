@@ -6,6 +6,9 @@
 # when the database doesn't have it (for example a plain Mastodon host).
 RSpec.shared_context "with the dashboard server_settings.key column" do
   around do |example|
+    connection = nil
+    added = false
+
     connection = NewsmastMastodon::ServerSetting.connection
     added = !connection.column_exists?(:server_settings, :key)
 
@@ -16,7 +19,7 @@ RSpec.shared_context "with the dashboard server_settings.key column" do
 
     example.run
   ensure
-    if added
+    if added && connection
       connection.remove_column(:server_settings, :key) if connection.column_exists?(:server_settings, :key)
       NewsmastMastodon::ServerSetting.reset_column_information
     end
