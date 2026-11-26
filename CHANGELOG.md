@@ -8,8 +8,20 @@ tracks the target Mastodon version and `N` is the gem patch level).
 
 ## [Unreleased]
 
+### Security
+
+- Re-pinned `actions/attest-build-provenance` (release workflow) and `github/codeql-action` to verified release commits; the previous SHAs were not reachable in the actions' own repositories. zizmor now runs its online audits so unverifiable pins fail `lint-workflows`.
+
+### Fixed
+
+- `bin/rails newsmast_mastodon:install` no longer fails on a fresh host: the installation guard now recognises the task when `bin/rails` hands it to Rake.
+- `LongPost::DraftedStatusSerializer` now removes `application_id` from `params` (the jsonb column returns string keys, so it was always included).
+
 ### Changed
 
+- `host-integration` now runs on every pull request and push: it installs this checkout into upstream Mastodon at the target version, runs the install task and the gem's migrations, and runs the full spec suite in host mode. It previously never ran (wrong setup action path) and tested the gem version pinned by the host instead of this repository.
+- Override drift is checked in its own `override-drift` job against upstream Mastodon instead of a host fork.
+- Host-mode specs now load the engine (it was skipped when the gem was required before Rails), no longer drop the host's `collections` tables, and the three skipped serializer specs run against real records.
 - Release workflow no longer waits for the gem to propagate on RubyGems, so a successful publish isn't reported as a failed run.
 
 ## [4.6.5.1] - 2026-11-26
