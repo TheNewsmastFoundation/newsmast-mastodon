@@ -27,9 +27,8 @@ of `ci-ok`. By default it uses `mastodon/mastodon` at
 1. rewrites the host `Gemfile` to load this checkout
    (`script/ci/use_local_gem_in_host.rb`) and runs `bundle install`;
 2. runs `bin/rails newsmast_mastodon:install`;
-3. runs `db:prepare`, then clears and re-runs the gem's migrations
-   (`script/ci/reset_gem_migrations.rb`), because loading the host schema
-   marks older gem migrations as already run;
+3. runs `db:prepare`, which also runs the gem's migrations after loading the
+   host schema (`NewsmastMastodon::SchemaLoadMigrations`);
 4. runs `bundle exec rspec` from the gem with `MASTODON_ROOT` set, so specs
    that call `require_host!` run instead of being skipped.
 
@@ -45,8 +44,6 @@ cd ../mastodon-host
 bundle install
 RAILS_ENV=test bin/rails newsmast_mastodon:install
 RAILS_ENV=test bin/rails db:prepare
-RAILS_ENV=test bin/rails runner ../newsmast-mastodon/script/ci/reset_gem_migrations.rb
-RAILS_ENV=test bin/rails db:migrate
 cd ../newsmast-mastodon
 BUNDLE_GEMFILE=../mastodon-host/Gemfile MASTODON_ROOT=../mastodon-host RAILS_ENV=test bundle exec rspec
 ```

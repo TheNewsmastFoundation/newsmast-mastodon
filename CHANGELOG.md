@@ -14,6 +14,7 @@ tracks the target Mastodon version and `N` is the gem patch level).
 
 ### Fixed
 
+- Creating a database from the host's `db/schema.rb` (`db:setup`, `db:prepare`, `db:schema:load`, `db:reset`, `mastodon:setup`, or the test schema check) now runs the gem's migrations. Previously Rails recorded most of them as already run because they are older than Mastodon's schema version, so their tables and columns were never created. Existing databases affected by this can run `bin/rails newsmast_mastodon:repair_migrations`.
 - `bin/rails newsmast_mastodon:install` no longer fails on a fresh host: the installation guard now recognises the task when `bin/rails` hands it to Rake.
 - `LongPost::DraftedStatusSerializer` now removes `application_id` from `params` (the jsonb column returns string keys, so it was always included).
 
