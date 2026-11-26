@@ -31,7 +31,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'no-changelog') }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -69,7 +69,7 @@ jobs:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
       - name: Checkout code
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           persist-credentials: false
 
@@ -96,7 +96,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout code
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           persist-credentials: false
 
@@ -133,7 +133,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           persist-credentials: false
 
@@ -204,7 +204,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           persist-credentials: false
 
@@ -232,7 +232,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout code
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           persist-credentials: false
 
@@ -244,10 +244,42 @@ jobs:
       - name: Migration idempotency + version sync gates
         run: bundle exec rspec spec/compatibility --format documentation
 
+  # Compares the upstream Mastodon files that the gem overrides (see
+  # config/override_baselines.yml) with upstream Mastodon at the version the
+  # gem targets, so an upstream change to an overridden file is caught.
+  override-drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout gem
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          path: gem
+          persist-credentials: false
+
+      - name: Read target Mastodon version
+        id: target
+        working-directory: gem
+        run: |
+          version=$(ruby -e 'print Gem::Specification.load("newsmast_mastodon.gemspec").metadata.fetch("mastodon_version_requirement")')
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout upstream Mastodon
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          repository: mastodon/mastodon
+          ref: v${{ steps.target.outputs.version }}
+          path: upstream
+          sparse-checkout: app
+          persist-credentials: false
+
+      - name: Check vendored override drift
+        run: ruby gem/bin/check-override-drift upstream
+
   # Boots a real Mastodon host app with this checkout of the gem (the host's
   # Gemfile entry is rewritten to a local path) and runs the full spec suite in
   # host mode, so specs that need Mastodon models, Fabricators and routes run
-  # instead of being skipped. Also checks vendored frontend overrides for drift.
+  # instead of being skipped.
   host-integration:
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -293,13 +325,13 @@ jobs:
 
     steps:
       - name: Checkout gem
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           path: gem
           persist-credentials: false
 
       - name: Checkout host Mastodon
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           repository: ${{ env.HOST_MASTODON_REPO }}
           ref: ${{ env.HOST_MASTODON_REF }}
@@ -329,10 +361,6 @@ jobs:
         working-directory: host
         run: bundle install --jobs 4
 
-      - name: Check vendored override drift
-        working-directory: gem
-        run: ruby bin/check-override-drift "${GITHUB_WORKSPACE}/host"
-
       - name: Prepare host test database
         working-directory: host
         run: bin/rails db:prepare
@@ -354,6 +382,7 @@ jobs:
       - test
       - test-postgres-subset
       - compatibility
+      - override-drift
       - host-integration
     if: always()
     steps:
