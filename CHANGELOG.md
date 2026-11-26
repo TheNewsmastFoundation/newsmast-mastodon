@@ -12,6 +12,8 @@ tracks the target Mastodon version and `N` is the gem patch level).
 
 - `NewsmastMastodon::ReblogChannelsWorker` now builds post URLs from `LOCAL_DOMAIN` instead of a hardcoded host.
 - Documented the signup restriction, cross-instance push, For You timeline, and status reaction environment variables, and added Mastodon attribution to `NOTICE`.
+- Rewrote `README.md` with badges, a feature overview, a compatibility table, install and upgrade steps, and an index of the docs in `docs/`.
+- Replaced the outdated v4.6.3 notes in `RELEASE.md` with the release process, gem-based server upgrade steps, and a release notes template.
 
 ## [4.6.5.1] - 2026-08-21
 
