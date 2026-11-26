@@ -10,12 +10,12 @@ on:
         description: "Host Mastodon repository (owner/repo) for the host-integration job"
         required: false
         type: string
-        default: "patchwork-hub/patchwork-mastodon"
+        default: "mastodon/mastodon"
       host_mastodon_ref:
-        description: "Host Mastodon ref (branch/tag/SHA)"
+        description: "Host Mastodon ref (branch/tag/SHA). Empty uses v<mastodon_version_requirement> from the gemspec."
         required: false
         type: string
-        default: "patchwork-mastodon-demo-4.6.5"
+        default: ""
 
 permissions:
   contents: read
@@ -276,10 +276,11 @@ jobs:
       - name: Check vendored override drift
         run: ruby gem/bin/check-override-drift upstream
 
-  # Boots a real Mastodon host app with this checkout of the gem (the host's
-  # Gemfile entry is rewritten to a local path) and runs the full spec suite in
-  # host mode, so specs that need Mastodon models, Fabricators and routes run
-  # instead of being skipped.
+  # Installs this checkout of the gem into upstream Mastodon at the version the
+  # gem targets (the host's Gemfile entry is rewritten to a local path), runs
+  # `newsmast_mastodon:install`, and runs the full spec suite in host mode, so
+  # specs that need Mastodon models, Fabricators and routes run instead of
+  # being skipped. A different host can be chosen with workflow_dispatch.
   host-integration:
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -309,8 +310,7 @@ jobs:
           --health-retries 5
 
     env:
-      HOST_MASTODON_REPO: ${{ inputs.host_mastodon_repo || 'patchwork-hub/patchwork-mastodon' }}
-      HOST_MASTODON_REF: ${{ inputs.host_mastodon_ref || 'patchwork-mastodon-demo-4.6.5' }}
+      HOST_MASTODON_REPO: ${{ inputs.host_mastodon_repo || 'mastodon/mastodon' }}
       RAILS_ENV: test
       DB_HOST: localhost
       DB_PORT: "5432"
@@ -330,11 +330,18 @@ jobs:
           path: gem
           persist-credentials: false
 
+      - name: Read target Mastodon version
+        id: target
+        working-directory: gem
+        run: |
+          version=$(ruby -e 'print Gem::Specification.load("newsmast_mastodon.gemspec").metadata.fetch("mastodon_version_requirement")')
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
       - name: Checkout host Mastodon
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           repository: ${{ env.HOST_MASTODON_REPO }}
-          ref: ${{ env.HOST_MASTODON_REF }}
+          ref: ${{ inputs.host_mastodon_ref || format('v{0}', steps.target.outputs.version) }}
           path: host
           persist-credentials: false
 
@@ -360,6 +367,10 @@ jobs:
       - name: Install host dependencies
         working-directory: host
         run: bundle install --jobs 4
+
+      - name: Install gem files into the host
+        working-directory: host
+        run: bin/rails newsmast_mastodon:install
 
       - name: Prepare host test database
         working-directory: host
