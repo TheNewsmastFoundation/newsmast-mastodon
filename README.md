@@ -81,6 +81,11 @@ Run these steps from the root of your Mastodon application.
    [Configuration](#configuration)), then restart the web, Sidekiq and
    streaming processes.
 
+New servers can also create the database from Mastodon's schema
+(`bin/rails db:setup`, `db:prepare` or `mastodon:setup`). The gem runs its own
+migrations right after the schema is loaded, so its tables and columns are
+created either way.
+
 The engine mounts its routes automatically, so you don't need to edit
 `config/routes.rb`. For a full deployment guide, see the
 [installation docs](https://github.com/TheNewsmastFoundation/documentation/tree/main/newsmast-mastodon).
