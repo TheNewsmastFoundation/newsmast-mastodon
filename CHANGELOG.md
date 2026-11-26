@@ -18,6 +18,7 @@ tracks the target Mastodon version and `N` is the gem patch level).
 - Replaced the outdated v4.6.3 notes in `RELEASE.md` with the release process, gem-based server upgrade steps, and a release notes template.
 - Renamed `NewsmastMastodon::Concerns::MediaAttachmentConcern#local_or_reblogged_status?` to `#locally_authored?` to match its actual behaviour.
 - Bumped the development dependency `puma` to `~> 7.2, >= 7.2.3` to resolve upstream security advisories reported by `bundler-audit`.
+- Replaced the Markdown issue templates with YAML issue forms (required version fields, a security reporting link, and blank issues disabled) and added `.github/labels.yml` listing the labels used by issue forms, CI and automation.
 
 ### Fixed
 
