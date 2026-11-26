@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       host_mastodon_repo:
-        description: "Host Mastodon repository (owner/repo) for host-integration job"
+        description: "Host Mastodon repository (owner/repo) for the host-integration job"
         required: false
         type: string
         default: "patchwork-hub/patchwork-mastodon"
@@ -15,16 +15,7 @@ on:
         description: "Host Mastodon ref (branch/tag/SHA)"
         required: false
         type: string
-        default: "patchwork-mastodon-demo-4.6.3"
-      host_integration_profile:
-        description: "Host integration mode"
-        required: false
-        type: choice
-        options:
-          - lightweight
-          - full
-          - both
-        default: lightweight
+        default: "patchwork-mastodon-demo-4.6.5"
 
 permissions:
   contents: read
@@ -253,59 +244,13 @@ jobs:
       - name: Migration idempotency + version sync gates
         run: bundle exec rspec spec/compatibility --format documentation
 
-  # Lightweight host-integration smoke check: manual-only via workflow_dispatch.
-  # Keeps default PR/push CI fast and avoids host-app boot variability.
-  # This mode runs override drift validation + gem specs against host code
-  # without provisioning full host runtime services.
+  # Boots a real Mastodon host app with this checkout of the gem (the host's
+  # Gemfile entry is rewritten to a local path) and runs the full spec suite in
+  # host mode, so specs that need Mastodon models, Fabricators and routes run
+  # instead of being skipped. Also checks vendored frontend overrides for drift.
   host-integration:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.host_mastodon_repo != '' && (inputs.host_integration_profile == 'lightweight' || inputs.host_integration_profile == 'both') }}
-    steps:
-      - name: Checkout gem
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
-        with:
-          path: gem
-          persist-credentials: false
-
-      - name: Checkout host Mastodon
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
-        with:
-          repository: ${{ github.event.inputs.host_mastodon_repo || 'patchwork-hub/patchwork-mastodon' }}
-          ref: ${{ github.event.inputs.host_mastodon_ref || 'patchwork-mastodon-demo-4.6.3' }}
-          token: ${{ github.token }}
-          path: host
-          persist-credentials: false
-
-      - name: Setup runtime
-        uses: ./.github/actions/setup
-        with:
-          ruby-version: "4.0.5"
-
-      - name: Check vendored override drift
-        working-directory: gem
-        run: ruby bin/check-override-drift "${GITHUB_WORKSPACE}/host"
-
-      - name: Install host dependencies
-        working-directory: host
-        run: bundle install
-
-      - name: Run gem specs against host Mastodon
-        working-directory: gem
-        env:
-          BUNDLE_GEMFILE: ${{ github.workspace }}/host/Gemfile
-          MASTODON_ROOT: ${{ github.workspace }}/host
-          NEWSMAST_STRICT_HOST_BOOT: "1"
-          RAILS_ENV: test
-        run: bundle exec rspec --format documentation
-
-  # Full host-integration run with host runtime services enabled. This mode is
-  # intended for deeper validation when host app DB/Redis/ES dependencies are
-  # required during boot or spec execution.
-  host-integration-full:
-    runs-on: ubuntu-latest
     timeout-minutes: 60
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.host_mastodon_repo != '' && (inputs.host_integration_profile == 'full' || inputs.host_integration_profile == 'both') }}
 
     services:
       postgres:
@@ -313,7 +258,6 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: mastodon_test
         ports:
           - 5432:5432
         options: >-
@@ -332,27 +276,20 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-      elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
-        env:
-          discovery.type: single-node
-          xpack.security.enabled: "false"
-          ES_JAVA_OPTS: -Xms512m -Xmx512m
-        ports:
-          - 9200:9200
-        options: >-
-          --health-cmd "curl -fsS http://localhost:9200/_cluster/health || exit 1"
-          --health-interval 10s
-          --health-timeout 10s
-          --health-retries 20
-
     env:
+      HOST_MASTODON_REPO: ${{ inputs.host_mastodon_repo || 'patchwork-hub/patchwork-mastodon' }}
+      HOST_MASTODON_REF: ${{ inputs.host_mastodon_ref || 'patchwork-mastodon-demo-4.6.5' }}
       RAILS_ENV: test
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/mastodon_test
+      DB_HOST: localhost
+      DB_PORT: "5432"
+      DB_USER: postgres
+      DB_PASS: postgres
       REDIS_URL: redis://localhost:6379/0
-      ES_ENABLED: "true"
-      ES_HOST: localhost
-      ES_PORT: "9200"
+      BUNDLE_GEMFILE: ${{ github.workspace }}/host/Gemfile
+      BUNDLE_PATH: ${{ github.workspace }}/host/vendor/bundle
+      BUNDLE_FROZEN: "false"
+      BUNDLE_DEPLOYMENT: "false"
+      BUNDLE_WITHOUT: development:production
 
     steps:
       - name: Checkout gem
@@ -364,37 +301,48 @@ jobs:
       - name: Checkout host Mastodon
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         with:
-          repository: ${{ inputs.host_mastodon_repo }}
-          ref: ${{ inputs.host_mastodon_ref || '' }}
-          token: ${{ github.token }}
+          repository: ${{ env.HOST_MASTODON_REPO }}
+          ref: ${{ env.HOST_MASTODON_REF }}
           path: host
           persist-credentials: false
 
       - name: Setup runtime
-        uses: ./.github/actions/setup
+        uses: ./gem/.github/actions/setup
         with:
-          ruby-version: "4.0.5"
+          ruby-version: .ruby-version
+          working-directory: host
+          bundler-cache: "false"
+          extra-packages: libicu-dev libpq-dev libvips-dev
+
+      - name: Cache host gems
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: host/vendor/bundle
+          key: host-gems-${{ runner.os }}-${{ hashFiles('host/.ruby-version', 'host/Gemfile.lock', 'gem/newsmast_mastodon.gemspec') }}
+          restore-keys: |
+            host-gems-${{ runner.os }}-
+
+      - name: Use this gem checkout in the host
+        run: ruby gem/script/ci/use_local_gem_in_host.rb host gem
 
       - name: Install host dependencies
         working-directory: host
-        run: bundle install
-
-      - name: Prepare host test database
-        working-directory: host
-        run: bundle exec rails db:prepare
+        run: bundle install --jobs 4
 
       - name: Check vendored override drift
         working-directory: gem
         run: ruby bin/check-override-drift "${GITHUB_WORKSPACE}/host"
 
-      - name: Run gem specs against full host runtime services
+      - name: Prepare host test database
+        working-directory: host
+        run: bin/rails db:prepare
+
+      - name: Run gem specs in host mode
         working-directory: gem
         env:
-          BUNDLE_GEMFILE: ${{ github.workspace }}/host/Gemfile
           MASTODON_ROOT: ${{ github.workspace }}/host
           NEWSMAST_STRICT_HOST_BOOT: "1"
-          RAILS_ENV: test
-        run: bundle exec rspec --format documentation
+        run: bundle exec rspec --format progress
 
   ci-ok:
     runs-on: ubuntu-latest
@@ -406,6 +354,7 @@ jobs:
       - test
       - test-postgres-subset
       - compatibility
+      - host-integration
     if: always()
     steps:
       - name: Verify required CI jobs passed
